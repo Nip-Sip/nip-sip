@@ -1,62 +1,68 @@
 'use strict'
 
 const {
-	db,
-	models: { User, Product }
+  db,
+  models: { User, Product },
 } = require('../server/db')
-
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
 async function seed() {
-	await db.sync({ force: true }) // clears db and matches models to tables
-	console.log('db synced!')
+  await db.sync({ force: true }) // clears db and matches models to tables
+  console.log('db synced!')
 
-	// Creating Users
-	const [cody, murphy, sey, jason] = await Promise.all([
-		User.create({ username: 'cody', password: '123' }),
-		User.create({ username: 'murphy', password: '456' }),
-		User.create({ username: 'sey', password: 'abc' }),
-		User.create({ username: 'jason', password: 'def' })
-	])
+  const products = require('../server/db/seed.json')
 
-	// Creating Products
-	const [jackDaniels, greyGoose, cham, mak, fire] = await Promise.all([
-		Product.create({ name: 'Jack Daniels', description: 'Whiskey' }),
-		Product.create({ name: 'Grey Goose', description: 'Vodka' }),
-		Product.create({ name: 'Cham', description: 'Soju' }),
-		Product.create({ name: 'Mak', description: 'Makgali' }),
-		Product.create({ name: 'Fire', description: 'Eww' })
-	])
+  // TODO: Create a larger name set
+  const [cody, murphy, sey, jason] = await Promise.all([
+    User.create({ username: 'cody', password: '123' }),
+    User.create({ username: 'murphy', password: '456' }),
+    User.create({ username: 'sey', password: 'abc' }),
+    User.create({ username: 'jason', password: 'def' }),
+  ])
 
-	// Magic Methods
-	await cody.addProduct(jackDaniels, { through: { quantity: 2 } })
-	await cody.addProduct(greyGoose, { through: { quantity: 15 } })
-	await murphy.setProducts(greyGoose, { through: { quantity: 5 } })
-	// TEST OUT OUR QUERIES HERE
+  await Promise.all(
+    products.map(async (product, i) => {
+      // for product
+      const p = await Product.create(product)
+      if (i % 3 === 0) {
+        return cody.addProduct(p, { through: { quantity: i * 10 } })
+      } else if (i % 2 === 1) {
+        return sey.addProduct(p, { through: { quantity: i * 5 } })
+      } else {
+        return jason.addProduct(p, { through: { quantity: i * 7 } })
+      }
+    })
+  )
 
-	// const results = await cody.getProducts()
-	// const result = await User.findOne({
-	// 	where: { username: 'cody' },
-	// 	include: Product
-	// })
+  // Magic Methods
+  // await cody.addProduct(jackDaniels, { through: { quantity: 2 } })
+  // await cody.addProduct(greyGoose, { through: { quantity: 15 } })
+  // await murphy.setProducts(greyGoose, { through: { quantity: 5 } })
+  // TEST OUT OUR QUERIES HERE
 
-	// console.log(`🟢  result.products `, result.products[0].cartItem)
-	// // Creating CartItem
-	// const users = await Promise.all([
-	//   User.create({ username: 'cody', password: '123' }),
-	//   User.create({ username: 'murphy', password: '123' }),
-	// ]);
+  // const results = await cody.getProducts()
+  // const result = await User.findOne({
+  // 	where: { username: 'cody' },
+  // 	include: Product
+  // })
 
-	// console.log(`seeded ${users.length} users`);
-	// console.log(`seeded successfully`);
-	// return {
-	//   users: {
-	//     cody: users[0],
-	//     murphy: users[1],
-	//   },
-	// };
+  // console.log(`🟢  result.products `, result.products[0].cartItem)
+  // // Creating CartItem
+  // const users = await Promise.all([
+  //   User.create({ username: 'cody', password: '123' }),
+  //   User.create({ username: 'murphy', password: '123' }),
+  // ]);
+
+  // console.log(`seeded ${users.length} users`);
+  // console.log(`seeded successfully`);
+  // return {
+  //   users: {
+  //     cody: users[0],
+  //     murphy: users[1],
+  //   },
+  // };
 }
 
 /*
@@ -65,17 +71,17 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-	console.log('seeding...')
-	try {
-		await seed()
-	} catch (err) {
-		console.error(err)
-		process.exitCode = 1
-	} finally {
-		console.log('closing db connection')
-		await db.close()
-		console.log('db connection closed')
-	}
+  console.log('seeding...')
+  try {
+    await seed()
+  } catch (err) {
+    console.error(err)
+    process.exitCode = 1
+  } finally {
+    console.log('closing db connection')
+    await db.close()
+    console.log('db connection closed')
+  }
 }
 
 /*
@@ -84,7 +90,7 @@ async function runSeed() {
   any errors that might occur inside of `seed`.
 */
 if (module === require.main) {
-	runSeed()
+  runSeed()
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
