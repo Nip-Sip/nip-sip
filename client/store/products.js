@@ -15,6 +15,7 @@ export const gotProducts = products => {
 export const getProducts = () => {
   return async dispatch => {
     const { data: products } = await axios.get('/api/products')
+
     dispatch(gotProducts(products))
   }
 }
