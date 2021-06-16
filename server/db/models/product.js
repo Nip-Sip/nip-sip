@@ -5,24 +5,24 @@ const Product = db.define('product', {
   name: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false,
+    allowNull: false
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.DECIMAL(10, 2)
   },
   category: {
-    type: Sequelize.ENUM('Whisky', 'Tequila', 'Vodka', 'Rum', 'Liqueur'),
+    type: Sequelize.ENUM('Whisky', 'Tequila', 'Vodka', 'Rum', 'Liqueur')
   },
   ABV: {
-    type: Sequelize.DECIMAL(10, 1),
+    type: Sequelize.DECIMAL(10, 1)
   },
   imageUrl: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING
   },
   description: {
-    type: Sequelize.TEXT,
+    type: Sequelize.TEXT
     // allowNull: false,
-  },
+  }
 })
 
 module.exports = Product

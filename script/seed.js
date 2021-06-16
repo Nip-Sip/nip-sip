@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Product },
+  models: { User, Product }
 } = require('../server/db')
 /**
  * seed - this function clears the database, updates tables to
@@ -19,7 +19,7 @@ async function seed() {
     User.create({ username: 'cody', password: '123' }),
     User.create({ username: 'murphy', password: '456' }),
     User.create({ username: 'sey', password: 'abc' }),
-    User.create({ username: 'jason', password: 'def' }),
+    User.create({ username: 'jason', password: 'def' })
   ])
 
   await Promise.all(
