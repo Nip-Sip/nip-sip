@@ -1,5 +1,7 @@
 const router = require('express').Router()
-const { models: { User, CartItem }} = require('../db')
+const {
+  models: { User, CartItem }
+} = require('../db')
 module.exports = router
 
 //GET /users
@@ -37,7 +39,6 @@ router.get('/:userId/cart', async (req, res, next) => {
 //     next(error)
 //   }
 // })
-
 
 // //POST /users/:userId/cart
 // router.post('/:userId/cart', async (req, res, next) => {

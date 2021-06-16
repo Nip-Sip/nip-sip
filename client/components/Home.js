@@ -1,11 +1,11 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 /**
  * COMPONENT
  */
 export const Home = props => {
-  const {username} = props
+  const { username } = props
 
   return (
     <div>
