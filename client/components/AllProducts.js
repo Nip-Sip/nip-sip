@@ -12,20 +12,19 @@ const AllProducts = () => {
 
   return (
     <div id="allProducts">
-      {products &&
-        products.map(product => (
-          <div key={product.id}>
-            <div id="productName">{product.name}</div>
-            <img src={product.imageUrl} />
-            <div id="productDetails">
-              ${product.price} | {product.category}
-            </div>
-            <button type="button" id="allProductsAddCartButton">
-              {' '}
-              Add to Cart
-            </button>
+      {products.map(product => (
+        <div key={product.id}>
+          <div id="productName">{product.name}</div>
+          <img src={product.imageUrl} />
+          <div id="productDetails">
+            ${product.price} | {product.category}
           </div>
-        ))}
+          <button type="button" id="allProductsAddCartButton">
+            {' '}
+            Add to Cart
+          </button>
+        </div>
+      ))}
     </div>
   )
 }

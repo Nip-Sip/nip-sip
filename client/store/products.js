@@ -15,7 +15,6 @@ export const gotProducts = products => {
 export const getProducts = () => {
   return async dispatch => {
     const { data: products } = await axios.get('/api/products')
-    console.log('thunk')
     dispatch(gotProducts(products))
   }
 }
@@ -26,7 +25,6 @@ export default function productsReducer(state = [], action) {
   switch (action.type) {
     case GOT_PRODUCTS:
       return action.products
-
     default:
       return state
   }
