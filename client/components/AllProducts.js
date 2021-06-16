@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../store/products'
 import { Popover } from '@material-ui/core'
+import SingleProduct from './SingleProduct'
 
 const AllProducts = () => {
   const dispatch = useDispatch()
@@ -9,8 +10,8 @@ const AllProducts = () => {
 
   const [anchor, setAnchor] = useState(null)
 
-  const openSingleProduct = event => {
-    setAnchor(event.target)
+  const openSingleProduct = (event, id) => {
+    setAnchor(id)
   }
 
   useEffect(() => {
@@ -20,9 +21,12 @@ const AllProducts = () => {
   return (
     <div id="allProducts">
       {products.map(product => (
-        <div key={product.id}>
+        <div
+          onClick={() => openSingleProduct(event, product.id)}
+          key={product.id}
+        >
           <div id="productName">{product.name}</div>
-          <img src={product.imageUrl} onClick={openSingleProduct} />
+          <img src={product.imageUrl} />
           <div id="productDetails">
             ${product.price} | {product.category}
           </div>
@@ -30,17 +34,17 @@ const AllProducts = () => {
             {' '}
             Add to Cart
           </button>
-          <Popover
-            open={Boolean(anchor)}
-            anchorEl={anchor}
-            anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
-            transformOrigin={{ vertical: 'center', horizontal: 'left' }}
-            onClose={() => setAnchor(null)}
-          >
-            Hello
-          </Popover>
         </div>
       ))}
+      <Popover
+        open={Boolean(anchor)}
+        anchorEl={anchor}
+        anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'center', horizontal: 'left' }}
+        onClose={() => setAnchor(null)}
+      >
+        <SingleProduct id={anchor} />
+      </Popover>
     </div>
   )
 }
