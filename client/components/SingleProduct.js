@@ -10,6 +10,13 @@ const SingleProduct = props => {
   const dispatch = useDispatch()
   const { product } = useSelector(s => s)
 
+  //placeholder submit handler for add to cart submission
+  //need to call event.preventDefault() to prevent the page from refreshing
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    console.log('hello')
+  }
+
   useEffect(() => {
     dispatch(getProduct(id))
   }, [])
@@ -24,7 +31,7 @@ const SingleProduct = props => {
         <div>ABV: {Number(product.ABV) * 100}%</div>
         <div>{product.description}</div>
       </div>
-      <form className="quantity-select">
+      <form className="quantity-select" onSubmit={handleSubmit}>
         <label>Qty: </label>
         <select id="quantities" name="quantities">
           {quantities.map(quantity => (

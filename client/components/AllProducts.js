@@ -14,6 +14,13 @@ const AllProducts = () => {
     setAnchor(id)
   }
 
+  //sample click handler for add to cart button
+  //need to call event.stopPropagation() to prevent the popup from opening
+  const testClick = (event) => {
+    event.stopPropagation()
+    console.log('hello')
+  }
+
   useEffect(() => {
     dispatch(getProducts())
   }, [])
@@ -30,7 +37,7 @@ const AllProducts = () => {
           <div id="productDetails">
             ${product.price} | {product.category}
           </div>
-          <button type="button" id="allProductsAddCartButton">
+          <button type="button" id="allProductsAddCartButton" onClick={testClick}>
             {' '}
             Add to Cart
           </button>
