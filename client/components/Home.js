@@ -9,7 +9,8 @@ export const Home = props => {
 
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+      {/* <h3>Welcome, {username}</h3> */}
+      <h3>Wecome</h3>
     </div>
   )
 }
