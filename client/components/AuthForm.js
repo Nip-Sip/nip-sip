@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { authenticate } from '../store'
 
 /**
@@ -7,6 +7,7 @@ import { authenticate } from '../store'
  */
 const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props
+  const dispatch = useDispatch()
 
   return (
     <div>
@@ -25,6 +26,7 @@ const AuthForm = props => {
         </div>
         <div>
           <button type="submit">{displayName}</button>
+          {/* <button type="submit">{displayName}</button> */}
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
