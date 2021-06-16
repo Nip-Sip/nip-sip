@@ -1,5 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
+
+const Home1 = () => {
+  const { username } = useSelector(state => state.auth)
+  return (
+    <div>
+      <h3>Hooks: Welcome, {username}</h3>
+    </div>
+  )
+}
 
 /**
  * COMPONENT
@@ -10,6 +19,7 @@ export const Home = props => {
   return (
     <div>
       <h3>Welcome, {username}</h3>
+      <Home1 />
     </div>
   )
 }
