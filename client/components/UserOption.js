@@ -27,7 +27,7 @@ const UserOption = () => {
   const handleChange = e => {
     setState({ ...state, [e.target.name]: e.target.value })
   }
-
+  console.log('this the state', state)
   return (
     <div>
       <h3>Welcome, {username}</h3>
@@ -38,7 +38,9 @@ const UserOption = () => {
           name="name"
           type="text"
           placeholder="name"
+          value={state.name}
         />
+
         <label htmlFor="price">Price</label>
         <input
           onChange={handleChange}
@@ -47,6 +49,7 @@ const UserOption = () => {
           min="0.01"
           step="any"
           placeholder="price"
+          value={state.price}
         />
         <label htmlFor="description">Description</label>
         <input
@@ -54,12 +57,11 @@ const UserOption = () => {
           name="description"
           type="text"
           placeholder="description"
+          value={state.description}
         />
         <label htmlFor="category">Category</label>
         <select name="category" onChange={handleChange}>
-          <option selected value="null">
-            Please Select
-          </option>
+          <option defaultValue="null">Please Select</option>
           <option value="Whisky">Whisky</option>
           <option value="Tequila">Tequila</option>
           <option value="Vodka">Vodka</option>
