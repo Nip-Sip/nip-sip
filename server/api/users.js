@@ -40,14 +40,17 @@ router.get('/:userId/cart', async (req, res, next) => {
 //   }
 // })
 
-// //POST /users/:userId/cart
-// router.post('/:userId/cart', async (req, res, next) => {
-//   try {
-//     const user = await User.findByPk(req.params.userId)
-//     const product = await user.addProduct(req.body)
-//     console.log(product)
-//     res.status(201).send(product)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+//POST /users/:userId/cart
+router.post('/:userId/cart', async (req, res, next) => {
+  try {
+    console.log(req.body)
+    const [newOrUpdatedProduct, isCreated] = await CartItem.findOrCreate({
+      userId: req.params.userId,
+      productId: req.body.id
+    })
+    newOrUpdatedProduct.quantity = req.body.CartItem.quantity
+    res.send(newOrUpdatedProduct)
+  } catch (error) {
+    next(error)
+  }
+})
