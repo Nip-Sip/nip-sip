@@ -18,7 +18,7 @@ async function seed() {
   const [cody, murphy, sey, jason] = await Promise.all([
     User.create({ username: 'cody', password: '123' }),
     User.create({ username: 'murphy', password: '456' }),
-    User.create({ username: 'sey', password: 'abc' }),
+    User.create({ username: 'sey', password: 'abc', isAdmin: true }),
     User.create({ username: 'jason', password: 'def' })
   ])
 
@@ -36,33 +36,13 @@ async function seed() {
     })
   )
 
-  // Magic Methods
-  // await cody.addProduct(jackDaniels, { through: { quantity: 2 } })
-  // await cody.addProduct(greyGoose, { through: { quantity: 15 } })
-  // await murphy.setProducts(greyGoose, { through: { quantity: 5 } })
-  // TEST OUT OUR QUERIES HERE
-
-  // const results = await cody.getProducts()
-  // const result = await User.findOne({
-  // 	where: { username: 'cody' },
-  // 	include: Product
-  // })
-
-  // console.log(`🟢  result.products `, result.products[0].cartItem)
-  // // Creating CartItem
-  // const users = await Promise.all([
-  //   User.create({ username: 'cody', password: '123' }),
-  //   User.create({ username: 'murphy', password: '123' }),
-  // ]);
-
-  // console.log(`seeded ${users.length} users`);
-  // console.log(`seeded successfully`);
-  // return {
-  //   users: {
-  //     cody: users[0],
-  //     murphy: users[1],
-  //   },
-  // };
+  // needed to set up test @user.spec.js
+  return {
+    users: {
+      cody,
+      murphy
+    }
+  }
 }
 
 /*
