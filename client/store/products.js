@@ -29,8 +29,8 @@ export const getProducts = () => {
 
 export const createProduct = product => {
   return async dispatch => {
-    const { data: createdProduct } = await axios.post('/api/products', product)
-    dispatch(createdProduct(createdProduct))
+    const { data: newProduct } = await axios.post('/api/products', product)
+    dispatch(createdProduct(newProduct))
   }
 }
 
