@@ -1,30 +1,66 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../store/products'
+import { Popover } from '@material-ui/core'
+import SingleProduct from './SingleProduct'
 
 const AllProducts = () => {
   const dispatch = useDispatch()
   const { products } = useSelector(s => s)
 
+  const [anchor, setAnchor] = useState(null)
+  const [id, setId] = useState(null)
+
+  const openSingleProduct = (event, id) => {
+    setAnchor(event.target)
+    setId(id)
+  }
+
+  //sample click handler for add to cart button
+  //need to call event.stopPropagation() to prevent the popup from opening
+  const testClick = event => {
+    event.stopPropagation()
+    console.log('hello')
+  }
+
   useEffect(() => {
     dispatch(getProducts())
   }, [])
 
+  console.log(anchor)
+
   return (
     <div id="allProducts">
       {products.map(product => (
-        <div key={product.id}>
+        <div
+          onClick={() => openSingleProduct(event, product.id)}
+          key={product.id}
+        >
           <div id="productName">{product.name}</div>
           <img src={product.imageUrl} />
           <div id="productDetails">
             ${product.price} | {product.category}
           </div>
-          <button type="button" id="allProductsAddCartButton">
+          <button
+            type="button"
+            id="allProductsAddCartButton"
+            onClick={testClick}
+          >
             {' '}
             Add to Cart
           </button>
         </div>
       ))}
+      <Popover
+        className="single-product-popover"
+        open={Boolean(anchor)}
+        anchorEl={anchor}
+        anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
+        transformOrigin={{ vertical: 'center', horizontal: 'center' }}
+        onClose={() => setAnchor(null)}
+      >
+        <SingleProduct id={id} />
+      </Popover>
     </div>
   )
 }
