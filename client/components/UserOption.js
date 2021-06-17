@@ -30,6 +30,13 @@ const UserOption = () => {
           type="text"
           placeholder="name"
         />
+        <label htmlFor="price">Price</label>
+        <input
+          onChange={handleChange}
+          name="price"
+          type="number"
+          placeholder="price"
+        />
         <label htmlFor="description">Description</label>
         <input
           onChange={handleChange}
@@ -37,6 +44,7 @@ const UserOption = () => {
           type="text"
           placeholder="description"
         />
+        <label htmlFor="caategory">Category</label>
         <select onChange={handleChange}>
           <option value="Whisky">Whisky</option>
           <option value="Tequila">Tequila</option>
@@ -47,6 +55,7 @@ const UserOption = () => {
           <option value="Liqueur">Liqueur</option>
         </select>
         <button type="submit">Create</button>
+
         <input type="text" placeholder="id" />
         <button type="submit">Update</button>
         <button type="submit">Delete</button>
