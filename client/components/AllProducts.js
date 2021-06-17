@@ -9,14 +9,16 @@ const AllProducts = () => {
   const { products } = useSelector(s => s)
 
   const [anchor, setAnchor] = useState(null)
+  const [id, setId] = useState(null)
 
   const openSingleProduct = (event, id) => {
-    setAnchor(id)
+    setAnchor(event.target)
+    setId(id)
   }
 
   //sample click handler for add to cart button
   //need to call event.stopPropagation() to prevent the popup from opening
-  const testClick = (event) => {
+  const testClick = event => {
     event.stopPropagation()
     console.log('hello')
   }
@@ -24,6 +26,8 @@ const AllProducts = () => {
   useEffect(() => {
     dispatch(getProducts())
   }, [])
+
+  console.log(anchor)
 
   return (
     <div id="allProducts">
@@ -37,20 +41,25 @@ const AllProducts = () => {
           <div id="productDetails">
             ${product.price} | {product.category}
           </div>
-          <button type="button" id="allProductsAddCartButton" onClick={testClick}>
+          <button
+            type="button"
+            id="allProductsAddCartButton"
+            onClick={testClick}
+          >
             {' '}
             Add to Cart
           </button>
         </div>
       ))}
       <Popover
+        className="single-product-popover"
         open={Boolean(anchor)}
         anchorEl={anchor}
-        anchorOrigin={{ vertical: 'center', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'center', horizontal: 'left' }}
+        anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
+        transformOrigin={{ vertical: 'center', horizontal: 'center' }}
         onClose={() => setAnchor(null)}
       >
-        <SingleProduct id={anchor} />
+        <SingleProduct id={id} />
       </Popover>
     </div>
   )
