@@ -10,18 +10,18 @@ async function seed() {
   await db.sync({ force: true })
   console.log(`db synced!: process.env.NODE_ENV: ${process.env.NODE_ENV}`)
 
-  let products
-  if (process.env.NODE_ENV === 'test') {
-    products = require('../server/db/seed.json')
-  } else {
-    const res = await fetch(
-      'https://spreadsheets.google.com/feeds/list/10cEXh46270XlAqXNipbqreiUqr6uXMdowKi_w3aRYcM/1/public/values?alt=json'
-    )
-    const json = await res.json()
-    const unformattedProducts = json.feed.entry
-    products = googleJSONCleaner(unformattedProducts)
-    console.log(products)
-  }
+  // let products
+  // if (process.env.NODE_ENV === 'test') {
+  const products = require('../server/db/seed.json')
+  // } else {
+  //   const res = await fetch(
+  //     'https://spreadsheets.google.com/feeds/list/10cEXh46270XlAqXNipbqreiUqr6uXMdowKi_w3aRYcM/1/public/values?alt=json'
+  //   )
+  //   const json = await res.json()
+  //   const unformattedProducts = json.feed.entry
+  //   products = googleJSONCleaner(unformattedProducts)
+  //   console.log(products)
+  //}
 
   // TODO, make database smaller for test
   const [cody, murphy, sey, jason] = await Promise.all([
