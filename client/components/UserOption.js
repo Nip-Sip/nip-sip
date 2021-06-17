@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
+import { createProduct } from '../store/products'
 
 const UserOption = () => {
   const { username } = useSelector(state => state.auth)
@@ -7,12 +8,19 @@ const UserOption = () => {
   const [state, setState] = useState({
     name: '',
     description: '',
-    type: ''
+    category: '',
+    price: ''
   })
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log(e.target.value)
+    createProduct(state)
+    setState({
+      name: '',
+      description: '',
+      category: '',
+      price: ''
+    })
   }
 
   const handleChange = e => {
@@ -44,13 +52,14 @@ const UserOption = () => {
           type="text"
           placeholder="description"
         />
-        <label htmlFor="caategory">Category</label>
-        <select onChange={handleChange}>
+        <label htmlFor="category">Category</label>
+        <select name="category" onChange={handleChange}>
+          <option selected value="null">
+            Please Select
+          </option>
           <option value="Whisky">Whisky</option>
           <option value="Tequila">Tequila</option>
-          <option selected value="Vodka">
-            Vodka
-          </option>
+          <option value="Vodka">Vodka</option>
           <option value="Rum">Rum</option>
           <option value="Liqueur">Liqueur</option>
         </select>
