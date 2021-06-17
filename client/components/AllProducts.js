@@ -40,7 +40,7 @@ const AllProducts = () => {
   return (
     <div id="allProducts">
       {products.map(product => (
-        <div
+        <div className='product-card'
           // onClick={() => openSingleProduct(event, product.id)}
           key={product.id}
         >
