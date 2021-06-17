@@ -1,4 +1,7 @@
 'use strict'
+const fetch = require('node-fetch')
+const googleJSONCleaner = require('./googleJSONCleaner')
+
 
 const {
   db,
@@ -12,7 +15,15 @@ async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
   console.log('db synced!')
 
-  const products = require('../server/db/seed.json')
+  // const products = require('../server/db/seed.json')
+
+  const res = await fetch('https://spreadsheets.google.com/feeds/list/10cEXh46270XlAqXNipbqreiUqr6uXMdowKi_w3aRYcM/1/public/values?alt=json')
+  const json = await res.json()
+  const unformattedProducts = json.feed.entry
+  const products = googleJSONCleaner(unformattedProducts)
+
+  // console.log(products)
+
 
   // TODO: Create a larger name set
   const [cody, murphy, sey, jason] = await Promise.all([
