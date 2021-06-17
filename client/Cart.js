@@ -4,7 +4,7 @@ import { getCart } from './store/cart'
 
 const Cart = () => {
   const dispatch = useDispatch()
-  const isLoggedIn = useSelector(state => !!state.auth.id)
+  const loggedInUser = useSelector(state => state.auth.id)
   const allCart = useSelector(state => state.cart)
   const [cart, setCart] = useState([])
   let totalPrice = 0
