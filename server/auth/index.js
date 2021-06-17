@@ -2,6 +2,8 @@ const router = require('express').Router()
 const {
   models: { User }
 } = require('../db')
+const { requireToken } = require('../middleware')
+
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -25,10 +27,20 @@ router.post('/signup', async (req, res, next) => {
   }
 })
 
-router.get('/me', async (req, res, next) => {
-  try {
-    res.send(await User.findByToken(req.headers.authorization))
-  } catch (ex) {
-    next(ex)
+// router.get('/me', async (req, res, next) => {
+//   try {
+//     res.send(await User.findByToken(req.headers.authorization))
+//   } catch (ex) {
+//     next(ex)
+//   }
+// })
+
+//GET /auth/me
+router.get('/me', requireToken, async (req, res, next) => {
+  if (req.user) {
+    res.send(req.user)
+  } else {
+    console.log(`🟢  BLOCKED!`)
+    res.sendStatus(403) // Understood request, but refuses to authorize
   }
 })
