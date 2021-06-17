@@ -4,6 +4,7 @@ import { createProduct } from '../store/products'
 
 const UserOption = () => {
   const { username } = useSelector(state => state.auth)
+  const dispatch = useDispatch()
 
   const [state, setState] = useState({
     name: '',
@@ -14,7 +15,7 @@ const UserOption = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    createProduct(state)
+    dispatch(createProduct(state))
     setState({
       name: '',
       description: '',
@@ -43,6 +44,8 @@ const UserOption = () => {
           onChange={handleChange}
           name="price"
           type="number"
+          min="0.01"
+          step="any"
           placeholder="price"
         />
         <label htmlFor="description">Description</label>
