@@ -1,31 +1,29 @@
-'use strict'
 const fetch = require('node-fetch')
 const googleJSONCleaner = require('./googleJSONCleaner')
-
 
 const {
   db,
   models: { User, Product }
 } = require('../server/db')
-/**
- * seed - this function clears the database, updates tables to
- *      match the models, and populates the database.
- */
+
 async function seed() {
-  await db.sync({ force: true }) // clears db and matches models to tables
-  console.log('db synced!')
+  await db.sync({ force: true })
+  console.log(`db synced!: process.env.NODE_ENV: ${process.env.NODE_ENV}`)
 
-  const products = require('../server/db/seed.json')
+  let products
+  if (process.env.NODE_ENV === 'test') {
+    products = require('../server/db/seed.json')
+  } else {
+    const res = await fetch(
+      'https://spreadsheets.google.com/feeds/list/10cEXh46270XlAqXNipbqreiUqr6uXMdowKi_w3aRYcM/1/public/values?alt=json'
+    )
+    const json = await res.json()
+    const unformattedProducts = json.feed.entry
+    products = googleJSONCleaner(unformattedProducts)
+    console.log(products)
+  }
 
-  // const res = await fetch('https://spreadsheets.google.com/feeds/list/10cEXh46270XlAqXNipbqreiUqr6uXMdowKi_w3aRYcM/1/public/values?alt=json')
-  // const json = await res.json()
-  // const unformattedProducts = json.feed.entry
-  // const products = googleJSONCleaner(unformattedProducts)
-
-  // console.log(products)
-
-
-  // TODO: Create a larger name set
+  // TODO, make database smaller for test
   const [cody, murphy, sey, jason] = await Promise.all([
     User.create({ username: 'cody', password: '123' }),
     User.create({ username: 'murphy', password: '456' }),
@@ -38,11 +36,11 @@ async function seed() {
       // for product
       const p = await Product.create(product)
       if (i % 3 === 0) {
-        return cody.addProduct(p, { through: { quantity: i * 10 } })
+        return cody.addProduct(p, { through: { quantity: (i + 1) * 10 } })
       } else if (i % 2 === 1) {
-        return sey.addProduct(p, { through: { quantity: i * 5 } })
+        return sey.addProduct(p, { through: { quantity: (i + 1) * 5 } })
       } else {
-        return jason.addProduct(p, { through: { quantity: i * 7 } })
+        return jason.addProduct(p, { through: { quantity: (i + 1) * 7 } })
       }
     })
   )
@@ -56,11 +54,6 @@ async function seed() {
   }
 }
 
-/*
- We've separated the `seed` function from the `runSeed` function.
- This way we can isolate the error handling and exit trapping.
- The `seed` function is concerned only with modifying the database.
-*/
 async function runSeed() {
   console.log('seeding...')
   try {
@@ -75,11 +68,6 @@ async function runSeed() {
   }
 }
 
-/*
-  Execute the `seed` function, IF we ran this module directly (`node seed`).
-  `Async` functions always return a promise, so we can use `catch` to handle
-  any errors that might occur inside of `seed`.
-*/
 if (module === require.main) {
   runSeed()
 }
