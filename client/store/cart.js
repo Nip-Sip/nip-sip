@@ -55,7 +55,21 @@ export default function cartReducer(state = [], action) {
   switch (action.type) {
     case GOT_CART:
       return action.cart
+    case ADD_TO_CART:
+      {if (state.indexOf(action.product) !== -1) {
+        console.log('hit same product --- does indexOf work here?????')
+        return state.map((product) => {
+          if(product.id !== action.cartItem.id) {
+            return product
+          } else {
+            return action.cartItem
+          }
+        })
+      }
+      else {
+        return [...state, action.product];
+      }}
     default:
-      return state
+      return state;
   }
 }

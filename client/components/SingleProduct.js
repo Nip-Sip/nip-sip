@@ -33,13 +33,14 @@ const SingleProduct = props => {
       </div>
       <form className="quantity-select" onSubmit={handleSubmit}>
         <label>Qty: </label>
-        <select id="quantities" name="quantities">
+        <input type="number" min="0" step='1' defaultValue='1' />
+        {/* <select id="quantities" name="quantities">
           {quantities.map(quantity => (
             <option key={quantity} value={quantity}>
               {quantity}
             </option>
           ))}
-        </select>
+        </select> */}
         <input type="submit" value="Add to Cart" />
       </form>
     </div>
