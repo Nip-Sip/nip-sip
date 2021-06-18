@@ -13,7 +13,7 @@ const Routes = () => {
   const id = useSelector(state => state.auth)
 
   useEffect(() => {
-    dispatch(me)
+    dispatch(me())
   }, [])
 
   const { isLoggedIn } = !!id
