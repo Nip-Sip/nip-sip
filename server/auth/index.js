@@ -2,34 +2,8 @@ const router = require('express').Router()
 const {
   models: { User }
 } = require('../db')
+const { requireToken, requireAdminToken } = require('./middleware')
 module.exports = router
-
-const requireToken = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization
-    const user = await User.findByToken(token)
-    // TODO: insert a custom error here...
-    req.user = user
-    next()
-  } catch (error) {
-    next(error)
-  }
-}
-
-const requireAdminToken = async (req, res, next) => {
-  try {
-    const token = req.headers.authorization
-    const user = await User.findByToken(token)
-    if (user.isAdmin) {
-      req.user = user
-    } else {
-      throw Error('Not an admin')
-    }
-    next()
-  } catch (error) {
-    next(error)
-  }
-}
 
 router.post('/login', async (req, res, next) => {
   try {
@@ -52,9 +26,20 @@ router.post('/signup', async (req, res, next) => {
   }
 })
 
-router.get('/me', async (req, res, next) => {
+router.get('/me', requireToken, async (req, res, next) => {
   try {
-    res.send(await User.findByToken(req.headers.authorization))
+    const { user } = req
+    if (user) res.send(user)
+    else throw Error('auth/me route failed')
+  } catch (ex) {
+    next(ex)
+  }
+})
+
+router.get('/admin', requireAdminToken, async (req, res, next) => {
+  try {
+    const { user } = req
+    if (user) res.send(user)
   } catch (ex) {
     next(ex)
   }
