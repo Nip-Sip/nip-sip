@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../history'
 
 const GET_ADMIN_INFO = 'GET_ADMIN_INFO'
 
@@ -14,7 +13,6 @@ export const getAdminInfo = () => {
           authorization: token
         }
       })
-      console.log(`🟢 in getAdminInfo `)
       dispatch(_getAdminInfo(['admin', 'eyes', 'only']))
     }
   }

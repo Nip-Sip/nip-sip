@@ -1,50 +1,46 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import { logout } from '../store'
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div>
-    <h1>Nip Sip</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/useroption">User Options</Link>
-          <Link to="/products">All Products</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-          <Link to="/admin">Admin</Link>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/products">All Products</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-)
+const Navbar = () => {
+  const dispatch = useDispatch()
+  const { id: isLoggedIn } = useSelector(state => state.auth)
 
-/**
- * CONTAINER
- */
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.auth.id
-  }
+  return (
+    <div>
+      <h1>Nip Sip</h1>
+      <nav>
+        {!!isLoggedIn ? (
+          <div>
+            <NavLink to="/useroption" activeClassName="activeLink">
+              User Options
+            </NavLink>
+            <NavLink to="/products" activeClassName="activeLink">
+              All Products
+            </NavLink>
+            <a href="#" onClick={() => dispatch(logout())}>
+              Logout
+            </a>
+            <Link to="/admin">Admin</Link>
+          </div>
+        ) : (
+          <div>
+            <NavLink to="/products" activeClassName="activeLink">
+              All Products
+            </NavLink>
+            <NavLink to="/login" activeClassName="activeLink">
+              Login
+            </NavLink>
+            <NavLink to="/signup" activeClassName="activeLink">
+              Sign Up
+            </NavLink>
+          </div>
+        )}
+      </nav>
+      <hr />
+    </div>
+  )
 }
 
-const mapDispatch = dispatch => {
-  return {
-    handleClick() {
-      dispatch(logout())
-    }
-  }
-}
-
-export default connect(mapState, mapDispatch)(Navbar)
+export default Navbar

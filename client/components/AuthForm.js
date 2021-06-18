@@ -1,17 +1,22 @@
 import React from 'react'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { authenticate } from '../store'
 
-/**
- * COMPONENT
- */
-const AuthForm = props => {
-  const { name, displayName, handleSubmit, error } = props
+const AuthForm = ({ login }) => {
   const dispatch = useDispatch()
+  const { error } = useSelector(state => state.auth)
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    const formName = e.target.name
+    const username = e.target.username.value
+    const password = e.target.password.value
+    dispatch(authenticate(username, password, formName))
+  }
 
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <form onSubmit={handleSubmit} name={login ? 'login' : 'signup'}>
         <div>
           <label htmlFor="username">
             <small>Username</small>
@@ -25,8 +30,7 @@ const AuthForm = props => {
           <input name="password" type="password" />
         </div>
         <div>
-          <button type="submit">{displayName}</button>
-          {/* <button type="submit">{displayName}</button> */}
+          <button type="submit">{login ? 'Login' : 'Sign Up'}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
@@ -34,40 +38,5 @@ const AuthForm = props => {
   )
 }
 
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
-const mapLogin = state => {
-  return {
-    name: 'login',
-    displayName: 'Login',
-    error: state.auth.error
-  }
-}
-
-const mapSignup = state => {
-  return {
-    name: 'signup',
-    displayName: 'Sign Up',
-    error: state.auth.error
-  }
-}
-
-const mapDispatch = dispatch => {
-  return {
-    handleSubmit(evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      const username = evt.target.username.value
-      const password = evt.target.password.value
-      dispatch(authenticate(username, password, formName))
-    }
-  }
-}
-
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+export const Login = () => <AuthForm login />
+export const Signup = () => <AuthForm />
