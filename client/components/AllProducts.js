@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../store/products'
 import { Popover } from '@material-ui/core'
 import SingleProduct from './SingleProduct'
+import { updateCart } from '../store/cart'
 
 const AllProducts = () => {
   const dispatch = useDispatch()
@@ -18,33 +19,40 @@ const AllProducts = () => {
 
   //sample click handler for add to cart button
   //need to call event.stopPropagation() to prevent the popup from opening
-  const testClick = event => {
+  const addToCart = (event, product) => {
     event.stopPropagation()
-    console.log('hello')
+    dispatch(updateCart(formatCartItem(product), 1))
   }
 
   useEffect(() => {
     dispatch(getProducts())
   }, [])
 
-  console.log(anchor)
+  const formatCartItem = (product, quantity = 1) => {
+    return {
+      product,
+      cartItem: {
+        quantity: quantity
+      }
+    }
+  }
 
   return (
     <div id="allProducts">
       {products.map(product => (
-        <div
-          onClick={() => openSingleProduct(event, product.id)}
+        <div className='product-card'
+          // onClick={() => openSingleProduct(event, product.id)}
           key={product.id}
         >
           <div id="productName">{product.name}</div>
-          <img src={product.imageUrl} />
+          <img src={product.imageUrl} onClick={() => openSingleProduct(event, product.id)} />
           <div id="productDetails">
             ${product.price} | {product.category}
           </div>
           <button
             type="button"
             id="allProductsAddCartButton"
-            onClick={testClick}
+            onClick={() => addToCart(event, product)}
           >
             {' '}
             Add to Cart

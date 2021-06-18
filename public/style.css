@@ -26,4 +26,19 @@ form div {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: white;
+  margin: 10px;
+  border: 3px solid black;
+}
+
+#allProducts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.product-card {
+  border: 3px solid black;
+  margin: 10px;
+  flex: 1 0 20%
 }
