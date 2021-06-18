@@ -9,7 +9,11 @@ const Search = () => {
 
   const { products } = useSelector(s => s)
 
-  // fuse receives state
+  /**
+   * fuse receives state, possible to pass it down from Component
+   * The rest are options:
+   * https://fusejs.io
+   */
   const fuse = new Fuse(products, {
     keys: ['name'],
     includeScore: true,
@@ -17,7 +21,6 @@ const Search = () => {
   })
 
   const results = fuse.search(query)
-  // const productResults = query ? productResults
 
   const onSearch = ({ currentTarget }) => {
     setQuery(currentTarget.value)
@@ -27,8 +30,8 @@ const Search = () => {
   const onSubmit = e => {
     e.preventDefault()
     const itemArr = results.map(r => r.item)
+    console.log(`🟢  itemArr `, itemArr)
     setResBox(itemArr)
-    // setResBox()
   }
 
   return (
