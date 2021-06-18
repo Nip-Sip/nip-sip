@@ -6,14 +6,19 @@ const _getAdminInfo = adminInfo => ({ type: GET_ADMIN_INFO, adminInfo })
 
 export const getAdminInfo = () => {
   return async dispatch => {
-    const token = window.localStorage.getItem('token')
-    if (token) {
-      const res = await axios.get('/admin', {
-        headers: {
-          authorization: token
-        }
-      })
-      dispatch(_getAdminInfo(['admin', 'eyes', 'only']))
+    try {
+      const token = window.localStorage.getItem('token')
+      if (token) {
+        const res = await axios.get('/auth/admin', {
+          headers: {
+            authorization: token
+          }
+        })
+        console.log('runs on admin error...')
+        dispatch(_getAdminInfo(['admin', 'eyes', 'only']))
+      }
+    } catch (err) {
+      console.log('Not an admin!')
     }
   }
 }

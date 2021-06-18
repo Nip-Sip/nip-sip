@@ -36,6 +36,7 @@ router.get('/me', requireToken, async (req, res, next) => {
   }
 })
 
+// GET auth/admin
 router.get('/admin', requireAdminToken, async (req, res, next) => {
   try {
     const { user } = req

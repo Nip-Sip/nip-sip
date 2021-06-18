@@ -10,26 +10,25 @@ import { me } from './store'
 
 const Routes = () => {
   const dispatch = useDispatch()
-  const id = useSelector(state => state.auth)
+  const { id: isLoggedIn } = useSelector(state => state.auth)
 
   useEffect(() => {
     dispatch(me())
   }, [])
 
-  const { isLoggedIn } = !!id
   console.log('isLoggedin:', isLoggedIn)
 
   return (
     <div>
-      {isLoggedIn ? (
+      {!!isLoggedIn ? (
         <Switch>
-          <Route path="/useroption">
+          <Route exact path="/useroption">
             <UserOption />
           </Route>
-          <Route path="/products">
+          <Route exact path="/products">
             <AllProducts />
           </Route>
-          <Route path="/admin">
+          <Route exact path="/admin">
             <AdminBoard />
           </Route>
         </Switch>

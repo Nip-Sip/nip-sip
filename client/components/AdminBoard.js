@@ -5,17 +5,15 @@ import { getAdminInfo } from '../store/admin'
 const AdminBoard = () => {
   const dispatch = useDispatch()
   const { admin, auth } = useSelector(s => s)
-  // const { id: isLoggedIn } = auth
 
   useEffect(() => {
-    console.log('what the fuck!')
     dispatch(getAdminInfo())
   }, [])
 
   return (
     <div>
-      <h1>Admin Board: Logged In!</h1>
-      <h2>{JSON.stringify(admin)}</h2>
+      <h1>Logged in but not an Admin</h1>
+      <h2>{admin.length ? 'Admin Eyes Only' : 'Not an admin!'}</h2>
     </div>
   )
 }
