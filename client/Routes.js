@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect } from 'react'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm'
 import AllProducts from './components/AllProducts'
@@ -7,59 +7,50 @@ import Cart from './Cart'
 import UserOption from './components/UserOption'
 import { me } from './store'
 
-/**
- * COMPONENT
- */
-class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData()
-  }
+const Routes = () => {
+  const dispatch = useDispatch()
+  const id = useSelector(state => state.auth)
 
-  render() {
-    const { isLoggedIn } = this.props
-    console.log(isLoggedIn)
+  useEffect(() => {
+    dispatch(me)
+  }, [])
 
-    return (
-      <div>
-        {isLoggedIn ? (
-          <Switch>
-            <Route path="/useroption" component={UserOption} />
-            {/* <Redirect to="/useroption" /> */}
-            <Route path="/products" component={AllProducts} />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/products" component={AllProducts} />
-            <Route path="/cart" component={Cart} />
-          </Switch>
-        )}
-      </div>
-    )
-  }
+  const { isLoggedIn } = !!id
+  console.log('isLoggedin', isLoggedIn)
+
+  return (
+    <div>
+      {isLoggedIn ? (
+        <Switch>
+          <Route path="/useroption">
+            <UserOption />
+          </Route>
+          {/* <Redirect to="/useroption" /> */}
+          <Route path="/products">
+            <AllProducts />
+          </Route>
+        </Switch>
+      ) : (
+        <Switch>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/products">
+            <AllProducts />
+          </Route>
+          <Route path="/cart">
+            <Cart />
+          </Route>
+        </Switch>
+      )}
+    </div>
+  )
 }
 
-/**
- * CONTAINER
- */
-const mapState = state => {
-  return {
-    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id
-  }
-}
-
-const mapDispatch = dispatch => {
-  return {
-    loadInitialData() {
-      dispatch(me())
-    }
-  }
-}
-
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes))
+export default Routes
