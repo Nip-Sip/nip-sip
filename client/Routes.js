@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { connect, useDispatch, useSelector } from 'react-redux'
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm'
 import AllProducts from './components/AllProducts'
 import Cart from './Cart'
@@ -16,7 +16,7 @@ const Routes = () => {
   }, [])
 
   const { isLoggedIn } = !!id
-  console.log('isLoggedin', isLoggedIn)
+  console.log('isLoggedin:', isLoggedIn)
 
   return (
     <div>
