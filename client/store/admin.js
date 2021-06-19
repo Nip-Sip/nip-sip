@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import User from '../../server/db/models/user'
 
 const GET_ADMIN_INFO = 'GET_ADMIN_INFO'
 
@@ -11,12 +12,12 @@ export const getAdminInfo = () => {
     try {
       const token = window.localStorage.getItem('token')
       if (token) {
-        const res = await axios.get('/auth/admin', {
+        const { data } = await axios.get('/auth/admin', {
           headers: {
             authorization: token
           }
         })
-        dispatch(_getAdminInfo(['admin', 'eyes', 'only']))
+        dispatch(_getAdminInfo(data))
       }
     } catch (err) {
       console.log('Not an admin!')

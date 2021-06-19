@@ -39,8 +39,10 @@ router.get('/me', requireToken, async (req, res, next) => {
 // GET auth/admin
 router.get('/admin', requireAdminToken, async (req, res, next) => {
   try {
-    const { user } = req
-    if (user) res.send(user)
+    // const { user } = req
+    // if (user) res.send(user)
+    const users = await User.findAll()
+    res.json(users)
   } catch (ex) {
     next(ex)
   }
