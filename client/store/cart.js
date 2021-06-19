@@ -1,4 +1,5 @@
 import axios from 'axios'
+import updateStorage from '../../script/updateStorage'
 
 // ACTION_TYPE
 const GOT_CART = 'GOT_CART'
@@ -20,11 +21,17 @@ export const addToCart = cartItem => {
 }
 
 // THUNK
-export const getCart = TOKEN => {
+export const getCart = () => {
   return async dispatch => {
+    const TOKEN = localStorage.getItem('token')
     let cart
     if (TOKEN) {
-      const { data } = await axios.get(`/api/users/${TOKEN}/cart`)
+      const auth = {
+        headers: {
+          authorization: TOKEN
+        }
+      }
+      const { data } = await axios.get(`/api/users/2/cart`, auth)
       cart = data
     } else {
       const cartJSON = localStorage.getItem('cart')
@@ -34,19 +41,23 @@ export const getCart = TOKEN => {
   }
 }
 
-export const updateCart = (cartItem, TOKEN) => {
-  let newCartItem = cartItem
+export const updateCart = cartItem => {
   return async dispatch => {
+    const TOKEN = localStorage.getItem('token')
     if (TOKEN) {
-      const { data } = await axios.post(`/api/users/${TOKEN}/cart`, cartItem)
-      newCartItem = data
+      const auth = {
+        headers: {
+          authorization: TOKEN
+        }
+      }
+      const { data } = await axios.post(`/api/users/2/cart`, cartItem, auth)
     } else {
       const cartJSON = localStorage.getItem('cart')
       const cart = cartJSON ? JSON.parse(cartJSON) : []
-      cart.push(cartItem)
-      localStorage.setItem(JSON.stringify(cart))
+      const newCart = updateStorage(cart, cartItem)
+      localStorage.setItem('cart', JSON.stringify(newCart))
     }
-    dispatch(addToCart(newCartItem))
+    dispatch(addToCart(cartItem))
   }
 }
 
@@ -56,20 +67,8 @@ export default function cartReducer(state = [], action) {
     case GOT_CART:
       return action.cart
     case ADD_TO_CART:
-      {if (state.indexOf(action.product) !== -1) {
-        console.log('hit same product --- does indexOf work here?????')
-        return state.map((product) => {
-          if(product.id !== action.cartItem.id) {
-            return product
-          } else {
-            return action.cartItem
-          }
-        })
-      }
-      else {
-        return [...state, action.product];
-      }}
+      return updateStorage(state, action.cartItem)
     default:
-      return state;
+      return state
   }
 }
