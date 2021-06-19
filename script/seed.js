@@ -1,5 +1,6 @@
 const fetch = require('node-fetch')
 const googleJSONCleaner = require('./googleJSONCleaner')
+const { white } = require('chalk')
 
 const {
   db,
@@ -8,7 +9,9 @@ const {
 
 async function seed() {
   await db.sync({ force: true })
-  console.log(`db synced!: process.env.NODE_ENV: ${process.env.NODE_ENV}`)
+  console.log(
+    `${white('db synced!')}: process.env.NODE_ENV: ${process.env.NODE_ENV}`
+  )
 
   let products
   if (process.env.NODE_ENV === 'test') {
@@ -44,12 +47,15 @@ async function seed() {
     })
   )
 
-  // needed to set up test @user.spec.js
+  // console.log(products)
   return {
     users: {
       cody,
-      murphy
-    }
+      murphy,
+      sey,
+      jason
+    },
+    products
   }
 }
 

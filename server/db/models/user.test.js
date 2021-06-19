@@ -4,6 +4,7 @@ const {
 } = require('../index')
 const jwt = require('jsonwebtoken')
 const seed = require('../../../script/seed')
+const { blue } = require('chalk')
 
 describe('User model', () => {
   let users
@@ -18,7 +19,8 @@ describe('User model', () => {
         const { id } = await jwt.verify(token, process.env.JWT)
         expect(id).toBe(users.cody.id)
       })
-    }) // end describe('correctPassword')
+    })
+
     describe('authenticate', () => {
       let user
       beforeEach(
@@ -28,15 +30,18 @@ describe('User model', () => {
             password: 'loo'
           }))
       )
+
       describe('with correct credentials', () => {
         it('returns a token', async () => {
           const token = await User.authenticate({
             username: 'lucy',
             password: 'loo'
           })
-          expect(token).not.toBeNull
+          console.log('generateToken:', blue(token))
+          expect(typeof token === 'string').toBe(true)
         })
       })
+
       describe('with incorrect credentials', () => {
         it('throws a 401', async () => {
           try {
