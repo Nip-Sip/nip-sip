@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../store/products'
 import { Popover } from '@material-ui/core'
 import SingleProduct from './SingleProduct'
+import Search from './Search'
 import { updateCart, getCart } from '../store/cart'
 
 const AllProducts = () => {
@@ -39,38 +40,45 @@ const AllProducts = () => {
   }
 
   return (
-    <div id="allProducts">
-      {products.map(product => (
-        <div className='product-card'
-          // onClick={() => openSingleProduct(event, product.id)}
-          key={product.id}
-        >
-          <div id="productName">{product.name}</div>
-          <img src={product.imageUrl} onClick={() => openSingleProduct(event, product.id)} />
-          <div id="productDetails">
-            ${product.price} | {product.category}
-          </div>
-          <button
-            type="button"
-            id="allProductsAddCartButton"
-            onClick={() => addToCart(event, product)}
+    <>
+      <Search />
+      <div id="allProducts">
+        {products.map(product => (
+          <div
+            className="product-card"
+            // onClick={() => openSingleProduct(event, product.id)}
+            key={product.id}
           >
-            {' '}
-            Add to Cart
-          </button>
-        </div>
-      ))}
-      <Popover
-        className="single-product-popover"
-        open={Boolean(anchor)}
-        anchorEl={anchor}
-        anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
-        transformOrigin={{ vertical: 'center', horizontal: 'center' }}
-        onClose={() => setAnchor(null)}
-      >
-        <SingleProduct id={id} />
-      </Popover>
-    </div>
+            <div id="productName">{product.name}</div>
+            <img
+              src={product.imageUrl}
+              onClick={() => openSingleProduct(event, product.id)}
+            />
+            <div id="productDetails">
+              ${product.price} | {product.category}
+            </div>
+            <button
+              type="button"
+              id="allProductsAddCartButton"
+              onClick={() => addToCart(event, product)}
+            >
+              {' '}
+              Add to Cart
+            </button>
+          </div>
+        ))}
+        <Popover
+          className="single-product-popover"
+          open={Boolean(anchor)}
+          anchorEl={anchor}
+          anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
+          transformOrigin={{ vertical: 'center', horizontal: 'center' }}
+          onClose={() => setAnchor(null)}
+        >
+          <SingleProduct id={id} />
+        </Popover>
+      </div>
+    </>
   )
 }
 
