@@ -5,29 +5,31 @@ import { Login, Signup } from './components/AuthForm'
 import AllProducts from './components/AllProducts'
 import Cart from './Cart'
 import UserOption from './components/UserOption'
+import AdminBoard from './components/AdminBoard'
 import { me } from './store'
 
 const Routes = () => {
   const dispatch = useDispatch()
-  const id = useSelector(state => state.auth)
+  const { id: isLoggedIn } = useSelector(state => state.auth)
 
   useEffect(() => {
     dispatch(me())
   }, [])
 
-  const { isLoggedIn } = !!id
   console.log('isLoggedin:', isLoggedIn)
 
   return (
     <div>
-      {isLoggedIn ? (
+      {!!isLoggedIn ? (
         <Switch>
-          <Route path="/useroption">
+          <Route exact path="/useroption">
             <UserOption />
           </Route>
-          {/* <Redirect to="/useroption" /> */}
-          <Route path="/products">
+          <Route exact path="/products">
             <AllProducts />
+          </Route>
+          <Route exact path="/admin">
+            <AdminBoard />
           </Route>
         </Switch>
       ) : (

@@ -22,6 +22,7 @@ const Navbar = () => {
             <a href="#" onClick={() => dispatch(logout())}>
               Logout
             </a>
+            <NavLink to="/admin">Admin</NavLink>
           </div>
         ) : (
           <div>
