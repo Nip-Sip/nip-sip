@@ -1,6 +1,3 @@
-/* global describe beforeEach it */
-
-const { expect } = require('chai')
 const {
   db,
   models: { User }
@@ -19,7 +16,7 @@ describe('User model', () => {
       it('returns a token with the id of the user', async () => {
         const token = await users.cody.generateToken()
         const { id } = await jwt.verify(token, process.env.JWT)
-        expect(id).to.equal(users.cody.id)
+        expect(id).toBe(users.cody.id)
       })
     }) // end describe('correctPassword')
     describe('authenticate', () => {
@@ -37,7 +34,7 @@ describe('User model', () => {
             username: 'lucy',
             password: 'loo'
           })
-          expect(token).to.be.ok
+          expect(token).not.toBeNull
         })
       })
       describe('with incorrect credentials', () => {
@@ -49,7 +46,7 @@ describe('User model', () => {
             })
             throw 'nooo'
           } catch (ex) {
-            expect(ex.status).to.equal(401)
+            expect(ex.status).toBe(401)
           }
         })
       })
