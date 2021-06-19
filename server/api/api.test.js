@@ -1,6 +1,3 @@
-/* global describe beforeEach it */
-
-const { expect } = require('chai')
 const request = require('supertest')
 const {
   db,
@@ -17,18 +14,20 @@ describe('User routes', () => {
   describe('/api/users/', () => {
     it('GET /api/users', async () => {
       const res = await request(app).get('/api/users').expect(200)
+      const { body } = res
 
-      expect(res.body).to.be.an('array')
-      expect(res.body.length).to.equal(4)
+      expect(Array.isArray(body)).toBe(true)
+      expect(body.length).toBe(4)
     })
   })
 
   describe('/api/products/', () => {
     it('GET /api/users', async () => {
       const res = await request(app).get('/api/products').expect(200)
+      const { body } = res
 
-      expect(res.body).to.be.an('array')
-      expect(res.body.length).to.greaterThan(20)
+      expect(Array.isArray(body)).toBe(true)
+      expect(body.length).toBeGreaterThan(20)
     })
 
     it('POST /api/products', async () => {
@@ -37,9 +36,10 @@ describe('User routes', () => {
         .send({ name: 'seys drink' })
         .expect(201)
 
-      expect(res.body.name).to.have.string('seys drink')
-      // Sequelize returns null when description is not provided
-      expect(res.body.description).to.be.null
+      const { name, description } = res.body
+
+      expect(name).toBe('seys drink')
+      expect(description).toBeNull
     })
   })
 })

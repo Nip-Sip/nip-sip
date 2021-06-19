@@ -4,7 +4,12 @@ body {
 
 a {
   text-decoration: none;
+  color: black;
 }
+
+/* a:visited {
+  color: none;
+} */
 
 label {
   display: block;
@@ -40,5 +45,11 @@ form div {
 .product-card {
   border: 3px solid black;
   margin: 10px;
-  flex: 1 0 20%
+  flex: 1 0 20%;
+}
+
+/* Routes Navbar.js */
+.activeLink {
+  font-weight: bold;
+  color: palevioletred;
 }

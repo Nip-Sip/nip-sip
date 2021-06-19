@@ -4,7 +4,7 @@ import { getProducts } from '../store/products'
 import { Popover } from '@material-ui/core'
 import SingleProduct from './SingleProduct'
 import Search from './Search'
-import { updateCart } from '../store/cart'
+import { updateCart, getCart } from '../store/cart'
 
 const AllProducts = () => {
   const dispatch = useDispatch()
@@ -22,16 +22,17 @@ const AllProducts = () => {
   //need to call event.stopPropagation() to prevent the popup from opening
   const addToCart = (event, product) => {
     event.stopPropagation()
-    dispatch(updateCart(formatCartItem(product), 1))
+    dispatch(updateCart(formatCartItem(product)))
   }
 
   useEffect(() => {
     dispatch(getProducts())
+    dispatch(getCart())
   }, [])
 
   const formatCartItem = (product, quantity = 1) => {
     return {
-      product,
+      ...product,
       cartItem: {
         quantity: quantity
       }

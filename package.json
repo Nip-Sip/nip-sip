@@ -16,7 +16,8 @@
     "test:dev": "npm run test -- --watch",
     "test:dev:models": "npm run test:dev -- --grep=model",
     "test:dev:routes": "npm run test:dev -- --grep=route",
-    "test:jest": "jest --watchAll"
+    "test:jest": "jest --watchAll --testPathIgnorePatterns=server/db",
+    "test:db": "NODE_ENV=test JWT=a_secret jest --watchAll --testPathPattern=server/db/models"
   },
   "author": "Adam, Kyle, Jason, Sey",
   "license": "MIT",
@@ -45,7 +46,6 @@
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.16.0",
     "babel-loader": "^8.2.2",
-    "chai": "^4.2.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "esm": "^3.2.25",
