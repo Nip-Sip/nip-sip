@@ -28,6 +28,9 @@ const Routes = () => {
           <Route exact path="/products">
             <AllProducts />
           </Route>
+          <Route path="/cart">
+            <Cart />
+          </Route>
           <Route exact path="/admin">
             <AdminBoard />
           </Route>
