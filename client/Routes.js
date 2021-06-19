@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm'
 import AllProducts from './components/AllProducts'
-import Cart from './Cart'
+import Cart from './components/Cart'
 import UserOption from './components/UserOption'
 import { me } from './store'
 
@@ -12,7 +12,7 @@ const Routes = () => {
   const id = useSelector(state => state.auth)
 
   useEffect(() => {
-    dispatch(me)
+    dispatch(me())
   }, [])
 
   const { isLoggedIn } = !!id

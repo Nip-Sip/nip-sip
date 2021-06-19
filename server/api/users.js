@@ -43,13 +43,10 @@ router.get('/:userId/cart', async (req, res, next) => {
 //POST /users/:userId/cart
 router.post('/:userId/cart', async (req, res, next) => {
   try {
-    console.log(req.body)
-    const [newOrUpdatedProduct, isCreated] = await CartItem.findOrCreate({
-      userId: req.params.userId,
-      productId: req.body.id
-    })
-    newOrUpdatedProduct.quantity = req.body.CartItem.quantity
-    res.send(newOrUpdatedProduct)
+    const { userId } = req.params
+    const newOrUpdatedProduct = await CartItem.createOrUpdate(userId, req.body)
+
+    res.json(newOrUpdatedProduct)
   } catch (error) {
     next(error)
   }
