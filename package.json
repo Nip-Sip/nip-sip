@@ -36,6 +36,7 @@
     "morgan": "^1.9.1",
     "node-fetch": "^2.6.1",
     "pg": "^8.5.1",
+    "react-material-ui-carousel": "^2.2.6",
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
