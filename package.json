@@ -28,6 +28,7 @@
     "axios": "^0.21.1",
     "babel-jest": "^27.0.2",
     "bcrypt": "^5.0.0",
+    "chart.js": "^3.3.2",
     "compression": "^1.7.3",
     "express": "^4.16.4",
     "fuse.js": "^6.4.6",
@@ -36,6 +37,7 @@
     "morgan": "^1.9.1",
     "node-fetch": "^2.6.1",
     "pg": "^8.5.1",
+    "react-chartjs-2": "^3.0.3",
     "react-material-ui-carousel": "^2.2.6",
     "sequelize": "^6.3.5"
   },
