@@ -22,7 +22,6 @@ CartItem.createOrUpdate = async function (userId, product) {
   }
 
   return newOrUpdatedProduct
-
 }
 
 module.exports = CartItem

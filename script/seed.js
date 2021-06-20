@@ -1,16 +1,16 @@
 const fetch = require('node-fetch')
 const googleJSONCleaner = require('./googleJSONCleaner')
-const { white } = require('chalk')
+const { white, blue } = require('chalk')
 
 const {
   db,
-  models: { User, Product }
+  models: { User, Product, Order }
 } = require('../server/db')
 
 async function seed() {
   await db.sync({ force: true })
   console.log(
-    `${white('db synced!')}: process.env.NODE_ENV: ${process.env.NODE_ENV}`
+    `${blue('db synced!')}: process.env.NODE_ENV: ${process.env.NODE_ENV}`
   )
 
   let products
@@ -47,6 +47,15 @@ async function seed() {
     })
   )
 
+  // await Promise.all([
+  //   Order.create({
+  //     address: 'Somewhere 123',
+  //     price: 150,
+  //     pricePaid: 150,
+  //     promo: 'AXZ'
+  //   })
+  // ])
+
   // console.log(products)
   return {
     users: {
@@ -67,9 +76,9 @@ async function runSeed() {
     console.error(err)
     process.exitCode = 1
   } finally {
-    console.log('closing db connection')
+    console.log(blue('closing db connection'))
     await db.close()
-    console.log('db connection closed')
+    console.log(blue('db connection closed'))
   }
 }
 
