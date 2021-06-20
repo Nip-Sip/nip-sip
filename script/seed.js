@@ -15,71 +15,113 @@ async function seed() {
 
   let products
   if (process.env.NODE_ENV === 'test') {
-    products = require('../server/db/seed.json')
+    const seedData = require('../server/db/seed.json')
+    const { products, users } = seedData
+
+    /* 👇 Seems to be in order */
+    const [sey, jason, adam, kyle] = await User.bulkCreate(users, {
+      returning: true
+    })
+
+    /* 👇 Seems to be in order */
+    const dbProducts = await Product.bulkCreate(products, { returning: true })
+
+    /* 👇 Not in order */
+    await Promise.all([
+      sey.addProduct(dbProducts[0], { through: { quantity: 10 } }),
+      sey.addProduct(dbProducts[1], { through: { quantity: 15 } }),
+      jason.addProduct(dbProducts[1], { through: { quantity: 25 } }),
+      jason.addProduct(dbProducts[2], { through: { quantity: 55 } }),
+      jason.addProduct(dbProducts[3], { through: { quantity: 15 } }),
+      adam.addProducts([...dbProducts.slice(5)])
+    ])
+
+    // await CartItem.findAll()
+    // await Promise.all(
+    // products.forEach((p, i) => {
+    //   return sey.addProduct(p, { through: { quantity: i + 1 * 10 } })
+    // })
+    // sey.ad
+    // products.map((p, i) => {
+    //   // for product
+    //   // const p = await Product.create(product)
+    //   if (i % 3 === 0) {
+    //     return sey.addProduct(p, { through: { quantity: (i + 1) * 10 } })
+    //   } else if (i % 2 === 1) {
+    //     return jason.addProduct(p, { through: { quantity: (i + 1) * 5 } })
+    //   } else {
+    //     return adam.addProduct(p, { through: { quantity: (i + 1) * 7 } })
+    //   }
+    // })
+    // )
+
+    return {
+      users: {
+        sey,
+        jason,
+        adam,
+        kyle
+      },
+      products: dbProducts
+    }
   } else {
+    /**
+     * else regular seed below 👇
+     *
+     */
     const res = await fetch(
       'https://spreadsheets.google.com/feeds/list/10cEXh46270XlAqXNipbqreiUqr6uXMdowKi_w3aRYcM/1/public/values?alt=json'
     )
     const json = await res.json()
     const unformattedProducts = json.feed.entry
     products = googleJSONCleaner(unformattedProducts)
-  }
 
-  // TODO, make database smaller for test
-  const [cody, murphy, sey, jason] = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '456' }),
-    User.create({ username: 'sey', password: 'abc', isAdmin: true }),
-    User.create({ username: 'jason', password: 'def' })
-  ])
+    // TODO, make database smaller for test
+    const [cody, murphy, sey, jason] = await Promise.all([
+      User.create({ username: 'cody', password: '123' }),
+      User.create({ username: 'murphy', password: '456' }),
+      User.create({ username: 'sey', password: 'abc', isAdmin: true }),
+      User.create({ username: 'jason', password: 'def' })
+    ])
 
-  await Promise.all(
-    products.map(async (product, i) => {
-      // for product
-      const p = await Product.create(product)
-      if (i % 3 === 0) {
-        return cody.addProduct(p, { through: { quantity: (i + 1) * 10 } })
-      } else if (i % 2 === 1) {
-        return sey.addProduct(p, { through: { quantity: (i + 1) * 5 } })
-      } else {
-        return jason.addProduct(p, { through: { quantity: (i + 1) * 7 } })
-      }
-    })
-  )
+    await Promise.all(
+      products.map(async (product, i) => {
+        // for product
+        const p = await Product.create(product)
+        if (i % 3 === 0) {
+          return cody.addProduct(p, { through: { quantity: (i + 1) * 10 } })
+        } else if (i % 2 === 1) {
+          return sey.addProduct(p, { through: { quantity: (i + 1) * 5 } })
+        } else {
+          return jason.addProduct(p, { through: { quantity: (i + 1) * 7 } })
+        }
+      })
+    )
 
-  const [o1, o2] = await Promise.all([
-    Order.create({
-      address: 'Somewhere 123',
-      price: 150,
-      pricePaid: 150,
-      promo: 'AXZ'
-    }),
-    Order.create({
-      address: 'Whereever 123',
-      price: 100,
-      pricePaid: 80,
-      promo: 'ABC'
-    })
-  ])
+    const [o1, o2] = await Promise.all([
+      Order.create({
+        address: 'Somewhere 123',
+        price: 150,
+        pricePaid: 150,
+        promo: 'AXZ'
+      }),
+      Order.create({
+        address: 'Whereever 123',
+        price: 100,
+        pricePaid: 80,
+        promo: 'ABC'
+      })
+    ])
 
-  // TODO: magic method
-  const seyOrders = await CartItem.findAll({
-    where: {
-      userId: 4
+    return {
+      users: {
+        cody,
+        murphy,
+        sey,
+        jason
+      },
+      products
     }
-  })
-
-  console.log('sey length:', green(seyOrders.length))
-
-  // console.log(products)
-  return {
-    users: {
-      cody,
-      murphy,
-      sey,
-      jason
-    },
-    products
   }
 }
 
