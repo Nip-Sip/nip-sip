@@ -1,0 +1,8 @@
+{
+  "JSON stringify": {
+    "prefix": "jss",
+    "body": ["console.log(JSON.stringify($0, null, 2));"],
+    "description": "JSON Stringify for Sequelize instances",
+    "scope": "javascript"
+  }
+}

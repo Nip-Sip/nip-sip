@@ -16,44 +16,37 @@ async function seed() {
   let products
   if (process.env.NODE_ENV === 'test') {
     const seedData = require('../server/db/seed.json')
-    const { products, users } = seedData
+    const { products, users, orders } = seedData
 
     /* 👇 Seems to be in order */
     const [sey, jason, adam, kyle] = await User.bulkCreate(users, {
       returning: true
     })
-
-    /* 👇 Seems to be in order */
     const dbProducts = await Product.bulkCreate(products, { returning: true })
-
+    const dbOrders = await Order.bulkCreate(orders, { returning: true })
     /* 👇 Not in order */
+
+    /**
+     * Uses addProduct method to link user to products in CartItem Model
+     */
     await Promise.all([
       sey.addProduct(dbProducts[0], { through: { quantity: 10 } }),
       sey.addProduct(dbProducts[1], { through: { quantity: 15 } }),
+      sey.addProduct(dbProducts[2], { through: { quantity: 25 } }),
+      sey.addProduct(dbProducts[3], { through: { quantity: 35 } }),
+      sey.addProduct(dbProducts[4], { through: { quantity: 45 } }),
+      sey.addProduct(dbProducts[5], { through: { quantity: 55 } }),
+      sey.addProduct(dbProducts[6], { through: { quantity: 65 } }),
+      sey.addProduct(dbProducts[7], { through: { quantity: 100 } }),
       jason.addProduct(dbProducts[1], { through: { quantity: 25 } }),
       jason.addProduct(dbProducts[2], { through: { quantity: 55 } }),
-      jason.addProduct(dbProducts[3], { through: { quantity: 15 } }),
-      adam.addProducts([...dbProducts.slice(5)])
+      jason.addProduct(dbProducts[3], { through: { quantity: 15 } })
     ])
-
-    // await CartItem.findAll()
-    // await Promise.all(
-    // products.forEach((p, i) => {
-    //   return sey.addProduct(p, { through: { quantity: i + 1 * 10 } })
-    // })
-    // sey.ad
-    // products.map((p, i) => {
-    //   // for product
-    //   // const p = await Product.create(product)
-    //   if (i % 3 === 0) {
-    //     return sey.addProduct(p, { through: { quantity: (i + 1) * 10 } })
-    //   } else if (i % 2 === 1) {
-    //     return jason.addProduct(p, { through: { quantity: (i + 1) * 5 } })
-    //   } else {
-    //     return adam.addProduct(p, { through: { quantity: (i + 1) * 7 } })
-    //   }
-    // })
-    // )
+    await Promise.all(
+      dbProducts
+        .slice(5)
+        .map(p => adam.addProduct(p, { through: { quantity: 50 } }))
+    )
 
     return {
       users: {
@@ -62,7 +55,8 @@ async function seed() {
         adam,
         kyle
       },
-      products: dbProducts
+      products: dbProducts,
+      orders: dbOrders
     }
   } else {
     /**
