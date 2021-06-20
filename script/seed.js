@@ -1,10 +1,10 @@
 const fetch = require('node-fetch')
 const googleJSONCleaner = require('./googleJSONCleaner')
-const { white, blue } = require('chalk')
+const { white, blue, green } = require('chalk')
 
 const {
   db,
-  models: { User, Product, Order }
+  models: { User, Product, Order, CartItem }
 } = require('../server/db')
 
 async function seed() {
@@ -47,14 +47,29 @@ async function seed() {
     })
   )
 
-  // await Promise.all([
-  //   Order.create({
-  //     address: 'Somewhere 123',
-  //     price: 150,
-  //     pricePaid: 150,
-  //     promo: 'AXZ'
-  //   })
-  // ])
+  const [o1, o2] = await Promise.all([
+    Order.create({
+      address: 'Somewhere 123',
+      price: 150,
+      pricePaid: 150,
+      promo: 'AXZ'
+    }),
+    Order.create({
+      address: 'Whereever 123',
+      price: 100,
+      pricePaid: 80,
+      promo: 'ABC'
+    })
+  ])
+
+  // TODO: magic method
+  const seyOrders = await CartItem.findAll({
+    where: {
+      userId: 4
+    }
+  })
+
+  console.log('sey length:', green(seyOrders.length))
 
   // console.log(products)
   return {
