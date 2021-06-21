@@ -38,7 +38,7 @@ const SingleProduct = props => {
       <div className="product-name">{product.name}</div>
       <img src={product.imageUrl} />
       <div className="product-details">
-        <div>${product.price}</div>
+        <div>${product.price / 100}</div>
         <div>{product.category}</div>
         <div>ABV: {Number(product.ABV) * 100}%</div>
         <div>{product.description}</div>
