@@ -3,6 +3,7 @@ import axios from 'axios'
 // ACTION_TYPE
 const GOT_PRODUCTS = 'GOT_PRODUCTS'
 const CREATED_PRODUCT = 'CREATED PRODUCT'
+const DELETED_PRODCUT = 'DELETED PRODUCT'
 
 // ACTION CREATOR
 export const gotProducts = products => {
@@ -15,6 +16,13 @@ export const gotProducts = products => {
 export const createdProduct = product => {
   return {
     type: CREATED_PRODUCT,
+    product
+  }
+}
+
+export const deletedProduct = product => {
+  return {
+    type: DELETED_PRODUCT,
     product
   }
 }
@@ -42,6 +50,23 @@ export const createProduct = product => {
   }
 }
 
+export const deleteProduct = id => {
+  return async dispatch => {
+    const token = window.localStorage.getItem('token')
+    if (token) {
+      const { data: destroyProduct } = await axios.delete(
+        `/api/products/${id}`,
+        {
+          headers: {
+            authorization: token
+          }
+        }
+      )
+      dispatch(deletedProduct(destroyProduct))
+    }
+  }
+}
+
 // REDUCER
 
 export default function productsReducer(state = [], action) {
@@ -49,6 +74,8 @@ export default function productsReducer(state = [], action) {
     case GOT_PRODUCTS:
       return action.products
     case CREATED_PRODUCT:
+      return [...state, action.product]
+    case DELETED_PRODUCT:
       return [...state, action.product]
     default:
       return state
