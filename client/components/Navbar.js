@@ -6,6 +6,7 @@ import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import countAllQty from '../../script/countAllQty'
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -56,7 +57,7 @@ const Navbar = () => {
         <div>
         <NavLink to='/cart' activeClassName='activeLink"'>
         <IconButton aria-label="cart">
-        <StyledBadge badgeContent={cart.length} color="primary">
+        <StyledBadge badgeContent={countAllQty(cart)} color="primary">
           <ShoppingCartIcon />
         </StyledBadge>
       </IconButton>
