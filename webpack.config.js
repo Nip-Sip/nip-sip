@@ -14,6 +14,16 @@ module.exports = {
         options: {
           presets: ['@babel/preset-react']
         }
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        use: {
+          loader: 'url-loader'
+        }
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
       }
     ]
   }

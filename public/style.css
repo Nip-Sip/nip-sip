@@ -19,7 +19,6 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 
 nav a {
@@ -59,6 +58,39 @@ form div {
 .activeLink {
   font-weight: bold;
   color: palevioletred;
+}
+
+.inputIncorrect {
+  border: 3px solid palevioletred;
+}
+
+.inputCorrect {
+  border: 3px solid aquamarine;
+}
+
+/* Auth Form */
+
+.authForm {
+  margin: 0 auto;
+  color: white;
+  position: relative;
+}
+
+.loginPic {
+  /* height: 500px; */
+  position: absolute;
+  z-index: -1;
+  filter: blur(0.5rem);
+  /* width: 500px; */
+}
+
+.auth-form {
+  margin: 0 auto;
+  width: 600px;
+}
+
+.auth-form > div {
+  margin-top: 5rem;
 }
 
 .checkout-container {
