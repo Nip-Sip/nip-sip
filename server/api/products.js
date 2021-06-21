@@ -2,6 +2,7 @@ const router = require('express').Router()
 const {
   models: { Product }
 } = require('../db')
+const { requireAdminToken } = require('../auth/middleware')
 module.exports = router
 
 //GET /api/products
@@ -25,9 +26,12 @@ router.get('/:productId', async (req, res, next) => {
 })
 
 //POST /api/products/
-router.post('/', async (req, res, next) => {
+router.post('/', requireAdminToken, async (req, res, next) => {
   try {
-    res.status(201).send(await Product.create(req.body))
+    const { user } = req
+    if (user) {
+      res.status(201).send(await Product.create(req.body))
+    }
   } catch (err) {
     next(err)
   }
