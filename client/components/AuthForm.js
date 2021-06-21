@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { authenticate } from '../store'
-// import '../../public/style.css'
+import '../../public/style.css'
 import img from '../../public/woman-bar.jpg'
 // Relative path to image file from js file
 
@@ -24,10 +24,16 @@ const AuthForm = ({ login }) => {
   }
 
   return (
-    <div>
-      <img src={img} alt="Woman Bar" />
-      <form onSubmit={handleSubmit} name={login ? 'login' : 'signup'}>
+    <div className="authForm">
+      <img src={img} alt="Woman Bar" className="loginPic" />
+      <form
+        className="auth-form"
+        onSubmit={handleSubmit}
+        name={login ? 'login' : 'signup'}
+      >
         <div>
+          <h1>{login ? 'Login' : 'Signup'}</h1>
+          <p>An adventure of yoru life time awaits...</p>
           <label htmlFor="username">
             <small>Username</small>
           </label>
@@ -35,11 +41,7 @@ const AuthForm = ({ login }) => {
             onChange={e => setUser(e.target.value)}
             name="username"
             type="text"
-            style={
-              user.length >= 3
-                ? { border: '1px solid green' }
-                : { border: '2px solid palevioletred' }
-            }
+            className={user.length >= 3 ? 'inputCorrect' : 'inputIncorrect'}
           />
         </div>
         <div>
@@ -50,11 +52,7 @@ const AuthForm = ({ login }) => {
             onChange={e => setPw(e.target.value)}
             name="password"
             type="password"
-            style={
-              pw.length >= 3
-                ? { border: '1px solid green' }
-                : { border: '2px solid palevioletred' }
-            }
+            className={pw.length >= 3 ? 'inputCorrect' : 'inputIncorrect'}
           />
         </div>
         <div>
