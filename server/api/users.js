@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const { requireToken, requireAdminToken } = require('../auth/middleware')
 const {
   models: { User, CartItem }
 } = require('../db')
@@ -19,10 +20,11 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//GET /users/:userId/cart
-router.get('/:userId/cart', async (req, res, next) => {
+//GET /users/cart
+router.get('/cart', requireToken, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId)
+    const { id } = req.user
+    const user = await User.findByPk(id)
     const products = await user.getProducts()
     res.json(products)
   } catch (error) {
@@ -40,13 +42,24 @@ router.get('/:userId/cart', async (req, res, next) => {
 //   }
 // })
 
-//POST /users/:userId/cart
-router.post('/:userId/cart', async (req, res, next) => {
+//POST /users/cart
+router.post('/cart', requireToken, async (req, res, next) => {
   try {
-    const { userId } = req.params
-    const newOrUpdatedProduct = await CartItem.createOrUpdate(userId, req.body)
-
+    const { id } = req.user
+    const newOrUpdatedProduct = await CartItem.createOrUpdate(id, req.body)
     res.json(newOrUpdatedProduct)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//DELETE /users/cart
+router.delete('/cart/:itemId', requireToken, async (req, res, next) => {
+  try {
+    const { itemId } = req.params
+    const { user } = req
+    await user.removeProduct(itemId)
+     res.json('ok')
   } catch (error) {
     next(error)
   }
