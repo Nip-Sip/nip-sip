@@ -59,13 +59,14 @@ export const updateCart = cartItem => {
         }
       }
       const { data } = await axios.post(`/api/users/cart`, cartItem, auth)
+      dispatch(addToCart(cartItem))
     } else {
       const cartJSON = localStorage.getItem('cart')
       const cart = cartJSON ? JSON.parse(cartJSON) : []
       const newCart = updateStorage(cart, cartItem)
       localStorage.setItem('cart', JSON.stringify(newCart))
+      dispatch(getCart(newCart))
     }
-    dispatch(addToCart(cartItem))
   }
 }
 
@@ -97,7 +98,7 @@ export default function cartReducer(state = [], action) {
     case GOT_CART:
       return action.cart
     case ADD_TO_CART:
-      return updateStorage(state, action.cartItem)
+      return updateStorage([...state], action.cartItem)
     case DELETE_ITEM_IN_CART:
       return state.filter(item => item.id !== action.itemId)
     default:
