@@ -3,7 +3,7 @@ import axios from 'axios'
 // ACTION_TYPE
 const GOT_PRODUCTS = 'GOT_PRODUCTS'
 const CREATED_PRODUCT = 'CREATED PRODUCT'
-const DELETED_PRODCUT = 'DELETED PRODUCT'
+const DELETED_PRODUCT = 'DELETED PRODUCT'
 
 // ACTION CREATOR
 export const gotProducts = products => {
@@ -76,7 +76,7 @@ export default function productsReducer(state = [], action) {
     case CREATED_PRODUCT:
       return [...state, action.product]
     case DELETED_PRODUCT:
-      return [...state, action.product]
+      return state.filter(product => product.id !== action.product.id)
     default:
       return state
   }
