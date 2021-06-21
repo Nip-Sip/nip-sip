@@ -9,10 +9,10 @@ const SingleProduct = props => {
   const dispatch = useDispatch()
   const { product } = useSelector(s => s)
 
-  const [quantity, setQuantity] = useState("")
+  const [quantity, setQuantity] = useState(1)
 
-  const handleChange = (event) => {
-    setQuantity(event.target.value)
+  const handleChange = event => {
+    setQuantity(Number(event.target.value))
   }
 
   const addToCart = (event, product) => {
@@ -43,7 +43,10 @@ const SingleProduct = props => {
         <div>ABV: {Number(product.ABV) * 100}%</div>
         <div>{product.description}</div>
       </div>
-      <form className="quantity-select" onSubmit={() => addToCart(event, product)}>
+      <form
+        className="quantity-select"
+        onSubmit={() => addToCart(event, product)}
+      >
         <label>Qty: </label>
         <input
           type="number"
