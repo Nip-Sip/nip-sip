@@ -20,7 +20,9 @@ const requireAdminToken = async (req, res, next) => {
     if (user.isAdmin) {
       req.user = user
     } else {
-      throw Error('Not an admin')
+      const err = new Error('Not an admin')
+      err.status = 401
+      throw err
     }
     next()
   } catch (error) {
