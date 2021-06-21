@@ -37,7 +37,7 @@ const UserOption = () => {
           onChange={handleChange}
           name="name"
           type="text"
-          placeholder="name"
+          placeholder="Product Name"
           value={state.name}
         />
 
@@ -48,7 +48,7 @@ const UserOption = () => {
           type="number"
           min="0.01"
           step="any"
-          placeholder="price"
+          placeholder="Product Price"
           value={state.price}
         />
         <label htmlFor="description">Description</label>
@@ -56,7 +56,7 @@ const UserOption = () => {
           onChange={handleChange}
           name="description"
           type="text"
-          placeholder="description"
+          placeholder="Product Description"
           value={state.description}
         />
         <label htmlFor="category">Category</label>
@@ -68,11 +68,16 @@ const UserOption = () => {
           <option value="Rum">Rum</option>
           <option value="Liqueur">Liqueur</option>
         </select>
-        <button type="submit">Create</button>
+        <p>
+          <button type="submit">Create</button>
+        </p>
+        <label htmlFor="productId">Product Id</label>
+        <input type="text" placeholder="Product Id" />
+        <p>
+          <button type="submit">Update</button>
 
-        <input type="text" placeholder="id" />
-        <button type="submit">Update</button>
-        <button type="submit">Delete</button>
+          <button type="submit">Delete</button>
+        </p>
       </form>
     </div>
   )
