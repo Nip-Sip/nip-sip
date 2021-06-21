@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { authenticate } from '../store'
-// import img from './assets/woman-bar.jpg' //
+// import '../../public/style.css'
+import img from '../../public/woman-bar.jpg'
+// Relative path to image file from js file
 
 const AuthForm = ({ login }) => {
   const dispatch = useDispatch()
@@ -23,7 +25,7 @@ const AuthForm = ({ login }) => {
 
   return (
     <div>
-      <img url="/assets/woman-bar.jpg" alt="Woman Bar" />
+      <img src={img} alt="Woman Bar" />
       <form onSubmit={handleSubmit} name={login ? 'login' : 'signup'}>
         <div>
           <label htmlFor="username">
