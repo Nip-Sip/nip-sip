@@ -28,6 +28,7 @@ const Checkout = () => {
       <div className="cart-summary">
         Cart Summary will go here
       </div>
+      <button className="place-order">Place Order</button>
     </div>
   )
 }
