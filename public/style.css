@@ -92,3 +92,22 @@ form div {
 .auth-form > div {
   margin-top: 5rem;
 }
+
+.checkout-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.cart-summary {
+  flex: 1.5
+}
+
+.shipping-info {
+  flex: 1
+}
+
+.billing-info {
+  flex: 1
+}
+

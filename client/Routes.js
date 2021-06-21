@@ -7,6 +7,7 @@ import Cart from './components/Cart'
 import UserOption from './components/UserOption'
 import AdminBoard from './components/AdminBoard'
 import { me } from './store'
+import Checkout from './components/Checkout'
 
 const Routes = () => {
   const dispatch = useDispatch()
@@ -34,6 +35,9 @@ const Routes = () => {
           <Route exact path="/admin">
             <AdminBoard />
           </Route>
+          <Route path='/checkout'>
+            <Checkout />
+          </Route>
         </Switch>
       ) : (
         <Switch>
@@ -51,6 +55,9 @@ const Routes = () => {
           </Route>
           <Route path="/cart">
             <Cart />
+          </Route>
+          <Route path='/checkout'>
+            <Checkout />
           </Route>
         </Switch>
       )}
