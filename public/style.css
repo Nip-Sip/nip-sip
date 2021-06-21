@@ -19,7 +19,6 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 
 nav a {
@@ -59,4 +58,12 @@ form div {
 .activeLink {
   font-weight: bold;
   color: palevioletred;
+}
+
+.input-incorrect {
+  border: '3px solid palevioletred';
+}
+
+.input-correct {
+  border: '3px solid green';
 }
