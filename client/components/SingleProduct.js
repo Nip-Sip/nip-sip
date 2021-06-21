@@ -1,25 +1,37 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProduct } from '../store/singleProduct'
+import { updateCart } from '../store/cart'
 
 const SingleProduct = props => {
-  const quantities = [...Array(20).keys()].map(n => ++n)
-
   const id = props.id
 
   const dispatch = useDispatch()
   const { product } = useSelector(s => s)
 
-  //placeholder submit handler for add to cart submission
-  //need to call event.preventDefault() to prevent the page from refreshing
-  const handleSubmit = (event) => {
+  const [quantity, setQuantity] = useState("")
+
+  const handleChange = (event) => {
+    setQuantity(event.target.value)
+  }
+
+  const addToCart = (event, product) => {
     event.preventDefault()
-    console.log('hello')
+    dispatch(updateCart(formatCartItem(product, quantity)))
   }
 
   useEffect(() => {
     dispatch(getProduct(id))
   }, [])
+
+  const formatCartItem = (product, quantity) => {
+    return {
+      ...product,
+      cartItem: {
+        quantity: quantity
+      }
+    }
+  }
 
   return (
     <div className="single-product">
@@ -31,9 +43,16 @@ const SingleProduct = props => {
         <div>ABV: {Number(product.ABV) * 100}%</div>
         <div>{product.description}</div>
       </div>
-      <form className="quantity-select" onSubmit={handleSubmit}>
+      <form className="quantity-select" onSubmit={() => addToCart(event, product)}>
         <label>Qty: </label>
-        <input type="number" min="0" step='1' defaultValue='1' />
+        <input
+          type="number"
+          min="1"
+          step="1"
+          value={quantity}
+          onChange={handleChange}
+          required
+        />
         <input type="submit" value="Add to Cart" />
       </form>
     </div>

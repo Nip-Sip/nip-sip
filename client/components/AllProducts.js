@@ -55,7 +55,7 @@ const AllProducts = () => {
               onClick={() => openSingleProduct(event, product.id)}
             />
             <div id="productDetails">
-              ${product.price} | {product.category}
+              ${product.price / 100} | {product.category}
             </div>
             <button
               type="button"
