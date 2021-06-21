@@ -2,10 +2,26 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { logout } from '../store'
+import Badge from '@material-ui/core/Badge';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const Navbar = () => {
   const dispatch = useDispatch()
   const { id: isLoggedIn } = useSelector(state => state.auth)
+  const cart = useSelector(state => state.cart)
+
+
+
+  const StyledBadge = withStyles((theme) => ({
+    badge: {
+      right: -3,
+      top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+  }))(Badge);
 
   return (
     <div>
@@ -37,6 +53,15 @@ const Navbar = () => {
             </NavLink>
           </div>
         )}
+        <div>
+        <NavLink to='/cart' activeClassName='activeLink"'>
+        <IconButton aria-label="cart">
+        <StyledBadge badgeContent={cart.length} color="primary">
+          <ShoppingCartIcon />
+        </StyledBadge>
+      </IconButton>
+        </NavLink>
+        </div>
       </nav>
       <hr />
     </div>

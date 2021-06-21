@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCart, updateCart } from '../store/cart'
+import { getCart, updateCart, removeItemFromCart } from '../store/cart'
 
 const Cart = () => {
   const dispatch = useDispatch()
@@ -36,6 +36,10 @@ const Cart = () => {
     }
   }
 
+  const handleDelete = (itemId) => {
+    dispatch(removeItemFromCart(itemId))
+  }
+
   const formatCartItem = (item, quantity) => {
     return {
      ...item,
@@ -65,7 +69,7 @@ const Cart = () => {
                   defaultValue={quantity}
                   onChange={handleChange}
                 />{' '}
-                <button onClick={() => handleUpdate(event, item)}>Update</button> <button>Delete</button>
+                <button onClick={() => handleUpdate(event, item)}>Update</button> <button onClick={() => handleDelete(id)}>Delete</button>
               </div>
               <div>
                 <span>{`$${price}`}</span>
