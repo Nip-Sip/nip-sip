@@ -25,7 +25,7 @@ const Checkout = () => {
           <input type="string" placeholder="Expiration date MM/YYYY" />
         </form>
       </div>
-      <div>
+      <div className="cart-summary">
         Cart Summary will go here
       </div>
     </div>

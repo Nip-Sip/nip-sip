@@ -60,3 +60,21 @@ form div {
   font-weight: bold;
   color: palevioletred;
 }
+
+.checkout-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.cart-summary {
+  flex: 1.5
+}
+
+.shipping-info {
+  flex: 1
+}
+
+.billing-info {
+  flex: 1
+}
