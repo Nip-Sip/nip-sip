@@ -30,6 +30,8 @@ router.post('/', requireAdminToken, async (req, res, next) => {
   try {
     const { user } = req
     if (user) {
+      // const {name, price, description, ABV, category} = req.body
+
       res.status(201).send(await Product.create(req.body))
     }
   } catch (err) {
