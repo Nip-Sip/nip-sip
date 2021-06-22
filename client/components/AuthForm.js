@@ -24,8 +24,11 @@ const AuthForm = ({ login }) => {
   }
 
   return (
-    <div className="authForm">
-      <img src={img} alt="Woman Bar" className="loginPic" />
+    <div
+      className="authForm"
+      style={{ backgroundImage: `url(${img})`, height: '100vh' }}
+    >
+      {/* <img src={img} alt="Woman Bar" className="loginPic" /> */}
       <form
         className="auth-form"
         onSubmit={handleSubmit}
