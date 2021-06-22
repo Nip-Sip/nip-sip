@@ -36,12 +36,12 @@ describe('Product model', () => {
       // // console.log(blue('beforeEach!'))
     })
 
-    it('finds products by username (given sey owns a product)', async () => {
+    it('finds products by email (given sey owns a product)', async () => {
       const P = await Product.findAll({
         include: [
           {
             model: User,
-            where: { username: 'sey' }
+            where: { email: 'sey' }
           }
         ]
       })
@@ -52,7 +52,7 @@ describe('Product model', () => {
        * has the products in its cart.
        */
 
-      const pUsers = P.map(p => p.users.map(u => u.username))
+      const pUsers = P.map(p => p.users.map(u => u.email))
       // console.log(pUsers)
       expect(pUsers[0][0]).toBe('sey')
       const flatArr = pUsers.flat()

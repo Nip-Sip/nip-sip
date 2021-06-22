@@ -26,7 +26,7 @@ describe('User model', () => {
       beforeEach(
         async () =>
           (user = await User.create({
-            username: 'lucy',
+            email: 'lucy',
             password: 'loo'
           }))
       )
@@ -34,7 +34,7 @@ describe('User model', () => {
       describe('with correct credentials', () => {
         it('returns a token', async () => {
           const token = await User.authenticate({
-            username: 'lucy',
+            email: 'lucy',
             password: 'loo'
           })
           console.log('generateToken:', blue(token))
@@ -46,7 +46,7 @@ describe('User model', () => {
         it('throws a 401', async () => {
           try {
             await User.authenticate({
-              username: 'lucy@gmail.com',
+              email: 'lucy',
               password: '123'
             })
             throw 'nooo'
