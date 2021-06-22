@@ -3,13 +3,14 @@ import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import auth from './auth'
-import productsReducer from './products'
+import { productsReducer, visibilityReducer } from './products'
 import cartReducer from './cart'
 import adminReducer from './admin'
 
 const reducer = combineReducers({
   auth,
   products: productsReducer,
+  visibleProducts: visibilityReducer,
   cart: cartReducer,
   admin: adminReducer
 })

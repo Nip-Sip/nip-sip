@@ -60,6 +60,7 @@ form div {
   background-color: white;
   margin: 10px;
   border: 3px solid black;
+  mix-blend-mode: multiply;
 }
 
 #allProducts {

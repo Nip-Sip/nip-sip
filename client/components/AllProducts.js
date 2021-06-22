@@ -57,6 +57,8 @@ const useStyles = makeStyles({
 const AllProducts = () => {
   const dispatch = useDispatch()
   const { products } = useSelector(s => s)
+  const { visibleProducts } = useSelector(s => s)
+
 
   const [anchor, setAnchor] = useState(null)
   const [product, setProduct] = useState(null)
@@ -94,7 +96,7 @@ const AllProducts = () => {
 			https://www.npmjs.com/package/react-responsive-carousel */}
       <Search />
       <div id="allProducts">
-        {products.map(product => (
+        {visibleProducts.map(product => (
           <div
             className="product-card"
             onClick={() => openSingleProduct(event, product)}
