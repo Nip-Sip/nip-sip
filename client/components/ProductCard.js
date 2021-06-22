@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 import { Popover } from '@material-ui/core'
 import SingleProduct from './SingleProduct'
 import { updateCart } from '../store/cart'
-// Material UI Added
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
@@ -27,7 +26,6 @@ function ProductCard({ product }) {
   })
 
   const [anchor, setAnchor] = useState(null)
-  //const [product, setProduct] = useState(null)
 
   const classes = useStyles()
 
