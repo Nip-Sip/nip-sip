@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import countAllQty from '../../script/countAllQty'
 import '../../public/style.css'
+import { motion } from 'framer-motion'
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -62,7 +63,13 @@ const Navbar = () => {
           </NavLink>
         </div>
       </nav>
-      <h1 className="title">Nip Sip</h1>
+      <motion.div
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ ease: 'easeOut', duration: 4, repeat: Infinity }}
+        className="title"
+      >
+        Nip Sip
+      </motion.div>
     </div>
   )
 }
