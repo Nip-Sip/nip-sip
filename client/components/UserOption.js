@@ -64,51 +64,57 @@ const UserOption = () => {
                 placeholder="Product Name"
                 value={state.name}
               />
-            <label htmlFor="price">Price</label>
-            <input
-              onChange={handleChange}
-              name="price"
-              type="number"
-              min="0.01"
-              step="any"
-              placeholder="Product Price"
-              value={state.price}
-            />
-            <label htmlFor="description">Description</label>
-            <input
-              onChange={handleChange}
-              name="description"
-              type="text"
-              placeholder="Product Description"
-              value={state.description}
-            />
-            <label htmlFor="ABV">ABV</label>
-            <input
-              onChange={handleChange}
-              name="ABV"
-              type="number"
-              min="0"
-              max="1"
-              step="any"
-              placeholder="ABV (decimal)"
-              value={state.ABV}
-            />
-            <label htmlFor="category">Category</label>
-            <select name="category" onChange={handleChange}>
-              <option defaultValue="null">Please Select</option>
-              <option value="Whisky">Whisky</option>
-              <option value="Tequila">Tequila</option>
-              <option value="Vodka">Vodka</option>
-              <option value="Rum">Rum</option>
-              <option value="Liqueur">Liqueur</option>
-            </select>
-            <p>
-              <button type="submit">Create</button>
-            </p>
-            <label htmlFor="productId">Product Id</label>
-            <input type="text" placeholder="Product Id" />
-            <p>
-              <button type="submit">Update</button>
+              <label htmlFor="price">Price</label>
+              <input
+                onChange={handleChange}
+                name="price"
+                type="number"
+                min="0.01"
+                step="any"
+                placeholder="Product Price"
+                value={state.price}
+              />
+              <label htmlFor="description">Description</label>
+              <input
+                onChange={handleChange}
+                name="description"
+                type="text"
+                placeholder="Product Description"
+                value={state.description}
+              />
+              <label htmlFor="ABV">ABV</label>
+              <input
+                onChange={handleChange}
+                name="ABV"
+                type="number"
+                min="0"
+                max="1"
+                step="any"
+                placeholder="ABV (decimal)"
+                value={state.ABV}
+              />
+              <label htmlFor="category">Category</label>
+              <select name="category" onChange={handleChange}>
+                <option defaultValue="null">Please Select</option>
+                <option value="Whisky">Whisky</option>
+                <option value="Tequila">Tequila</option>
+                <option value="Vodka">Vodka</option>
+                <option value="Rum">Rum</option>
+                <option value="Liqueur">Liqueur</option>
+              </select>
+              <p>
+                <button type="submit">Create</button>
+              </p>
+            </form>
+            <form onSubmit={handleDeleteSubmit}>
+              <label htmlFor="productId">Product Id</label>
+              <input
+                onChange={handleDeleteChange}
+                type="text"
+                placeholder="Product Id"
+              />
+              <p>
+                <button type="submit">Update</button>
                 <button type="submit">Delete</button>
               </p>
             </form>
