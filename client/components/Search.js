@@ -15,9 +15,11 @@ const Search = () => {
    * https://fusejs.io
    */
   const fuse = new Fuse(products, {
-    keys: ['name'],
+    keys: ['name', 'category'],
     includeScore: true,
-    threshold: 0.3
+    threshold: 0.3,
+    minMatchCharLength: 2,
+    ignoreLocation: true
   })
 
   const results = fuse.search(query)
@@ -41,8 +43,11 @@ const Search = () => {
         <input placeholder="search here" type="text" onChange={onSearch} />
       </form>
       <ul>
-        {resBox.map(({ name, id }) => (
-          <li key={id}>{name}</li>
+        {resBox.map(({ name, category, id }) => (
+          <div className="searchInput">
+            <div key={id}>{name}</div>
+            <div className="searchCategory">{category}</div>
+          </div>
         ))}
       </ul>
     </>
