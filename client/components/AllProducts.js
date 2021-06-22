@@ -102,7 +102,7 @@ const AllProducts = () => {
           >
             {/* <ProductCard product={product} /> */}
             <div id="productName">{product.name}</div>
-            <img src={product.imageUrl} />
+            <img id="productImage" src={product.imageUrl} />
             <div id="productDetails">
               ${product.price / 100} | {product.category}
             </div>
