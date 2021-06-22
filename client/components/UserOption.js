@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
-import { createProduct, deleteProduct } from '../store/products'
+import { createProduct, deleteProduct, updateProduct } from '../store/products'
 import { getAdminInfo } from '../store/admin'
 import { ContactSupportOutlined } from '@material-ui/icons'
 
@@ -23,7 +23,8 @@ const UserOption = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    dispatch(createProduct(state))
+    console.log('here is the submit button', e.target)
+    // dispatch(createProduct(state))
     setState({
       name: '',
       description: '',
@@ -103,7 +104,12 @@ const UserOption = () => {
                 <option value="Liqueur">Liqueur</option>
               </select>
               <p>
-                <button type="submit">Create</button>
+                <button id="submitButton" type="submit">
+                  Create
+                </button>
+                <button id="updateButton" type="submit">
+                  Update
+                </button>
               </p>
             </form>
             <form onSubmit={handleDeleteSubmit}>
@@ -114,7 +120,6 @@ const UserOption = () => {
                 placeholder="Product Id"
               />
               <p>
-                <button type="submit">Update</button>
                 <button type="submit">Delete</button>
               </p>
             </form>
