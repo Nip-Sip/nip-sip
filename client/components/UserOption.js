@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import { createProduct, deleteProduct } from '../store/products'
 import { getAdminInfo } from '../store/admin'
+import { ContactSupportOutlined } from '@material-ui/icons'
 
 const UserOption = () => {
   const { username } = useSelector(state => state.auth)
@@ -34,16 +35,17 @@ const UserOption = () => {
     setState({ ...state, [e.target.name]: e.target.value })
   }
 
-  const [deletedId, setDeletedId] = useState(0)
+  const [deletedId, setDeletedId] = useState('')
 
   const handleDeleteSubmit = e => {
     e.preventDefault()
     dispatch(deleteProduct(deletedId))
-    setDeletedId(0)
+    setDeletedId('')
   }
 
   const handleDeleteChange = e => {
-    setDeletedId(deletedId)
+    console.log('this delete id!!', deletedId)
+    setDeletedId(e.target.value)
   }
   return (
     <div>
@@ -95,8 +97,9 @@ const UserOption = () => {
             <form onSubmit={handleDeleteSubmit}>
               <label htmlFor="productId">Product Id</label>
               <input
-                type="number"
+                type="text"
                 onChange={handleDeleteChange}
+                value={deletedId}
                 placeholder="Product Id"
               />
               <p>

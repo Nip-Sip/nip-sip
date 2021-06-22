@@ -48,11 +48,11 @@ router.put('/', async (req, res, next) => {
 })
 
 //DELETE /api/products/
-router.delete('/', requireAdminToken, async (req, res, next) => {
+router.delete('/:id', requireAdminToken, async (req, res, next) => {
   try {
     const { user } = req
     if (user) {
-      const currProduct = await Product.findByPk(req.body.productId)
+      const currProduct = await Product.findByPk(req.params.id)
       await currProduct.destroy()
       res.send(currProduct)
     }
