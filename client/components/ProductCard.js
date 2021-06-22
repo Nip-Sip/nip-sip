@@ -64,9 +64,6 @@ function ProductCard({ product }) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
           <Button
             name="all-products-add-to-cart"
             size="small"
