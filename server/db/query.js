@@ -4,6 +4,14 @@ const {
   models: { User, Product, CartItem }
 } = require('./index')
 
+const graph = {
+  W: ['R'],
+  T: ['V'],
+  V: ['T', 'W'],
+  R: ['L'],
+  L: ['V']
+}
+
 async function query() {
   await db.sync()
 
@@ -14,12 +22,15 @@ async function query() {
   // const allProducts = await Product.findAll()
 
   // this is useful to find the top 5 items that people bought
-  const c = await CartItem.findAll({
-    limit: 5,
-    order: [['quantity', 'DESC']]
-  })
+  // const c = await CartItem.findAll({
+  //   limit: 5,
+  //   order: [['quantity', 'DESC']]
+  // })
 
-  console.log(JSON.stringify(c, null, 2))
+  // console.log(JSON.stringify(c, null, 2))
+
+  const whiskey = await CartItem.findOne({ where: { category: 'Whiskey' } })
+  console.log(JSON.stringify(whiskey, 2, null))
 }
 
 query()
