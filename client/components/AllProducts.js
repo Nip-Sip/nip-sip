@@ -8,6 +8,8 @@ import ProductCard from './ProductCard'
 const AllProducts = () => {
   const dispatch = useDispatch()
   const { products } = useSelector(s => s)
+  const { visibleProducts } = useSelector(s => s)
+
 
   useEffect(() => {
     dispatch(getProducts())
@@ -21,7 +23,7 @@ const AllProducts = () => {
 			https://www.npmjs.com/package/react-responsive-carousel */}
       <Search />
       <div id="allProducts">
-        {products.map(product => (
+        {visibleProducts.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

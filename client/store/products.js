@@ -3,6 +3,8 @@ import axios from 'axios'
 // ACTION_TYPE
 const GOT_PRODUCTS = 'GOT_PRODUCTS'
 const CREATED_PRODUCT = 'CREATED PRODUCT'
+export const VIEW_ALL = 'VIEW_ALL'
+export const VIEW_SEARCH = 'VIEW_SEARCH'
 const DELETED_PRODUCT = 'DELETED PRODUCT'
 
 // ACTION CREATOR
@@ -20,10 +22,16 @@ export const createdProduct = product => {
   }
 }
 
+export const setVisibility = (products, type = VIEW_ALL) => {
+  return {
+    type,
+    products
+
 export const deletedProduct = product => {
   return {
     type: DELETED_PRODUCT,
     product
+
   }
 }
 
@@ -32,6 +40,7 @@ export const getProducts = () => {
   return async dispatch => {
     const { data: products } = await axios.get('/api/products')
     dispatch(gotProducts(products))
+    dispatch(setVisibility(products))
   }
 }
 
@@ -68,8 +77,7 @@ export const deleteProduct = id => {
 }
 
 // REDUCER
-
-export default function productsReducer(state = [], action) {
+export function productsReducer(state = [], action) {
   switch (action.type) {
     case GOT_PRODUCTS:
       return action.products
@@ -77,6 +85,17 @@ export default function productsReducer(state = [], action) {
       return [...state, action.product]
     case DELETED_PRODUCT:
       return state.filter(product => product.id !== action.product.id)
+    default:
+      return state
+  }
+}
+
+export function visibilityReducer(state=[], action) {
+  switch (action.type) {
+    case VIEW_ALL:
+      return action.products
+    case VIEW_SEARCH:
+      return action.products
     default:
       return state
   }
