@@ -25,7 +25,7 @@ const Navbar = () => {
   }))(Badge)
 
   return (
-    <div>
+    <div style={{ position: 'relative' }}>
       <nav>
         {!!isLoggedIn ? (
           <div>

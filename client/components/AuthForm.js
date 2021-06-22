@@ -24,41 +24,36 @@ const AuthForm = ({ login }) => {
   }
 
   return (
-    <div
-      className="authForm"
-      style={{ backgroundImage: `url(${img})`, height: '100vh' }}
-    >
-      {/* <img src={img} alt="Woman Bar" className="loginPic" /> */}
+    <div className="authForm enableBlur">
+      <div className="bar-lady"></div>
       <form
         className="auth-form"
         onSubmit={handleSubmit}
         name={login ? 'login' : 'signup'}
+        className="opacity"
+        id="authform"
       >
-        <div>
-          <h1>{login ? 'Login' : 'Signup'}</h1>
-          <p>An adventure of yoru life time awaits...</p>
-          <label htmlFor="username">
-            <small>Username</small>
-          </label>
-          <input
-            onChange={e => setUser(e.target.value)}
-            name="username"
-            type="text"
-            className={user.length >= 3 ? 'inputCorrect' : 'inputIncorrect'}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input
-            onChange={e => setPw(e.target.value)}
-            name="password"
-            type="password"
-            className={pw.length >= 3 ? 'inputCorrect' : 'inputIncorrect'}
-          />
-        </div>
-        <div>
+        <h1>{login ? 'Login' : 'Signup'}</h1>
+        <p className="s-e">An adventure of your life time awaits...</p>
+        <div id="subauth">
+          <div>
+            <label htmlFor="username">Username</label>
+            <input
+              onChange={e => setUser(e.target.value)}
+              name="username"
+              type="text"
+              className={user.length >= 3 ? 'inputCorrect' : 'inputIncorrect'}
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              onChange={e => setPw(e.target.value)}
+              name="password"
+              type="password"
+              className={pw.length >= 3 ? 'inputCorrect' : 'inputIncorrect'}
+            />
+          </div>
           <button type="submit">{login ? 'Login' : 'Sign Up'}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
