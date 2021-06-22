@@ -18,10 +18,11 @@ function ProductCard({ product }) {
 
   const useStyles = makeStyles({
     root: {
-      maxWidth: 345
+      width: 345,
+      margin: 5
     },
     media: {
-      height: 140
+      height: 285
     }
   })
 
