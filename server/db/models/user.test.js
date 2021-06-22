@@ -15,9 +15,9 @@ describe('User model', () => {
   describe('instanceMethods', () => {
     describe('generateToken', () => {
       it('returns a token with the id of the user', async () => {
-        const token = await users.cody.generateToken()
+        const token = await users.sey.generateToken()
         const { id } = await jwt.verify(token, process.env.JWT)
-        expect(id).toBe(users.cody.id)
+        expect(id).toBe(users.sey.id)
       })
     })
 

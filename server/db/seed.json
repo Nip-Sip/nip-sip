@@ -1,4 +1,5 @@
-[
+  {
+  "products": [
   {
     "name": "FIREBALL CINNAMON WHISKY",
     "price": 129,
@@ -191,4 +192,25 @@
     "imageUrl": "https://cdn.shopify.com/s/files/1/0271/4412/6564/products/94049_bb772b02-8c76-447e-a292-80024cb8ef1a_300x300_crop_top.jpg?v=1603734926",
     "description": "Lomo hella actually mumblecore migas fanny pack austin stumptown mixtape tumblr. Live-edge hella pickled brooklyn street art. Sartorial man bun hashtag iPhone neutra YOLO. Yuccie lumbersexual cloud bread prism artisan typewriter lyft brunch hashtag. Glossier keffiyeh 90's, deep v tilde palo santo af vaporware authentic XOXO pork belly. Direct trade williamsburg lomo viral echo park plaid subway tile put a bird on it typewriter quinoa literally lo-fi narwha"
   }
+  ],
+  "users": [
+    { "username": "sey", "password": "abc", "isAdmin": true },
+    { "username": "jason", "password": "def" },
+    { "username": "adam", "password": "123" },
+    { "username": "kyle", "password": "456" }
+  ],
+  "orders": [
+    {
+      "address": "Somewhere 123",
+      "price": 150,
+      "pricePaid": 150,
+      "promo": ""
+    },
+    {
+      "address": "Whereever 456",
+      "price": 220,
+      "pricePaid": 210,
+      "promo": "ABC"
+    }
+  ]
 ]
