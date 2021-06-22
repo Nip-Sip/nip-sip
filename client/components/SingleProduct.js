@@ -52,8 +52,8 @@ const SingleProduct = props => {
           type="number"
           min="1"
           step="1"
-          value={quantity}
           onChange={handleChange}
+          defaultValue="1"
           required
         />
         <input type="submit" value="Add to Cart" />
