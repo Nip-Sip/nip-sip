@@ -5,6 +5,7 @@ const GOT_PRODUCTS = 'GOT_PRODUCTS'
 const CREATED_PRODUCT = 'CREATED PRODUCT'
 export const VIEW_ALL = 'VIEW_ALL'
 export const VIEW_SEARCH = 'VIEW_SEARCH'
+const DELETED_PRODUCT = 'DELETED PRODUCT'
 
 // ACTION CREATOR
 export const gotProducts = products => {
@@ -25,6 +26,12 @@ export const setVisibility = (products, type = VIEW_ALL) => {
   return {
     type,
     products
+
+export const deletedProduct = product => {
+  return {
+    type: DELETED_PRODUCT,
+    product
+
   }
 }
 
@@ -52,14 +59,32 @@ export const createProduct = product => {
   }
 }
 
-// REDUCER
+export const deleteProduct = id => {
+  return async dispatch => {
+    const token = window.localStorage.getItem('token')
+    if (token) {
+      const { data: destroyProduct } = await axios.delete(
+        `/api/products/${id}`,
+        {
+          headers: {
+            authorization: token
+          }
+        }
+      )
+      dispatch(deletedProduct(destroyProduct))
+    }
+  }
+}
 
+// REDUCER
 export function productsReducer(state = [], action) {
   switch (action.type) {
     case GOT_PRODUCTS:
       return action.products
     case CREATED_PRODUCT:
       return [...state, action.product]
+    case DELETED_PRODUCT:
+      return state.filter(product => product.id !== action.product.id)
     default:
       return state
   }

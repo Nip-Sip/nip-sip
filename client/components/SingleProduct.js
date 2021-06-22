@@ -30,7 +30,7 @@ const SingleProduct = props => {
   return (
     <div className="single-product">
       <div className="product-name">{product.name}</div>
-      <img src={product.imageUrl} />
+      <img id="productImage" src={product.imageUrl} />
       <div className="product-details">
         <div>${product.price / 100}</div>
         <div>{product.category}</div>

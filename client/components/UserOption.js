@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
-import { createProduct } from '../store/products'
+import { createProduct, deleteProduct } from '../store/products'
 import { getAdminInfo } from '../store/admin'
+import { ContactSupportOutlined } from '@material-ui/icons'
 
 const UserOption = () => {
   const { username } = useSelector(state => state.auth)
@@ -16,7 +17,8 @@ const UserOption = () => {
     name: '',
     description: '',
     category: '',
-    price: ''
+    price: '',
+    ABV: ''
   })
 
   const handleSubmit = e => {
@@ -26,29 +28,42 @@ const UserOption = () => {
       name: '',
       description: '',
       category: '',
-      price: ''
+      price: '',
+      ABV: ''
     })
   }
 
   const handleChange = e => {
     setState({ ...state, [e.target.name]: e.target.value })
   }
-  console.log('this the state', state)
+
+  const [deletedId, setDeletedId] = useState('')
+
+  const handleDeleteSubmit = e => {
+    e.preventDefault()
+    dispatch(deleteProduct(deletedId))
+    setDeletedId('')
+  }
+
+  const handleDeleteChange = e => {
+    console.log('this delete id!!', deletedId)
+    setDeletedId(e.target.value)
+  }
   return (
     <div>
       <h3>Welcome, {username}</h3>
       <div id="userOptionsBody">
         {admin.length ? (
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="name">Name</label>
-            <input
-              onChange={handleChange}
-              name="name"
-              type="text"
-              placeholder="Product Name"
-              value={state.name}
-            />
-
+          <React.Fragment>
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="name">Name</label>
+              <input
+                onChange={handleChange}
+                name="name"
+                type="text"
+                placeholder="Product Name"
+                value={state.name}
+              />
             <label htmlFor="price">Price</label>
             <input
               onChange={handleChange}
@@ -67,6 +82,17 @@ const UserOption = () => {
               placeholder="Product Description"
               value={state.description}
             />
+            <label htmlFor="ABV">ABV</label>
+            <input
+              onChange={handleChange}
+              name="ABV"
+              type="number"
+              min="0"
+              max="1"
+              step="any"
+              placeholder="ABV (decimal)"
+              value={state.ABV}
+            />
             <label htmlFor="category">Category</label>
             <select name="category" onChange={handleChange}>
               <option defaultValue="null">Please Select</option>
@@ -83,10 +109,10 @@ const UserOption = () => {
             <input type="text" placeholder="Product Id" />
             <p>
               <button type="submit">Update</button>
-
-              <button type="submit">Delete</button>
-            </p>
-          </form>
+                <button type="submit">Delete</button>
+              </p>
+            </form>
+          </React.Fragment>
         ) : (
           'hello world'
         )}
