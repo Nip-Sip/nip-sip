@@ -2,31 +2,29 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { logout } from '../store'
-import Badge from '@material-ui/core/Badge';
-import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Badge from '@material-ui/core/Badge'
+import { withStyles } from '@material-ui/core/styles'
+import IconButton from '@material-ui/core/IconButton'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import countAllQty from '../../script/countAllQty'
+import '../../public/style.css'
 
 const Navbar = () => {
   const dispatch = useDispatch()
   const { id: isLoggedIn } = useSelector(state => state.auth)
   const cart = useSelector(state => state.cart)
 
-
-
-  const StyledBadge = withStyles((theme) => ({
+  const StyledBadge = withStyles(theme => ({
     badge: {
       right: -3,
       top: 13,
       border: `2px solid ${theme.palette.background.paper}`,
-      padding: '0 4px',
-    },
-  }))(Badge);
+      padding: '0 4px'
+    }
+  }))(Badge)
 
   return (
     <div>
-      <h1>Nip Sip</h1>
       <nav>
         {!!isLoggedIn ? (
           <div>
@@ -55,16 +53,16 @@ const Navbar = () => {
           </div>
         )}
         <div>
-        <NavLink to='/cart' activeClassName='activeLink"'>
-        <IconButton aria-label="cart">
-        <StyledBadge badgeContent={countAllQty(cart)} color="primary">
-          <ShoppingCartIcon />
-        </StyledBadge>
-      </IconButton>
-        </NavLink>
+          <NavLink to="/cart" activeClassName='activeLink"'>
+            <IconButton aria-label="cart">
+              <StyledBadge badgeContent={countAllQty(cart)} color="primary">
+                <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
+          </NavLink>
         </div>
       </nav>
-      <hr />
+      <h1 className="title">Nip Sip</h1>
     </div>
   )
 }

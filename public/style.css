@@ -1,5 +1,12 @@
 body {
-  font-family: sans-serif;
+  font-family: Roboto, sans-serif;
+}
+
+.title {
+  font-family: 'Special Elite', cursive;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 6rem;
 }
 
 a {
@@ -104,15 +111,15 @@ form div {
 }
 
 .cart-summary {
-  flex: 1.5
+  flex: 1.5;
 }
 
 .shipping-info {
-  flex: 1
+  flex: 1;
 }
 
 .billing-info {
-  flex: 1
+  flex: 1;
 }
 
 #single-product-quantity {

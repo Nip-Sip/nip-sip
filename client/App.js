@@ -5,7 +5,7 @@ import Routes from './Routes'
 
 const App = () => {
   return (
-    <div>
+    <div style={{ backgroundColor: 'whitesmoke' }}>
       <Navbar />
       <Routes />
     </div>
