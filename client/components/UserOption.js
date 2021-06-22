@@ -5,7 +5,7 @@ import { getAdminInfo } from '../store/admin'
 import { ContactSupportOutlined } from '@material-ui/icons'
 
 const UserOption = () => {
-  const { username } = useSelector(state => state.auth)
+  const { email } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const { admin, auth } = useSelector(s => s)
 
@@ -14,6 +14,7 @@ const UserOption = () => {
   }, [])
 
   const [state, setState] = useState({
+    productId: '',
     name: '',
     description: '',
     category: '',
@@ -23,9 +24,24 @@ const UserOption = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log('here is the submit button', e.target)
-    // dispatch(createProduct(state))
+    console.log('here is the submit button')
+    dispatch(createProduct(state))
     setState({
+      productId: '',
+      name: '',
+      description: '',
+      category: '',
+      price: '',
+      ABV: ''
+    })
+  }
+
+  const handleUpdate = e => {
+    e.preventDefault()
+    console.log('here is the update button')
+    dispatch(updateProduct(state))
+    setState({
+      productId: '',
       name: '',
       description: '',
       category: '',
@@ -52,11 +68,18 @@ const UserOption = () => {
   }
   return (
     <div>
-      <h3>Welcome, {username}</h3>
+      <h3>Welcome, {email}</h3>
       <div id="userOptionsBody">
         {admin.length ? (
           <React.Fragment>
-            <form onSubmit={handleSubmit}>
+            <form>
+              <label htmlFor="productId">Product Id</label>
+              <input
+                name="productId"
+                onChange={handleChange}
+                type="text"
+                placeholder="Product Id"
+              />
               <label htmlFor="name">Name</label>
               <input
                 onChange={handleChange}
@@ -104,10 +127,10 @@ const UserOption = () => {
                 <option value="Liqueur">Liqueur</option>
               </select>
               <p>
-                <button id="submitButton" type="submit">
+                <button id="submitButton" onClick={handleSubmit} type="submit">
                   Create
                 </button>
-                <button id="updateButton" type="submit">
+                <button onClick={handleUpdate} id="updateButton" type="submit">
                   Update
                 </button>
               </p>

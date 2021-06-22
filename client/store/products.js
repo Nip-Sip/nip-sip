@@ -72,9 +72,10 @@ export const createProduct = product => {
 export const updateProduct = product => {
   return async dispatch => {
     const token = window.localStorage.getItem('token')
+    console.log('here product thunk', product)
     if (token) {
       const { data: updatingProduct } = await axios.put(
-        `/api/products/${id}`,
+        `/api/products/${product.productId}`,
         product,
         {
           headers: {
