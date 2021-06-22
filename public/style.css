@@ -175,3 +175,8 @@ form div {
   font-size: small;
   font-style: italic;
 }
+
+#productImage {
+  max-height: 250px;
+  max-width: 250px;
+}
