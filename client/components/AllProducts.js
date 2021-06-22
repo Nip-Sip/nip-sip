@@ -11,17 +11,17 @@ const AllProducts = () => {
   const { products } = useSelector(s => s)
 
   const [anchor, setAnchor] = useState(null)
-  const [id, setId] = useState(null)
+  const [product, setProduct] = useState(null)
 
-  const openSingleProduct = (event, id) => {
-    setAnchor(event.target)
-    setId(id)
+  const openSingleProduct = (event, product) => {
+    if (event.target.name !== 'all-products-add-to-cart') {
+      //don't open the popover if the button is clicked
+      setAnchor(event.target)
+      setProduct(product)
+    }
   }
 
-  //sample click handler for add to cart button
-  //need to call event.stopPropagation() to prevent the popup from opening
   const addToCart = (event, product) => {
-    event.stopPropagation()
     dispatch(updateCart(formatCartItem(product)))
   }
 
@@ -46,20 +46,17 @@ const AllProducts = () => {
         {products.map(product => (
           <div
             className="product-card"
-            // onClick={() => openSingleProduct(event, product.id)}
+            onClick={() => openSingleProduct(event, product)}
             key={product.id}
           >
             <div id="productName">{product.name}</div>
-            <img
-              src={product.imageUrl}
-              onClick={() => openSingleProduct(event, product.id)}
-            />
+            <img src={product.imageUrl} />
             <div id="productDetails">
               ${product.price / 100} | {product.category}
             </div>
             <button
               type="button"
-              id="allProductsAddCartButton"
+              name="all-products-add-to-cart"
               onClick={() => addToCart(event, product)}
             >
               {' '}
@@ -75,7 +72,7 @@ const AllProducts = () => {
           transformOrigin={{ vertical: 'center', horizontal: 'center' }}
           onClose={() => setAnchor(null)}
         >
-          <SingleProduct id={id} />
+          <SingleProduct product={product} />
         </Popover>
       </div>
     </>
