@@ -11,12 +11,13 @@ const AllProducts = () => {
   const { products } = useSelector(s => s)
 
   const [anchor, setAnchor] = useState(null)
-  const [id, setId] = useState(null)
+  const [product, setProduct] = useState(null)
 
-  const openSingleProduct = (event, id) => {
-    if (event.target.name !== "all-products-add-to-cart") { //don't open the popover if the button is clicked
+  const openSingleProduct = (event, product) => {
+    if (event.target.name !== 'all-products-add-to-cart') {
+      //don't open the popover if the button is clicked
       setAnchor(event.target)
-      setId(id)
+      setProduct(product)
     }
   }
 
@@ -45,14 +46,11 @@ const AllProducts = () => {
         {products.map(product => (
           <div
             className="product-card"
-            onClick={() => openSingleProduct(event, product.id)}
+            onClick={() => openSingleProduct(event, product)}
             key={product.id}
           >
             <div id="productName">{product.name}</div>
-            <img
-              src={product.imageUrl}
-              // onClick={() => openSingleProduct(event, product.id)}
-            />
+            <img src={product.imageUrl} />
             <div id="productDetails">
               ${product.price / 100} | {product.category}
             </div>
@@ -74,7 +72,7 @@ const AllProducts = () => {
           transformOrigin={{ vertical: 'center', horizontal: 'center' }}
           onClose={() => setAnchor(null)}
         >
-          <SingleProduct id={id} />
+          <SingleProduct product={product} />
         </Popover>
       </div>
     </>

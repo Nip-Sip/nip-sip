@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getProduct } from '../store/singleProduct'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { updateCart } from '../store/cart'
 
 const SingleProduct = props => {
-  const id = props.id
+  const product = props.product
 
   const dispatch = useDispatch()
-  const { product } = useSelector(s => s)
 
   const [quantity, setQuantity] = useState(1)
 
@@ -19,10 +17,6 @@ const SingleProduct = props => {
     event.preventDefault()
     dispatch(updateCart(formatCartItem(product, quantity)))
   }
-
-  useEffect(() => {
-    dispatch(getProduct(id))
-  }, [])
 
   const formatCartItem = (product, quantity) => {
     return {
@@ -47,7 +41,7 @@ const SingleProduct = props => {
         className="quantity-select"
         onSubmit={() => addToCart(event, product)}
       >
-        <div id='single-product-quantity'>
+        <div id="single-product-quantity">
           <label>Qty: </label>
           <input
             type="number"
