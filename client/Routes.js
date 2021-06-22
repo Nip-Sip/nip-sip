@@ -7,7 +7,7 @@ import Cart from './components/Cart'
 import UserOption from './components/UserOption'
 import AdminBoard from './components/AdminBoard'
 import { me } from './store'
-import Checkout from './components/Checkout'
+import Checkout from './components/checkout/Checkout'
 
 const Routes = () => {
   const dispatch = useDispatch()
