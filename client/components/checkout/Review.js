@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCart, updateCart, removeItemFromCart } from '../../store/cart'
+import { getCart } from '../../store/cart'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
@@ -48,29 +48,45 @@ export default function Review() {
     return () => {}
   }, [])
 
-  console.log(allCart)
-
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
       <List disablePadding>
-        {allCart.map(product =>{
+        {allCart.map(product => {
           const { price } = product
           const { quantity } = product.cartItem
           let totalItemPrice = price * quantity
           subTotal += totalItemPrice
-        return (
-          <ListItem className='review-cart-item' key={product.id}>
-            <ListItemText primary={product.name} secondary={`$${product.price / 100} x ${product.cartItem.quantity}`} />
-            <Typography variant="body2">${totalItemPrice / 100}</Typography>
-          </ListItem>
-        )})}
-        <ListItem className={classes.listItem}>
+          return (
+            <ListItem className="review-cart-item" key={product.id}>
+              <ListItemText
+                primary={product.name}
+                secondary={`$${product.price / 100} x ${
+                  product.cartItem.quantity
+                }`}
+              />
+              <Typography variant="body2">${totalItemPrice / 100}</Typography>
+            </ListItem>
+          )
+        })}
+        <ListItem>
+          <ListItemText primary="Subtotal" />
+          <Typography variant="body2" className={classes.total}>
+            ${subTotal / 100}
+          </Typography>
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Tax" />
+          <Typography variant="body2" className={classes.total}>
+            ${((subTotal * tax) / 100).toFixed(2)}
+          </Typography>
+        </ListItem>
+        <ListItem>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            ${subTotal / 100}
+            ${((subTotal * tax + subTotal) / 100).toFixed(2)}
           </Typography>
         </ListItem>
       </List>
