@@ -16,7 +16,8 @@ const UserOption = () => {
     name: '',
     description: '',
     category: '',
-    price: ''
+    price: '',
+    ABV: ''
   })
 
   const handleSubmit = e => {
@@ -26,7 +27,8 @@ const UserOption = () => {
       name: '',
       description: '',
       category: '',
-      price: ''
+      price: '',
+      ABV: ''
     })
   }
 
@@ -66,6 +68,17 @@ const UserOption = () => {
               type="text"
               placeholder="Product Description"
               value={state.description}
+            />
+            <label htmlFor="ABV">ABV</label>
+            <input
+              onChange={handleChange}
+              name="ABV"
+              type="number"
+              min="0"
+              max="1"
+              step="any"
+              placeholder="ABV (decimal)"
+              value={state.ABV}
             />
             <label htmlFor="category">Category</label>
             <select name="category" onChange={handleChange}>
