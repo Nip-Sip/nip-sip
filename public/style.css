@@ -33,6 +33,10 @@ nav a {
   margin: 1em;
 }
 
+.cart-container {
+  display: flex;
+}
+
 form div {
   margin: 1em;
   display: inline-block;
@@ -117,3 +121,8 @@ form div {
 .billing-info {
   flex: 1;
 }
+
+#single-product-quantity {
+  display: flex;
+}
+
