@@ -17,7 +17,9 @@ const Product = db.define('product', {
     type: Sequelize.DECIMAL(10, 1)
   },
   imageUrl: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue:
+      'http://sc04.alicdn.com/kf/H4782b5739bcb4327a6a9f8cc7e1bccdbo.jpg'
   },
   description: {
     type: Sequelize.TEXT
