@@ -6,6 +6,7 @@ import SingleProduct from './SingleProduct'
 import Search from './Search'
 import { updateCart, getCart } from '../store/cart'
 // Material UI Added
+import Carousel from './Carousel'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardActionArea from '@material-ui/core/CardActionArea'
@@ -88,6 +89,9 @@ const AllProducts = () => {
 
   return (
     <>
+      {/* <Carousel /> */}
+      {/* Docs:
+			https://www.npmjs.com/package/react-responsive-carousel */}
       <Search />
       <div id="allProducts">
         {products.map(product => (
