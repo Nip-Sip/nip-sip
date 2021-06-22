@@ -14,7 +14,7 @@ async function seed() {
   )
 
   let products
-  if (process.env.NODE_ENV === 'test') {
+  if (process.env.NODE_ENV !== 'test') {
     products = require('../server/db/seed.json')
   } else {
     const res = await fetch(
