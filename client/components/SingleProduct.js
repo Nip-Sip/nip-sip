@@ -47,16 +47,18 @@ const SingleProduct = props => {
         className="quantity-select"
         onSubmit={() => addToCart(event, product)}
       >
-        <label>Qty: </label>
-        <input
-          type="number"
-          min="1"
-          step="1"
-          onChange={handleChange}
-          defaultValue="1"
-          required
-        />
-        <input type="submit" value="Add to Cart" />
+        <div id='single-product-quantity'>
+          <label>Qty: </label>
+          <input
+            type="number"
+            min="1"
+            step="1"
+            onChange={handleChange}
+            defaultValue="1"
+            required
+          />
+          <input type="submit" value="Add to Cart" />
+        </div>
       </form>
     </div>
   )
