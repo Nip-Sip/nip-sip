@@ -1,5 +1,12 @@
 body {
-  font-family: sans-serif;
+  font-family: Roboto, sans-serif;
+}
+
+.title {
+  font-family: 'Special Elite', cursive;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 6rem;
 }
 
 a {
@@ -24,6 +31,10 @@ nav {
 nav a {
   display: inline-block;
   margin: 1em;
+}
+
+.cart-container {
+  display: flex;
 }
 
 form div {
@@ -109,6 +120,10 @@ form div {
 
 .billing-info {
   flex: 1;
+}
+
+#single-product-quantity {
+  display: flex;
 }
 
 /* Search.js */

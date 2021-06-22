@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCart, updateCart, removeItemFromCart } from '../store/cart'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
+import Container from '@material-ui/core/Container'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import Divider from '@material-ui/core/Divider'
 
 const Cart = () => {
   const dispatch = useDispatch()
-  const loggedInUser = useSelector(state => state.auth.id)
-  const auth = useSelector(state => state.auth)
   const allCart = useSelector(state => state.cart)
   const [quantityChange, setQuantity] = useState({})
-  let totalPrice = 0
-  console.log('auth', auth)
-  console.log('loggedinUser', loggedInUser)
+  let subTotal = 0
+  let tax = 0.085
 
   useEffect(() => {
     dispatch(getCart())
@@ -18,7 +27,7 @@ const Cart = () => {
     return () => {}
   }, [])
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setQuantity({
       ...quantityChange,
       [e.target.name]: e.target.value
@@ -26,90 +35,138 @@ const Cart = () => {
   }
 
   const handleUpdate = (event, item) => {
-    const quantity = quantityChange[item.id]
+    const quantity = +quantityChange[item.id]
     if (quantity) {
-    dispatch(updateCart(formatCartItem(item, quantity)))
-    setQuantity({
-      ...quantityChange,
-      [item.id]: undefined
-    })
+      dispatch(updateCart(formatCartItem(item, quantity)))
+      setQuantity({
+        ...quantityChange,
+        [item.id]: undefined
+      })
     }
+    if (quantity === 0) dispatch(removeItemFromCart(item.id))
   }
 
-  const handleDelete = (itemId) => {
+  const handleDelete = itemId => {
     dispatch(removeItemFromCart(itemId))
   }
 
   const formatCartItem = (item, quantity) => {
     return {
-     ...item,
-     cartItem: {
-       quantity: quantity,
-       inCart: true
-     }
+      ...item,
+      cartItem: {
+        quantity: quantity,
+        inCart: true
+      }
     }
   }
 
   return (
     <div className="cart-container">
-      <div className="cart-left">
-        {allCart.map(item => {
-          const { id, name, price, imageUrl } = item
-          const { quantity } = item.cartItem
-          return (
-            <div key={id} className="cart-item">
-              <img src={imageUrl} />
-              <div>
-                <span>{name}</span>
-                <input
-                  name={id}
-                  type="number"
-                  min="0"
-                  step="1"
-                  defaultValue={quantity}
-                  onChange={handleChange}
-                />{' '}
-                <button onClick={() => handleUpdate(event, item)}>Update</button> <button onClick={() => handleDelete(id)}>Delete</button>
-              </div>
-              <div>
-                <span>{`$${price}`}</span>
-              </div>
-            </div>
-          )
-        })}
-      </div>
-      <div className="cart-right">
-        <table className="summary">
-          <thead>
-            <tr>
-              <th>Nip</th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th>Total Item Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allCart.map(item => {
-              const { id, name, price } = item
-              const { quantity } = item.cartItem
-              let totalItemPrice = (price * quantity).toFixed(2)
-              totalPrice += price * quantity
-              return (
-                <tr key={id} className="cart-item-summary">
-                  <td>{name}</td>
-                  <td>{`$${price}`}</td>
-                  <td>X {quantity}</td>
-                  <td>{`$${totalItemPrice}`}</td>
-                </tr>
-              )
-            })}
-            <tr>
-              <th>Total: </th>
-              <td>{`$${totalPrice.toFixed(2)}`}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <Container className="cart-left" component={Paper}>
+        <List>
+          {allCart.map((item, i) => {
+            const { id, name, price, imageUrl } = item
+            const { quantity } = item.cartItem
+            const divider = i !== allCart.length - 1 ? '' : 'none'
+            const inputColor =
+              quantityChange[id] && quantityChange[id] !== id
+                ? 'red'
+                : 'lightGrey'
+
+            return (
+              <>
+                <ListItem key={id} className="cart-item">
+                  <img style={{ maxHeight: '100px' }} src={imageUrl} />
+                  <div>
+                    <ListItemText
+                      primary={name}
+                      secondary={`$${price / 100}`}
+                    />
+                    <input
+                      name={id}
+                      type="number"
+                      min="0"
+                      step="1"
+                      defaultValue={quantity}
+                      onChange={handleChange}
+                      style={{ width: '50px', borderColor: inputColor }}
+                    />{' '}
+                    <button onClick={() => handleUpdate(event, item)}>
+                      Update
+                    </button>{' '}
+                    <button onClick={() => handleDelete(id)}>Delete</button>
+                  </div>
+                </ListItem>
+                <Divider
+                  variant="middle"
+                  component="li"
+                  style={{ display: divider }}
+                />
+              </>
+            )
+          })}
+        </List>
+      </Container>
+      <Container className="cart-right">
+        <TableContainer component={Paper}>
+          <Table aria-label="spanning table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center" colSpan={4}>
+                  Cart Summary
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell align="left">Nip</TableCell>
+                <TableCell align="left">Price</TableCell>
+                <TableCell align="center">Qty</TableCell>
+                <TableCell align="right">Total</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {allCart.map(item => {
+                const { id, name, price } = item
+                const { quantity } = item.cartItem
+                let totalItemPrice = price * quantity
+                subTotal += totalItemPrice
+                return (
+                  <TableRow key={id} className="cart-item-summary">
+                    <TableCell>{name}</TableCell>
+                    <TableCell>{`$${(price / 100).toFixed(2)}`}</TableCell>
+                    <TableCell align="center">X {quantity}</TableCell>
+                    <TableCell align="right">{`$${(
+                      totalItemPrice / 100
+                    ).toFixed(2)}`}</TableCell>
+                  </TableRow>
+                )
+              })}
+              <TableRow>
+                <TableCell rowSpan={3} />
+                <TableCell align="left" colSpan={2}>
+                  Subtotal:
+                </TableCell>
+                <TableCell align="right">{`$${(subTotal / 100).toFixed(2)}`}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell align="left">Tax:</TableCell>
+                <TableCell align="center">{`${tax * 100}%`}</TableCell>
+                <TableCell align="right">{`$${((tax * subTotal) / 100).toFixed(
+                  2
+                )}`}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell align="left" colSpan={2}>
+                  Total:
+                </TableCell>
+                <TableCell align="right">{`$${(
+                  (subTotal + tax * subTotal) /
+                  100
+                ).toFixed(2)}`}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
     </div>
   )
 }
