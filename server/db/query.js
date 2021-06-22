@@ -14,12 +14,18 @@ async function query() {
   // const allProducts = await Product.findAll()
 
   // this is useful to find the top 5 items that people bought
-  const c = await CartItem.findAll({
-    limit: 5,
-    order: [['quantity', 'DESC']]
+  // const c = await CartItem.findAll({
+  //   limit: 5,
+  //   order: [['quantity', 'DESC']]
+  // })
+
+  const jason = Product.create({
+    productId: 4,
+    name: 'jason drink',
+    price: 444
   })
 
-  console.log(JSON.stringify(c, null, 2))
+  console.log(JSON.stringify(jason, null, 2))
 }
 
 query()
