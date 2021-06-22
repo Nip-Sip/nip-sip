@@ -1,40 +1,58 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getProduct } from '../store/singleProduct'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { updateCart } from '../store/cart'
 
 const SingleProduct = props => {
-  const quantities = [...Array(20).keys()].map(n => ++n)
-
-  const id = props.id
+  const product = props.product
 
   const dispatch = useDispatch()
-  const { product } = useSelector(s => s)
 
-  //placeholder submit handler for add to cart submission
-  //need to call event.preventDefault() to prevent the page from refreshing
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    console.log('hello')
+  const [quantity, setQuantity] = useState(1)
+
+  const handleChange = event => {
+    setQuantity(Number(event.target.value))
   }
 
-  useEffect(() => {
-    dispatch(getProduct(id))
-  }, [])
+  const addToCart = (event, product) => {
+    event.preventDefault()
+    dispatch(updateCart(formatCartItem(product, quantity)))
+  }
+
+  const formatCartItem = (product, quantity) => {
+    return {
+      ...product,
+      cartItem: {
+        quantity: quantity
+      }
+    }
+  }
 
   return (
     <div className="single-product">
       <div className="product-name">{product.name}</div>
-      <img src={product.imageUrl} />
+      <img id="productImage" src={product.imageUrl} />
       <div className="product-details">
-        <div>${product.price}</div>
+        <div>${product.price / 100}</div>
         <div>{product.category}</div>
         <div>ABV: {Number(product.ABV) * 100}%</div>
         <div>{product.description}</div>
       </div>
-      <form className="quantity-select" onSubmit={handleSubmit}>
-        <label>Qty: </label>
-        <input type="number" min="0" step='1' defaultValue='1' />
-        <input type="submit" value="Add to Cart" />
+      <form
+        className="quantity-select"
+        onSubmit={() => addToCart(event, product)}
+      >
+        <div id="single-product-quantity">
+          <label>Qty: </label>
+          <input
+            type="number"
+            min="1"
+            step="1"
+            onChange={handleChange}
+            defaultValue="1"
+            required
+          />
+          <input type="submit" value="Add to Cart" />
+        </div>
       </form>
     </div>
   )

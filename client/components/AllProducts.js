@@ -5,23 +5,71 @@ import { Popover } from '@material-ui/core'
 import SingleProduct from './SingleProduct'
 import Search from './Search'
 import { updateCart, getCart } from '../store/cart'
+// Material UI Added
+import Carousel from './Carousel'
+import { makeStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+
+// Styles used
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 345
+  },
+  media: {
+    height: 140
+  }
+})
+
+// function ProductCard({ product }) {
+//   const classes = useStyles()
+
+//   return (
+//     <Card key={product.id} className={classes.root}>
+//       <CardActionArea>
+//         <CardMedia className={classes.media} image={product.imageUrl} />
+//         <CardContent>
+//           <Typography gutterBottom variant="h5" component="h2">
+//             {product.name}
+//           </Typography>
+//           <Typography variant="body2" color="textSecondary" component="p">
+//             {product.description}
+//           </Typography>
+//         </CardContent>
+//       </CardActionArea>
+//       <CardActions>
+//         <Button size="small" color="primary">
+//           Share
+//         </Button>
+//         <Button size="small" color="primary">
+//           Add to Cart
+//         </Button>
+//       </CardActions>
+//     </Card>
+//   )
+// }
 
 const AllProducts = () => {
   const dispatch = useDispatch()
   const { products } = useSelector(s => s)
 
   const [anchor, setAnchor] = useState(null)
-  const [id, setId] = useState(null)
+  const [product, setProduct] = useState(null)
 
-  const openSingleProduct = (event, id) => {
-    setAnchor(event.target)
-    setId(id)
+  const openSingleProduct = (event, product) => {
+    if (event.target.name !== 'all-products-add-to-cart') {
+      //don't open the popover if the button is clicked
+      setAnchor(event.target)
+      setProduct(product)
+    }
   }
 
-  //sample click handler for add to cart button
-  //need to call event.stopPropagation() to prevent the popup from opening
   const addToCart = (event, product) => {
-    event.stopPropagation()
     dispatch(updateCart(formatCartItem(product)))
   }
 
@@ -41,25 +89,26 @@ const AllProducts = () => {
 
   return (
     <>
+      {/* <Carousel /> */}
+      {/* Docs:
+			https://www.npmjs.com/package/react-responsive-carousel */}
       <Search />
       <div id="allProducts">
         {products.map(product => (
           <div
             className="product-card"
-            // onClick={() => openSingleProduct(event, product.id)}
+            onClick={() => openSingleProduct(event, product)}
             key={product.id}
           >
+            {/* <ProductCard product={product} /> */}
             <div id="productName">{product.name}</div>
-            <img
-              src={product.imageUrl}
-              onClick={() => openSingleProduct(event, product.id)}
-            />
+            <img id="productImage" src={product.imageUrl} />
             <div id="productDetails">
-              ${product.price} | {product.category}
+              ${product.price / 100} | {product.category}
             </div>
             <button
               type="button"
-              id="allProductsAddCartButton"
+              name="all-products-add-to-cart"
               onClick={() => addToCart(event, product)}
             >
               {' '}
@@ -75,7 +124,7 @@ const AllProducts = () => {
           transformOrigin={{ vertical: 'center', horizontal: 'center' }}
           onClose={() => setAnchor(null)}
         >
-          <SingleProduct id={id} />
+          <SingleProduct product={product} />
         </Popover>
       </div>
     </>

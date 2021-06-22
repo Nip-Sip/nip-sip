@@ -1,5 +1,21 @@
 body {
-  font-family: sans-serif;
+  font-family: Roboto, sans-serif;
+}
+
+button {
+  border-radius: 0.25rem;
+  background: transparent;
+}
+
+.s-e {
+  font-family: 'Special Elite', cursive;
+}
+
+.title {
+  font-family: 'Special Elite', cursive;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 6rem;
 }
 
 a {
@@ -15,9 +31,19 @@ label {
   display: block;
 }
 
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
+}
+
+.cart-container {
+  display: flex;
 }
 
 form div {
@@ -52,4 +78,105 @@ form div {
 .activeLink {
   font-weight: bold;
   color: palevioletred;
+}
+
+.inputIncorrect {
+  border: 3px solid palevioletred;
+}
+
+.inputCorrect {
+  border: 3px solid aquamarine;
+}
+
+/* Auth Form */
+
+#authform {
+  display: flex;
+  flex-direction: column;
+}
+
+#subauth {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#subauth div {
+  display: flex;
+  flex-direction: column;
+}
+#subauth div > * {
+  margin-bottom: 0.5rem;
+}
+
+.authForm {
+  color: white;
+}
+
+.bar-lady {
+  background-image: url(./woman-bar.jpg);
+  height: 90vh;
+  filter: blur(0.5rem);
+  z-index: 2;
+}
+
+.opacity {
+  border: 1px solid lightblue;
+  height: 20rem;
+  overflow: hidden;
+  z-index: 10;
+  position: fixed;
+  top: calc(50vh - 200px);
+  left: calc(50vw - 400px);
+  padding: 2rem;
+  width: 800px;
+}
+
+.auth-form {
+  margin: 0 auto;
+  width: 400px;
+}
+
+.auth-form > div {
+  margin-top: 5rem;
+}
+
+.checkout-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.cart-summary {
+  flex: 1.5;
+}
+
+.shipping-info {
+  flex: 1;
+}
+
+.billing-info {
+  flex: 1;
+}
+
+#single-product-quantity {
+  display: flex;
+}
+
+/* Search.js */
+
+.searchInput {
+  border: 1px solid rgb(209, 195, 195);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.searchCategory {
+  font-size: small;
+  font-style: italic;
+}
+
+#productImage {
+  max-height: 300px;
+  max-width: 300px;
 }
