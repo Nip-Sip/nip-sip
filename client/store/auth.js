@@ -12,7 +12,7 @@ const SET_AUTH = 'SET_AUTH'
  * ACTION CREATORS
  */
 const setAuth = auth => ({ type: SET_AUTH, auth })
-
+const setFav = fav => ({ type: SET_FAV, fav })
 /**
  * THUNK CREATORS
  */
@@ -48,6 +48,20 @@ export const logout = () => {
   }
 }
 
+export const getFavItem = () => {
+  try {
+    const res = await axios.get('/users/info', {
+      headers: {
+        authorization: token
+      }
+    })
+    return dispatch(setFav(res.data))
+  } catch (error) {
+    console.log(`🟢  failed on getFavItem`)
+    console.log(error)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -55,6 +69,8 @@ export default function (state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
       return action.auth
+    case SET_FAV:
+      return { ...state, fav: action.fav }
     default:
       return state
   }

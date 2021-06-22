@@ -5,6 +5,7 @@ import AddressForm from './checkout/AddressForm'
 import Checkout from './checkout/Checkout'
 import PaymentForm from './checkout/PaymentForm'
 import Review from './checkout/Review'
+import UserFav from './UserFavs'
 
 const AdminBoard = () => {
   const dispatch = useDispatch()
@@ -22,6 +23,7 @@ const AdminBoard = () => {
       <Checkout />
       <PaymentForm />
       <Review />
+      <UserFav />
     </div>
   )
 }

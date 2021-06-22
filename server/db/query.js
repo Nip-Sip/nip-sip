@@ -4,14 +4,6 @@ const {
   models: { User, Product, CartItem }
 } = require('./index')
 
-const graphDatabase = {
-  Whisky: ['Rum'],
-  Tequila: ['Vodka'],
-  Vodka: ['Tequila', 'Whisky'],
-  Rum: ['Liqeur'],
-  Liqueur: ['Vodka']
-}
-
 async function query() {
   await db.sync()
 
@@ -33,6 +25,15 @@ async function query() {
   //
   //
   // User query: provide the token, and then provide the body [query];
+
+  const graphDatabase = {
+    Whisky: ['Rum'],
+    Tequila: ['Vodka'],
+    Vodka: ['Tequila', 'Whisky'],
+    Rum: ['Liqeur'],
+    Liqueur: ['Vodka']
+  }
+
   const userFavType = 'Vodka'
   const variety = await Product.findAll({
     where: { category: userFavType },
@@ -52,9 +53,11 @@ async function query() {
 
   console.log(`🟢  rows.length `, rows.length)
   // combine into an array of at least 5...
-  variety.push(...rows.flat()).sort()
+  variety.push(...rows.flat())
+  variety.sort((a, b) => a.id - b.id) // sort by id to fake randomness
 
-  console.log(`🟢  variety[0] `, variety[0])
+  // send back 5 rows
+  res.send(variety.slice(0, 5))
   // console.log(JSON.stringify(userSameRows, null, 2))
   // r1,r2
   db.close()
