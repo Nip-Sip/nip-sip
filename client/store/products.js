@@ -26,12 +26,13 @@ export const setVisibility = (products, type = VIEW_ALL) => {
   return {
     type,
     products
+  }
+}
 
 export const deletedProduct = product => {
   return {
     type: DELETED_PRODUCT,
     product
-
   }
 }
 
@@ -90,7 +91,7 @@ export function productsReducer(state = [], action) {
   }
 }
 
-export function visibilityReducer(state=[], action) {
+export function visibilityReducer(state = [], action) {
   switch (action.type) {
     case VIEW_ALL:
       return action.products
