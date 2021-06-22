@@ -5,22 +5,32 @@ import '../../public/style.css'
 import img from '../../public/woman-bar.jpg'
 // Relative path to image file from js file
 
+function isEmail(email) {
+  const regexp =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  return regexp.test(email)
+}
+
 const AuthForm = ({ login }) => {
   const dispatch = useDispatch()
   const { error } = useSelector(state => state.auth)
-  const [user, setUser] = useState('')
+  const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
 
   const handleSubmit = e => {
     e.preventDefault()
     const formName = e.target.name
-    const username = e.target.username.value
+    const email = e.target.email.value
     const password = e.target.password.value
-    if (formName.length < 3 || password.length < 3) {
-      alert('Invalid formname or password.')
+    if (email.length < 3 || password.length < 3) {
+      alert('Email and or password must not be less than 3')
       return
     }
-    dispatch(authenticate(username, password, formName))
+    if (!isEmail(email)) {
+      alert('Invalid email!')
+      return
+    }
+    dispatch(authenticate(email, password, formName))
   }
 
   return (
@@ -37,12 +47,12 @@ const AuthForm = ({ login }) => {
         <p className="s-e">An adventure of your life time awaits...</p>
         <div id="subauth">
           <div>
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input
-              onChange={e => setUser(e.target.value)}
-              name="username"
+              onChange={e => setEmail(e.target.value)}
+              name="email"
               type="text"
-              className={user.length >= 3 ? 'inputCorrect' : 'inputIncorrect'}
+              className={email.length >= 3 ? 'inputCorrect' : 'inputIncorrect'}
             />
           </div>
           <div>

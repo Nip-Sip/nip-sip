@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { VIEW_SEARCH, VIEW_ALL, setVisibility } from '../store/products'
 
 import Fuse from 'fuse.js'
 
 const Search = () => {
   const [query, setQuery] = useState('')
   const [resBox, setResBox] = useState([])
+  const [resultsMessage, setMessage] = useState('')
+  const dispatch = useDispatch()
 
   const { products } = useSelector(s => s)
 
@@ -26,6 +29,7 @@ const Search = () => {
 
   const onSearch = ({ currentTarget }) => {
     setQuery(currentTarget.value)
+    setMessage('')
     console.log(`🟢  results `, results)
   }
 
@@ -34,6 +38,14 @@ const Search = () => {
     const itemArr = results.map(r => r.item)
     console.log(`🟢  itemArr `, itemArr)
     setResBox(itemArr)
+    if (query) {
+      if (itemArr.length < 1) {
+        setMessage('No Results')
+      }
+      dispatch(setVisibility(itemArr, VIEW_SEARCH))
+    } else {
+      dispatch(setVisibility(products, VIEW_ALL))
+    }
   }
 
   return (
@@ -42,14 +54,7 @@ const Search = () => {
       <form onSubmit={onSubmit}>
         <input placeholder="search here" type="text" onChange={onSearch} />
       </form>
-      <ul>
-        {resBox.map(({ name, category, id }) => (
-          <div className="searchInput">
-            <div key={id}>{name}</div>
-            <div className="searchCategory">{category}</div>
-          </div>
-        ))}
-      </ul>
+      <span>{resultsMessage}</span>
     </>
   )
 }
