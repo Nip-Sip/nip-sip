@@ -58,7 +58,10 @@ function ProductCard({ product }) {
               {product.name}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              ${product.price / 100} || {product.category}
+              {product.category}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              ${product.price / 100}
             </Typography>
           </CardContent>
         </CardActionArea>
