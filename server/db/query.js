@@ -4,12 +4,12 @@ const {
   models: { User, Product, CartItem }
 } = require('./index')
 
-const graph = {
-  W: ['R'],
-  T: ['V'],
-  V: ['T', 'W'],
-  R: ['L'],
-  L: ['V']
+const graphDatabase = {
+  Whisky: ['Rum'],
+  Tequila: ['Vodka'],
+  Vodka: ['Tequila', 'Whisky'],
+  Rum: ['Liqeur'],
+  Liqueur: ['Vodka']
 }
 
 async function query() {
@@ -29,8 +29,7 @@ async function query() {
 
   // console.log(JSON.stringify(c, null, 2))
 
-  const whiskey = await CartItem.findOne({ where: { category: 'Whiskey' } })
-  console.log(JSON.stringify(whiskey, 2, null))
+  const whisky = await Product.findOne({ where: { category: 'Whisky' } })
 }
 
 query()
