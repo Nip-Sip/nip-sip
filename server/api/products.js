@@ -30,8 +30,6 @@ router.post('/', requireAdminToken, async (req, res, next) => {
   try {
     const { user } = req
     if (user) {
-      // const {name, price, description, ABV, category} = req.body
-
       res.status(201).send(await Product.create(req.body))
     }
   } catch (err) {
@@ -45,7 +43,7 @@ router.put('/:id', requireAdminToken, async (req, res, next) => {
     const { user } = req
     if (user) {
       const currProduct = await Product.findByPk(req.params.id)
-      console.log('here is the current product', currProduct)
+
       res.send(await currProduct.update(req.body))
     }
   } catch (err) {

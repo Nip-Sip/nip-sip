@@ -70,7 +70,6 @@ export const createProduct = product => {
 }
 
 export const updateProduct = product => {
-  console.log('outer product', product)
   return async dispatch => {
     try {
       console.log(product)
@@ -86,11 +85,10 @@ export const updateProduct = product => {
             }
           }
         )
-        console.log('updated product', updatingProduct)
+
         dispatch(updatedProduct(updatingProduct))
       }
     } catch (error) {
-      console.log('error here')
       console.error(error)
     }
   }
