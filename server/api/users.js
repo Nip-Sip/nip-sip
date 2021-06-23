@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { requireToken, requireAdminToken } = require('../auth/middleware')
 const {
-  models: { User, CartItem }
+  models: { User, CartItem, Order }
 } = require('../db')
 module.exports = router
 
@@ -64,6 +64,19 @@ router.delete('/cart/:itemId', requireToken, async (req, res, next) => {
     const { user } = req
     await user.removeProduct(itemId)
     res.json('ok')
+  } catch (error) {
+    next(error)
+  }
+})
+
+//POST /users/orders
+router.post('/orders', requireToken, async (req, res, next) => {
+  try {
+    const newOrder = await Order.create(req.body.order)
+    const orderId = newOrder.id
+    const cart = req.body.cart
+    await CartItem.addOrderNumber(orderId, cart)
+    res.json(newOrder)
   } catch (error) {
     next(error)
   }

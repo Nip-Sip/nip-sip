@@ -1,11 +1,13 @@
 import axios from 'axios'
 
 // ACTION_TYPE
-const GOT_PRODUCTS = 'GOT_PRODUCTS'
-const CREATED_PRODUCT = 'CREATED PRODUCT'
+export const GOT_PRODUCTS = 'GOT_PRODUCTS'
+export const CREATED_PRODUCT = 'CREATED PRODUCT'
+export const UPDATED_PRODUCT = 'UPDATED PRODUCT'
+export const DELETED_PRODUCT = 'DELETED PRODUCT'
+
 export const VIEW_ALL = 'VIEW_ALL'
 export const VIEW_SEARCH = 'VIEW_SEARCH'
-const DELETED_PRODUCT = 'DELETED PRODUCT'
 
 // ACTION CREATOR
 export const gotProducts = products => {
@@ -22,10 +24,10 @@ export const createdProduct = product => {
   }
 }
 
-export const setVisibility = (products, type = VIEW_ALL) => {
+export const updatedProduct = product => {
   return {
-    type,
-    products
+    type: UPDATED_PRODUCT,
+    product
   }
 }
 
@@ -33,6 +35,13 @@ export const deletedProduct = product => {
   return {
     type: DELETED_PRODUCT,
     product
+  }
+}
+
+export const setVisibility = (products, type = VIEW_ALL) => {
+  return {
+    type,
+    products
   }
 }
 
@@ -60,6 +69,31 @@ export const createProduct = product => {
   }
 }
 
+export const updateProduct = product => {
+  return async dispatch => {
+    try {
+      console.log(product)
+      const token = window.localStorage.getItem('token')
+
+      if (token) {
+        const { data: updatingProduct } = await axios.put(
+          `/api/products/${product.productId}`,
+          product,
+          {
+            headers: {
+              authorization: token
+            }
+          }
+        )
+
+        dispatch(updatedProduct(updatingProduct))
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
 export const deleteProduct = id => {
   return async dispatch => {
     const token = window.localStorage.getItem('token')
@@ -83,6 +117,9 @@ export function productsReducer(state = [], action) {
     case GOT_PRODUCTS:
       return action.products
     case CREATED_PRODUCT:
+      return [...state, action.product]
+
+    case UPDATED_PRODUCT:
       return [...state, action.product]
     case DELETED_PRODUCT:
       return state.filter(product => product.id !== action.product.id)
