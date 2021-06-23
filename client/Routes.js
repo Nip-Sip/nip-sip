@@ -7,6 +7,7 @@ import Cart from './components/Cart'
 import MyAccount from './components/MyAccount'
 import AdminBoard from './components/AdminBoard'
 import { me } from './store'
+// import Checkout from './components/checkout/Checkout'
 import Checkout from './components/Checkout'
 import AdminOptions from './components/AdminOptions'
 
