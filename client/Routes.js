@@ -8,6 +8,7 @@ import UserOption from './components/UserOption'
 import AdminBoard from './components/AdminBoard'
 import { me } from './store'
 import Checkout from './components/Checkout'
+import AdminOptions from './components/AdminOptions'
 
 const Routes = () => {
   const dispatch = useDispatch()
@@ -35,8 +36,11 @@ const Routes = () => {
           <Route exact path="/admin">
             <AdminBoard />
           </Route>
-          <Route path='/checkout'>
+          <Route path="/checkout">
             <Checkout />
+          </Route>
+          <Route path="/adminOptions">
+            <AdminOptions />
           </Route>
         </Switch>
       ) : (
@@ -56,7 +60,7 @@ const Routes = () => {
           <Route path="/cart">
             <Cart />
           </Route>
-          <Route path='/checkout'>
+          <Route path="/checkout">
             <Checkout />
           </Route>
         </Switch>

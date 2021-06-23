@@ -39,6 +39,9 @@ const Navbar = () => {
               Logout
             </a>
             <NavLink to="/admin">Admin</NavLink>
+            <NavLink to="/adminOptions" activeClassName="activeLink">
+              Admin Options
+            </NavLink>
           </div>
         ) : (
           <div>
