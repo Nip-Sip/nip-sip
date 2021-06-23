@@ -44,8 +44,7 @@ router.get('/cart', requireToken, async (req, res, next) => {
     const { id } = req.user
     const user = await User.findByPk(id)
     let products = await user.getProducts()
-    // console.log(products)
-    // products = products.filter((cartItem) => cartItem.cartItem.dataValues.orderId === null)
+    products = products.filter((cartItem) => cartItem.cartItem.dataValues.orderId === null)
     res.json(products)
   } catch (error) {
     next(error)
