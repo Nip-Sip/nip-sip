@@ -6,12 +6,15 @@ const {
 module.exports = router
 
 //GET /users
-router.get('/', async (req, res, next) => {
+router.get('/', requireAdminToken, async (req, res, next) => {
   try {
-    const users = await User.findAll({
-      attributes: ['id', 'email']
-    })
-    res.json(users)
+    const { user } = req
+    if (user) {
+      const users = await User.findAll({
+        attributes: ['id', 'email', 'createdAt']
+      })
+      res.json(users)
+    }
   } catch (err) {
     next(err)
   }
