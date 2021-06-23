@@ -87,8 +87,7 @@ router.post('/guest/orders', async (req,res, next) => {
     const newOrder = await Order.create(req.body.order)
     const orderId = newOrder.id
     const cart = req.body.cart
-    const cartItems = await CartItem.createCartItemIdList(cart)
-    await CartItem.addOrderNumber(orderId, cartItems)
+    await CartItem.createCartItemsAndAttachOrder(cart, orderId)
   } catch (error) {
     next(error)
   }
