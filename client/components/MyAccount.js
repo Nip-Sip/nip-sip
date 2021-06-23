@@ -21,6 +21,8 @@ const MyAccount = () => {
         <ul>
           <li>Email:{email}</li>
           <li>Account Created: {createdAt}</li>
+          <li>Order History</li>
+          <li>My Cart</li>
         </ul>
       </div>
     </div>
