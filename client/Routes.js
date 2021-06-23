@@ -4,10 +4,11 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm'
 import AllProducts from './components/AllProducts'
 import Cart from './components/Cart'
-import UserOption from './components/UserOption'
+import MyAccount from './components/MyAccount'
 import AdminBoard from './components/AdminBoard'
 import { me } from './store'
 import Checkout from './components/Checkout'
+import AdminOptions from './components/AdminOptions'
 
 const Routes = () => {
   const dispatch = useDispatch()
@@ -23,8 +24,8 @@ const Routes = () => {
     <div>
       {!!isLoggedIn ? (
         <Switch>
-          <Route exact path="/useroption">
-            <UserOption />
+          <Route exact path="/myaccount">
+            <MyAccount />
           </Route>
           <Route exact path="/products">
             <AllProducts />
@@ -35,8 +36,11 @@ const Routes = () => {
           <Route exact path="/admin">
             <AdminBoard />
           </Route>
-          <Route path='/checkout'>
+          <Route path="/checkout">
             <Checkout />
+          </Route>
+          <Route exact path="/adminOptions">
+            <AdminOptions />
           </Route>
         </Switch>
       ) : (
@@ -56,7 +60,7 @@ const Routes = () => {
           <Route path="/cart">
             <Cart />
           </Route>
-          <Route path='/checkout'>
+          <Route path="/checkout">
             <Checkout />
           </Route>
         </Switch>
