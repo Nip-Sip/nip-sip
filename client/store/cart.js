@@ -65,6 +65,7 @@ export const updateCart = cartItem => {
       const cart = cartJSON ? JSON.parse(cartJSON) : []
       const newCart = updateStorage(cart, cartItem)
       localStorage.setItem('cart', JSON.stringify(newCart))
+      //const { data } = await axios.post(`/api/users/cart`, cartItem)
       dispatch(getCart(newCart))
     }
   }

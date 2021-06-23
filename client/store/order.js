@@ -24,7 +24,8 @@ export const createNewOrder = order => {
       const { data } = await axios.post(`/api/users/orders`, order, auth)
       dispatch(createOrder(order))
     } else {
-      console.log('to do')
+      const { data } = await axios.post(`/api/users/guest/orders`, order)
+      dispatch(createOrder(order))
     }
   }
 }

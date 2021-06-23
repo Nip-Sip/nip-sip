@@ -32,13 +32,29 @@ router.get('/cart', requireToken, async (req, res, next) => {
 //POST /users/cart
 router.post('/cart', requireToken, async (req, res, next) => {
   try {
-    const { id } = req.user
-    const newOrUpdatedProduct = await CartItem.createOrUpdate(id, req.body)
+    let id, newOrUpdatedProduct
+    if (req.user) {
+      id = req.user.id
+      newOrUpdatedProduct = await CartItem.createOrUpdate(id, req.body)
+    }
+    else {
+      newOrUpdatedProduct = await CartItem.createOrUpdate(null, req.body)
+    }
     res.json(newOrUpdatedProduct)
   } catch (error) {
     next(error)
   }
 })
+
+// //POST /users/cart/guest
+// router.post('/cart/guest', async (req, res, next) => {
+//   try {
+//     let cartItems = await CartItem.createCartItemIdList(req.body.cart)
+//     cart
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 //DELETE /users/cart
 router.delete('/cart/:itemId', requireToken, async (req, res, next) => {
@@ -60,6 +76,19 @@ router.post('/orders', requireToken, async (req, res, next) => {
     const cart = req.body.cart
     await CartItem.addOrderNumber(orderId, cart)
     res.json(newOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//POST /users/guest/orders
+router.post('/guest/orders', async (req,res, next) => {
+  try {
+    const newOrder = await Order.create(req.body.order)
+    const orderId = newOrder.id
+    const cart = req.body.cart
+    const cartItems = await CartItem.createCartItemIdList(cart)
+    await CartItem.addOrderNumber(orderId, cartItems)
   } catch (error) {
     next(error)
   }
