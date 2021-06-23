@@ -29,7 +29,16 @@ router.get('/', requireAdminToken, async (req, res, next) => {
     const { user } = req
     if (user) {
       const users = await User.findAll({
-        attributes: ['id', 'email', 'createdAt', 'isAdmin']
+        attributes: [
+          'id',
+          'email',
+          'createdAt',
+          'isAdmin',
+          'address',
+          'zipcode',
+          'firstName',
+          'lastName'
+        ]
       })
       res.json(users)
     }
@@ -57,8 +66,7 @@ router.post('/cart', requireToken, async (req, res, next) => {
     if (req.user) {
       id = req.user.id
       newOrUpdatedProduct = await CartItem.createOrUpdate(id, req.body)
-    }
-    else {
+    } else {
       newOrUpdatedProduct = await CartItem.createOrUpdate(null, req.body)
     }
     res.json(newOrUpdatedProduct)
@@ -93,7 +101,7 @@ router.post('/orders', requireToken, async (req, res, next) => {
 })
 
 //POST /users/guest/orders
-router.post('/guest/orders', async (req,res, next) => {
+router.post('/guest/orders', async (req, res, next) => {
   try {
     const newOrder = await Order.create(req.body.order)
     const orderId = newOrder.id

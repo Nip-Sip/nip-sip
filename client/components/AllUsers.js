@@ -15,6 +15,10 @@ const AllUsers = () => {
         <thead>
           <tr>
             <th>User Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>Zip Code</th>
             <th>User Email</th>
             <th>Account Created on</th>
             <th>User is Admin</th>
@@ -25,8 +29,12 @@ const AllUsers = () => {
             <tr id="singleUser" key={user.id}>
               {console.log(user)}
               <td>{user.id}</td>
+              <td>{user.firstName}</td>
+              <td>{user.lastName}</td>
+              <td>{user.address}</td>
+              <td>{user.zipcode}</td>
               <td>{user.email}</td>
-              <td> {user.createdAt}</td>
+              <td> {new Date(user.createdAt).toLocaleDateString('en-US')}</td>
               <td>{user.isAdmin.toString()}</td>
             </tr>
           ))}
