@@ -39,15 +39,6 @@ const UserOption = () => {
     setState({ ...state, [e.target.name]: e.target.value })
   }
 
-  // const [stateUpdate, setStateUpdate] = useState({
-  //   productId: '',
-  //   name: '',
-  //   description: '',
-  //   category: '',
-  //   price: '',
-  //   ABV: ''
-  // })
-
   const handleUpdate = e => {
     e.preventDefault()
     console.log('here is the update button')
@@ -68,22 +59,25 @@ const UserOption = () => {
     })
   }
 
-  // const handleUpdateChange = e => {
-  //   setStateUpdate({ ...stateUpdate, [e.target.name]: e.target.value })
-  // }
-
-  const [deletedId, setDeletedId] = useState('')
+  // const [deletedId, setDeletedId] = useState('')
 
   const handleDeleteSubmit = e => {
     e.preventDefault()
-    dispatch(deleteProduct(deletedId))
-    setDeletedId('')
+    dispatch(deleteProduct(state.productId))
+    setState({
+      productId: '',
+      name: '',
+      description: '',
+      category: '',
+      price: '',
+      ABV: ''
+    })
   }
 
-  const handleDeleteChange = e => {
-    console.log('this delete id!!', deletedId)
-    setDeletedId(e.target.value)
-  }
+  // const handleDeleteChange = e => {
+  //   console.log('this delete id!!', deletedId)
+  //   setDeletedId(e.target.value)
+  // }
   return (
     <div>
       <h3>Welcome, {email}</h3>
@@ -146,76 +140,25 @@ const UserOption = () => {
                 <option value="Liqueur">Liqueur</option>
               </select>
               <p>
-                <button id="submitButton" onClick={handleSubmit} type="submit">
+                <button onClick={handleSubmit} id="submitButton" type="submit">
                   Create
                 </button>
 
                 <button onClick={handleUpdate} id="updateButton" type="submit">
                   Update
                 </button>
-              </p>
-            </form>
-            {/* <form>
-              <label htmlFor="productId">Product Id</label>
-              <input
-                name="productId"
-                onChange={handleUpdateChange}
-                type="text"
-                placeholder="Product Id"
-              />
-              <label htmlFor="name">Name</label>
-              <input
-                onChange={handleUpdateChange}
-                name="name"
-                type="text"
-                placeholder="Product Name"
-                value={stateUpdate.name}
-              />
-              <label htmlFor="price">Price</label>
-              <input
-                onChange={handleUpdateChange}
-                name="price"
-                type="number"
-                min="0.01"
-                step="any"
-                placeholder="Product Price"
-                value={stateUpdate.price}
-              />
-              <label htmlFor="description">Description</label>
-              <input
-                onChange={handleUpdateChange}
-                name="description"
-                type="text"
-                placeholder="Product Description"
-                value={stateUpdate.description}
-              />
-              <label htmlFor="ABV">ABV</label>
-              <input
-                onChange={handleUpdateChange}
-                name="ABV"
-                type="number"
-                min="0"
-                max="1"
-                step="any"
-                placeholder="ABV (decimal)"
-                value={stateUpdate.ABV}
-              />
-              <label htmlFor="category">Category</label>
-              <select name="category" onChange={handleUpdateChange}>
-                <option defaultValue="null">Please Select</option>
-                <option value="Whisky">Whisky</option>
-                <option value="Tequila">Tequila</option>
-                <option value="Vodka">Vodka</option>
-                <option value="Rum">Rum</option>
-                <option value="Liqueur">Liqueur</option>
-              </select>
-              <p>
-                <button onClick={handleUpdate} id="updateButton" type="submit">
-                  Update
+
+                <button
+                  onClick={handleDeleteSubmit}
+                  id="deleteButton"
+                  type="submit"
+                >
+                  Delete
                 </button>
               </p>
-            </form> */}
-            <form onSubmit={handleDeleteSubmit}>
+            </form>
+
+            {/* <form onSubmit={handleDeleteSubmit}>
               <label htmlFor="productId">Product Id</label>
               <input
                 onChange={handleDeleteChange}
@@ -225,7 +168,7 @@ const UserOption = () => {
               <p>
                 <button type="submit">Delete</button>
               </p>
-            </form>
+            </form> */}
           </React.Fragment>
         ) : (
           'hello world'
