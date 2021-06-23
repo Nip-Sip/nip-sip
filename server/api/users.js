@@ -5,6 +5,24 @@ const {
 } = require('../db')
 module.exports = router
 
+//GET /users/info :: getFavItem
+router.get('/infos', requireToken, async (req, res, next) => {
+  try {
+    const { user } = req
+    if (user) {
+      console.log(`🟢  user.id `, user.id)
+      const mostBought = await CartItem.findAll({
+        where: { userId: user.id },
+        order: [['quantity', 'DESC']]
+      })
+      console.log(`🟢  mostBought `, mostBought)
+      res.json(mostBought[0])
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
 //GET /users
 router.get('/', async (req, res, next) => {
   try {

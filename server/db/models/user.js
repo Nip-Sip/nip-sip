@@ -19,7 +19,11 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
-  }
+  },
+  firstName: Sequelize.STRING,
+  lastName: Sequelize.STRING,
+  address: Sequelize.STRING,
+  zipcode: { type: Sequelize.INTEGER, validate: { isInt: true, len: [5] } }
 })
 
 module.exports = User
@@ -27,6 +31,10 @@ module.exports = User
 /**
  * instanceMethods
  */
+User.prototype.getFullName = function () {
+  return `${this.firstName} ${this.lastName}`
+}
+
 User.prototype.correctPassword = function (candidatePwd) {
   //we need to compare the plain version to an encrypted version of the password
   return bcrypt.compare(candidatePwd, this.password)

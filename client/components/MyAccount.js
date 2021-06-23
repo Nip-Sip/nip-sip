@@ -5,7 +5,8 @@ import { getAdminInfo } from '../store/admin'
 import { ContactSupportOutlined } from '@material-ui/icons'
 
 const MyAccount = () => {
-  const { email, createdAt } = useSelector(state => state.auth)
+  const { email, createdAt, address, zipcode, firstName, lastName } =
+    useSelector(state => state.auth)
   const dispatch = useDispatch()
   const { admin, auth } = useSelector(s => s)
 
@@ -14,17 +15,25 @@ const MyAccount = () => {
   }, [])
 
   return (
-    <div>
-      <h3>Welcome, {email}</h3>
-      <div id="myAccountBody">
-        <h2>Account Information:</h2>
+    <div id="myAccountBody">
+      <h3>
+        Welcome, {firstName} {lastName}!
+      </h3>
+      <div>
+        <h1>Account Information:</h1>
         <ul>
-          <li>Email:{email}</li>
-          <li>Account Created: {createdAt}</li>
-          <li>Order History</li>
-          <li>My Cart</li>
+          <li>Email: {email}</li>
+          <li>
+            Account Created: {new Date(createdAt).toLocaleDateString('en-US')}
+          </li>
+          <li>Address: {address}</li>
+          <li>Zipcode: {zipcode}</li>
         </ul>
       </div>
+      <h1>Order History</h1>
+      <p>Get My Order History!</p>
+      <h1>My Cart</h1>
+      <p>Query my Cart!</p>
     </div>
   )
 }

@@ -194,10 +194,55 @@
     }
   ],
   "users": [
-    { "email": "sey@gmail.com", "password": "abc", "isAdmin": true },
-    { "email": "jason@gmail.com", "password": "def" },
-    { "email": "adam@gmail.com", "password": "123" },
-    { "email": "kyle@gmail.com", "password": "456" }
+    {
+      "email": "sey@gmail.com",
+      "firstName": "Sey",
+      "lastName": "Kim",
+      "password": "abc",
+      "address": "132-23 Main St. New York",
+      "zipcode": 10052,
+      "isAdmin": true
+    },
+    {
+      "email": "jason@gmail.com",
+      "firstName": "Jason",
+      "lastName": "Lee",
+      "password": "def",
+      "address": "132-23 Main St. New York",
+      "zipcode": 10128
+    },
+    {
+      "email": "adam@gmail.com",
+      "firstName": "Adam",
+      "lastName": "Park",
+      "password": "123",
+      "address": "132-23 Main St. New York",
+      "zipcode": 10345
+    },
+    {
+      "email": "kyle@gmail.com",
+      "firstName": "Kyle",
+      "lastName": "Fu",
+      "password": "456",
+      "address": "132-23 Main St. New York",
+      "zipcode": 10001
+    },
+    {
+      "email": "cody@gmail.com",
+      "firstName": "Cody",
+      "lastName": "Zu",
+      "password": "123",
+      "address": "132-23 Main St. New York",
+      "zipcode": 10001
+    },
+    {
+      "email": "murphy@gmail.com",
+      "firstName": "Cody",
+      "lastName": "Zu",
+      "password": "123",
+      "address": "132-23 Main St. New York",
+      "zipcode": 10001
+    }
   ],
   "orders": [
     {
@@ -207,7 +252,7 @@
       "promo": ""
     },
     {
-      "address": "Whereever 456",
+      "address": "Whereever You May Be 456",
       "price": 220,
       "pricePaid": 210,
       "promo": "ABC"
