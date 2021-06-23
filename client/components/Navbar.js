@@ -45,11 +45,6 @@ const Navbar = () => {
               Logout
             </a>
             <NavLink to="/admin">Admin</NavLink>
-            {admin.length ? (
-              <NavLink to="/adminOptions" activeClassName="activeLink">
-                Admin Options
-              </NavLink>
-            ) : null}
           </div>
         ) : (
           <div>
@@ -65,6 +60,11 @@ const Navbar = () => {
           </div>
         )}
         <div>
+          {admin.length ? (
+            <NavLink to="/adminOptions" activeClassName="activeLink">
+              Admin Options
+            </NavLink>
+          ) : null}
           <NavLink to="/cart" activeClassName='activeLink"'>
             <IconButton aria-label="cart">
               <StyledBadge badgeContent={countAllQty(cart)} color="primary">
