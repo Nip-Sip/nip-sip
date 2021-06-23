@@ -4,7 +4,6 @@ import { createProduct, deleteProduct, updateProduct } from '../store/products'
 import { getAdminInfo } from '../store/admin'
 
 const AdminOptions = () => {
-  const { email } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const { admin, auth } = useSelector(s => s)
 
@@ -73,7 +72,6 @@ const AdminOptions = () => {
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
       <div id="userOptionsBody">
         {admin.length ? (
           <form>
@@ -146,7 +144,7 @@ const AdminOptions = () => {
             </p>
           </form>
         ) : (
-          'hello world'
+          '401: FORBIDDEN'
         )}
       </div>
     </div>

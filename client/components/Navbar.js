@@ -29,8 +29,8 @@ const Navbar = () => {
       <nav>
         {!!isLoggedIn ? (
           <div>
-            <NavLink to="/useroption" activeClassName="activeLink">
-              User Options
+            <NavLink to="/myAccount" activeClassName="activeLink">
+              My Account
             </NavLink>
             <NavLink to="/products" activeClassName="activeLink">
               All Products
