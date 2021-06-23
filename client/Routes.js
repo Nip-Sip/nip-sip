@@ -7,9 +7,11 @@ import Cart from './components/Cart'
 import MyAccount from './components/MyAccount'
 import AdminBoard from './components/AdminBoard'
 import { me } from './store'
-import Checkout from './components/Checkout'
+import Checkout from './components/checkout/Checkout'
 import AdminOptions from './components/AdminOptions'
 import AllUsers from './components/AllUsers'
+import Landing from './components/Landing'
+
 
 const Routes = () => {
   const dispatch = useDispatch()
@@ -25,6 +27,9 @@ const Routes = () => {
     <div>
       {!!isLoggedIn ? (
         <Switch>
+          <Route exact path="/">
+            <Landing />
+          </Route>
           <Route exact path="/myaccount">
             <MyAccount />
           </Route>
@@ -49,6 +54,9 @@ const Routes = () => {
         </Switch>
       ) : (
         <Switch>
+          <Route exact path="/">
+            <Landing />
+          </Route>
           <Route exact path="/">
             <Login />
           </Route>

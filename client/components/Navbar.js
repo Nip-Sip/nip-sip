@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { logout } from '../store'
 import Badge from '@material-ui/core/Badge'
 import { withStyles } from '@material-ui/core/styles'
@@ -74,13 +74,15 @@ const Navbar = () => {
           </NavLink>
         </div>
       </nav>
-      <motion.div
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{ ease: 'easeOut', duration: 4, repeat: Infinity }}
-        className="title"
-      >
-        Nip Sip
-      </motion.div>
+      <Link to="/">
+        <motion.div
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ ease: 'easeOut', duration: 4, repeat: Infinity }}
+          className="title"
+        >
+          Nip Sip
+        </motion.div>
+      </Link>
     </div>
   )
 }

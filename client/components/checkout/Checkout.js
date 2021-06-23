@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
@@ -13,6 +14,7 @@ import Typography from '@material-ui/core/Typography'
 import AddressForm from './AddressForm'
 import PaymentForm from './PaymentForm'
 import Review from './Review'
+import { createNewOrder } from '../../store/order'
 
 function Copyright() {
   return (
@@ -78,12 +80,28 @@ export default function Checkout() {
   const classes = useStyles()
   const [activeStep, setActiveStep] = React.useState(0)
 
+  const dispatch = useDispatch()
+
+  const cart = useSelector(state => state.cart)
+
   const handleNext = () => {
     setActiveStep(activeStep + 1)
+    if (activeStep === 2) {
+      dispatch(createNewOrder(formatOrderObj(cart)))
+    }
   }
 
   const handleBack = () => {
     setActiveStep(activeStep - 1)
+  }
+
+  const formatOrderObj = (cart, price = 200) => {
+    return {
+      cart,
+      order: {
+        price
+      }
+    }
   }
 
   return (

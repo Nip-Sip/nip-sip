@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getCart } from '../../store/cart'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import List from '@material-ui/core/List'
@@ -6,13 +8,6 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Grid from '@material-ui/core/Grid'
 
-const products = [
-  { name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
-  { name: 'Product 2', desc: 'Another thing', price: '$3.45' },
-  { name: 'Product 3', desc: 'Something else', price: '$6.51' },
-  { name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
-  { name: 'Shipping', desc: '', price: 'Free' }
-]
 const addresses = [
   '1 Material-UI Drive',
   'Reactville',
@@ -42,22 +37,56 @@ const useStyles = makeStyles(theme => ({
 export default function Review() {
   const classes = useStyles()
 
+  const dispatch = useDispatch()
+  const allCart = useSelector(state => state.cart)
+  let subTotal = 0
+  let tax = 0.085
+
+  useEffect(() => {
+    dispatch(getCart())
+
+    return () => {}
+  }, [])
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
       <List disablePadding>
-        {products.map(product => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
-          </ListItem>
-        ))}
-        <ListItem className={classes.listItem}>
+        {allCart.map(product => {
+          const { price } = product
+          const { quantity } = product.cartItem
+          let totalItemPrice = price * quantity
+          subTotal += totalItemPrice
+          return (
+            <ListItem className="review-cart-item" key={product.id}>
+              <ListItemText
+                primary={product.name}
+                secondary={`$${product.price / 100} x ${
+                  product.cartItem.quantity
+                }`}
+              />
+              <Typography variant="body2">${totalItemPrice / 100}</Typography>
+            </ListItem>
+          )
+        })}
+        <ListItem>
+          <ListItemText primary="Subtotal" />
+          <Typography variant="body2" className={classes.total}>
+            ${subTotal / 100}
+          </Typography>
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Tax" />
+          <Typography variant="body2" className={classes.total}>
+            ${((subTotal * tax) / 100).toFixed(2)}
+          </Typography>
+        </ListItem>
+        <ListItem>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+            ${((subTotal * tax + subTotal) / 100).toFixed(2)}
           </Typography>
         </ListItem>
       </List>

@@ -1,9 +1,27 @@
 const router = require('express').Router()
 const { requireToken, requireAdminToken } = require('../auth/middleware')
 const {
-  models: { User, CartItem }
+  models: { User, CartItem, Order }
 } = require('../db')
 module.exports = router
+
+//GET /users/info :: getFavItem
+router.get('/infos', requireToken, async (req, res, next) => {
+  try {
+    const { user } = req
+    if (user) {
+      console.log(`🟢  user.id `, user.id)
+      const mostBought = await CartItem.findAll({
+        where: { userId: user.id },
+        order: [['quantity', 'DESC']]
+      })
+      console.log(`🟢  mostBought `, mostBought)
+      res.json(mostBought[0])
+    }
+  } catch (err) {
+    next(err)
+  }
+})
 
 //GET /users
 router.get('/', requireAdminToken, async (req, res, next) => {
@@ -35,8 +53,14 @@ router.get('/cart', requireToken, async (req, res, next) => {
 //POST /users/cart
 router.post('/cart', requireToken, async (req, res, next) => {
   try {
-    const { id } = req.user
-    const newOrUpdatedProduct = await CartItem.createOrUpdate(id, req.body)
+    let id, newOrUpdatedProduct
+    if (req.user) {
+      id = req.user.id
+      newOrUpdatedProduct = await CartItem.createOrUpdate(id, req.body)
+    }
+    else {
+      newOrUpdatedProduct = await CartItem.createOrUpdate(null, req.body)
+    }
     res.json(newOrUpdatedProduct)
   } catch (error) {
     next(error)
@@ -50,6 +74,31 @@ router.delete('/cart/:itemId', requireToken, async (req, res, next) => {
     const { user } = req
     await user.removeProduct(itemId)
     res.json('ok')
+  } catch (error) {
+    next(error)
+  }
+})
+
+//POST /users/orders
+router.post('/orders', requireToken, async (req, res, next) => {
+  try {
+    const newOrder = await Order.create(req.body.order)
+    const orderId = newOrder.id
+    const cart = req.body.cart
+    await CartItem.addOrderNumber(orderId, cart)
+    res.json(newOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//POST /users/guest/orders
+router.post('/guest/orders', async (req,res, next) => {
+  try {
+    const newOrder = await Order.create(req.body.order)
+    const orderId = newOrder.id
+    const cart = req.body.cart
+    await CartItem.createCartItemsAndAttachOrder(cart, orderId)
   } catch (error) {
     next(error)
   }

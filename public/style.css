@@ -42,14 +42,20 @@ nav a {
   margin: 1em;
 }
 
+.cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .cart-container {
   display: flex;
 }
 
-form div {
+/* form div {
   margin: 1em;
   display: inline-block;
-}
+} */
 
 .single-product {
   width: 60em;

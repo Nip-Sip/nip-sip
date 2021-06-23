@@ -14,8 +14,7 @@ app.use(express.json())
 app.use('/auth', require('./auth'))
 app.use('/api', require('./api'))
 
-app.get('/', (req, res) => res.redirect('/products'))
-
+// app.get('/', (req, res) => res.redirect('/products'))
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, '..', 'public/index.html'))
 )

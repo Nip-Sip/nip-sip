@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import TextField from '@material-ui/core/TextField'
+import FormControl from '@material-ui/core/FormControl'
 import { useDispatch, useSelector } from 'react-redux'
 import { VIEW_SEARCH, VIEW_ALL, setVisibility } from '../store/products'
 
@@ -50,10 +52,16 @@ const Search = () => {
 
   return (
     <>
-      <h1>Search Input</h1>
       <form onSubmit={onSubmit}>
-        <input placeholder="search here" type="text" onChange={onSearch} />
+        <TextField
+          label="Find A Nip"
+          type="search"
+          variant="outlined"
+          onChange={onSearch}
+          onClick={()=>console.log(event)}
+        />
       </form>
+
       <span>{resultsMessage}</span>
     </>
   )

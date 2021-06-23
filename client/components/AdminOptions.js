@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createProduct, deleteProduct, updateProduct } from '../store/products'
 import { getAdminInfo } from '../store/admin'
 import { Route, NavLink } from 'react-router-dom'

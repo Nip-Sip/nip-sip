@@ -19,9 +19,6 @@ const AllProducts = () => {
 
   return (
     <>
-      {/* <Carousel /> */}
-      {/* Docs:
-			https://www.npmjs.com/package/react-responsive-carousel */}
       <Search />
       <div id="allProducts">
         {visibleProducts.map(product => (

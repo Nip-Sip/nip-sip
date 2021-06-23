@@ -7,6 +7,7 @@ import { productsReducer, visibilityReducer } from './products'
 import cartReducer from './cart'
 import adminReducer from './admin'
 import usersReducer from './users'
+import orderReducer from './order'
 
 const reducer = combineReducers({
   auth,
@@ -14,7 +15,8 @@ const reducer = combineReducers({
   visibleProducts: visibilityReducer,
   cart: cartReducer,
   admin: adminReducer,
-  users: usersReducer
+  users: usersReducer,
+  order: orderReducer
 })
 
 const middleware = composeWithDevTools(
