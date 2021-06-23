@@ -70,7 +70,7 @@ async function seed() {
     const unformattedProducts = json.feed.entry
     products = googleJSONCleaner(unformattedProducts)
 
-    const { users, orders } = require('../server/db/seed.json')
+    const { users, orders, shops } = require('../server/db/seed.json')
     // Possibly may not be in order? 👇
     const [sey, jason, adam, kyle, cody, murphy] = await Promise.all(
       users.map(u => User.create(u))
@@ -119,7 +119,8 @@ async function seed() {
         sey,
         jason
       },
-      products
+      products,
+      shops
     }
   }
 }

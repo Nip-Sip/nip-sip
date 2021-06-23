@@ -257,5 +257,27 @@
       "pricePaid": 210,
       "promo": "ABC"
     }
+  ],
+  "store": [
+    {
+      "shop_name": "Sey's Salacious Salon",
+      "years_opened": 135,
+      "status": "Power Seller"
+    },
+    {
+      "shop_name": "Adam's Avaricious Ambiance",
+      "years_opened": 356,
+      "status": "Trusted"
+    },
+    {
+      "shop_name": "Jason's Jestful Jail",
+      "years_opened": 15,
+      "status": "Newbie"
+    },
+    {
+      "shop_name": "Kyle's Kaleidoscopic Kingdom",
+      "years_opened": 9999999999,
+      "status": "Newbie"
+    }
   ]
 }

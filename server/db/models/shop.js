@@ -3,7 +3,7 @@ const db = require('../db')
 
 const Shop = db.define('shop', {
   shop_name: { type: Sequelize.STRING, allowNull: false },
-  shop_opened: { type: Sequelize.DATE },
+  days_opened: { type: Sequelize.INTEGER },
   status: { type: Sequelize.ENUM('Newbie', 'Trusted', 'Power Seller') }
 })
 

@@ -3,6 +3,7 @@ import { connect, useDispatch, useSelector } from 'react-redux'
 import { createProduct, deleteProduct, updateProduct } from '../store/products'
 import { getAdminInfo } from '../store/admin'
 import { ContactSupportOutlined } from '@material-ui/icons'
+import { motion } from 'framer-motion'
 
 const MyAccount = () => {
   const { email, createdAt, address, zipcode, firstName, lastName } =
@@ -17,7 +18,7 @@ const MyAccount = () => {
   return (
     <div id="myAccountBody">
       <h3>
-        Welcome, {firstName} {lastName}!
+        Welcome, {firstName} {lastName}! <WavingHand />
       </h3>
       <div>
         <h1>Account Information:</h1>
@@ -39,3 +40,27 @@ const MyAccount = () => {
 }
 
 export default MyAccount
+
+function WavingHand() {
+  return (
+    <motion.div
+      style={{
+        marginBottom: '-20px',
+        marginRight: '-45px',
+        paddingBottom: '20px',
+        paddingRight: '45px',
+        display: 'inline-block'
+      }}
+      animate={{ rotate: 20 }}
+      transition={{
+        yoyo: Infinity,
+        from: 0,
+        duration: 0.2,
+        ease: 'easeInOut',
+        type: 'tween'
+      }}
+    >
+      👋
+    </motion.div>
+  )
+}
