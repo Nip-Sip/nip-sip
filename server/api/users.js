@@ -11,7 +11,7 @@ router.get('/', requireAdminToken, async (req, res, next) => {
     const { user } = req
     if (user) {
       const users = await User.findAll({
-        attributes: ['id', 'email', 'createdAt']
+        attributes: ['id', 'email', 'createdAt', 'isAdmin']
       })
       res.json(users)
     }
