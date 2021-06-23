@@ -15,6 +15,7 @@ import AddressForm from './AddressForm'
 import PaymentForm from './PaymentForm'
 import Review from './Review'
 import { createNewOrder } from '../../store/order'
+import { clearCart } from '../../store/cart'
 
 function Copyright() {
   return (
@@ -88,6 +89,7 @@ export default function Checkout() {
     setActiveStep(activeStep + 1)
     if (activeStep === 2) {
       dispatch(createNewOrder(formatOrderObj(cart)))
+      dispatch(clearCart())
     }
   }
 
