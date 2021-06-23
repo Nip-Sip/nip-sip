@@ -7,7 +7,6 @@ module.exports = router
 
 //GET /users/info :: getFavItem
 router.get('/infos', requireToken, async (req, res, next) => {
-  console.log(`🟢  /users/info!`)
   try {
     const { user } = req
     if (user) {
