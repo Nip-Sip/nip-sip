@@ -40,13 +40,13 @@ router.post('/', requireAdminToken, async (req, res, next) => {
 })
 
 //UPDATE /api/products/:id
-router.put('/:id', requireAdminToken, async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
-    const { user } = req
-    if (user) {
-      const currProduct = await Product.findByPk(req.params.id)
-      res.send(await currProduct.update(req.body))
-    }
+    // const { user } = req
+    // if (user) {
+    const currProduct = await Product.findByPk(req.params.id)
+    res.send(await currProduct.update(req.body))
+    // }
   } catch (err) {
     next(err)
   }

@@ -71,19 +71,26 @@ export const createProduct = product => {
 
 export const updateProduct = product => {
   return async dispatch => {
-    const token = window.localStorage.getItem('token')
-    console.log('here product thunk', product)
-    if (token) {
+    try {
+      // const token = window.localStorage.getItem('token')
+
+      // if (token) {
       const { data: updatingProduct } = await axios.put(
         `/api/products/${product.productId}`,
-        product,
-        {
-          headers: {
-            authorization: token
-          }
-        }
+        product
+        // ,
+        // {
+        //   headers: {
+        //     authorization: token
+        //   }
+        // }
       )
+      console.log('updated product', updatingProduct)
       dispatch(updatedProduct(updatingProduct))
+      // }
+    } catch (error) {
+      console.log('error here')
+      console.error(error)
     }
   }
 }
@@ -114,7 +121,7 @@ export function productsReducer(state = [], action) {
       return [...state, action.product]
 
     case UPDATED_PRODUCT:
-      return action.product
+      return [...state, action.product]
     case DELETED_PRODUCT:
       return state.filter(product => product.id !== action.product.id)
     default:
