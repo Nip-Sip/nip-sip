@@ -146,12 +146,9 @@ const AdminOptions = () => {
                 </button>
               </p>
             </form>
-            {/* <NavLink to="/allUsers" activeClassName="activeLink">
+            <NavLink to="/allUsers" activeClassName="activeLink">
               View All Users
             </NavLink>
-            <Route exact path="/allUsers'"> */}
-            <AllUsers />
-            {/* </Route> */}
           </React.Fragment>
         ) : (
           '401: FORBIDDEN'

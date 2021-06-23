@@ -9,6 +9,7 @@ import AdminBoard from './components/AdminBoard'
 import { me } from './store'
 import Checkout from './components/Checkout'
 import AdminOptions from './components/AdminOptions'
+import AllUsers from './components/AllUsers'
 
 const Routes = () => {
   const dispatch = useDispatch()
@@ -41,6 +42,9 @@ const Routes = () => {
           </Route>
           <Route exact path="/adminOptions">
             <AdminOptions />
+          </Route>
+          <Route exact path="/allUsers">
+            <AllUsers />
           </Route>
         </Switch>
       ) : (
