@@ -46,10 +46,10 @@ nav a {
   display: flex;
 }
 
-form div {
+/* form div {
   margin: 1em;
   display: inline-block;
-}
+} */
 
 .single-product {
   width: 60em;
