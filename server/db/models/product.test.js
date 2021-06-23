@@ -41,7 +41,7 @@ describe('Product model', () => {
         include: [
           {
             model: User,
-            where: { email: 'sey' }
+            where: { email: 'sey@gmail.com' }
           }
         ]
       })
@@ -54,10 +54,10 @@ describe('Product model', () => {
 
       const pUsers = P.map(p => p.users.map(u => u.email))
       // console.log(pUsers)
-      expect(pUsers[0][0]).toBe('sey')
+      expect(pUsers[0][0]).toBe('sey@gmail.com')
       const flatArr = pUsers.flat()
-      expect(flatArr).toContain('sey')
-      expect(flatArr).not.toContain('jason')
+      expect(flatArr).toContain('sey@gmail.com')
+      expect(flatArr).not.toContain('jason@gmail.com')
     })
 
     test('product cannot be created without name', async () => {

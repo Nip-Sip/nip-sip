@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
-import { createProduct, deleteProduct } from '../store/products'
+import { createProduct, deleteProduct, updateProduct } from '../store/products'
 import { getAdminInfo } from '../store/admin'
-import { ContactSupportOutlined } from '@material-ui/icons'
 
-const UserOption = () => {
-  const { username } = useSelector(state => state.auth)
+const AdminOptions = () => {
   const dispatch = useDispatch()
   const { admin, auth } = useSelector(s => s)
 
@@ -14,6 +12,7 @@ const UserOption = () => {
   }, [])
 
   const [state, setState] = useState({
+    productId: '',
     name: '',
     description: '',
     category: '',
@@ -23,8 +22,33 @@ const UserOption = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
+
     dispatch(createProduct(state))
     setState({
+      productId: '',
+      name: '',
+      description: '',
+      category: '',
+      price: '',
+      ABV: ''
+    })
+  }
+  const handleChange = e => {
+    setState({ ...state, [e.target.name]: e.target.value })
+  }
+
+  const handleUpdate = e => {
+    e.preventDefault()
+
+    let updateObj = {}
+    Object.keys(state).forEach(k => {
+      if (state[k] !== '') {
+        updateObj[k] = state[k]
+      }
+    })
+    dispatch(updateProduct(updateObj))
+    setState({
+      productId: '',
       name: '',
       description: '',
       category: '',
@@ -33,37 +57,40 @@ const UserOption = () => {
     })
   }
 
-  const handleChange = e => {
-    setState({ ...state, [e.target.name]: e.target.value })
-  }
-
-  const [deletedId, setDeletedId] = useState('')
-
-  const handleDeleteSubmit = e => {
+  const handleDelete = e => {
     e.preventDefault()
-    dispatch(deleteProduct(deletedId))
-    setDeletedId('')
+    dispatch(deleteProduct(state.productId))
+    setState({
+      productId: '',
+      name: '',
+      description: '',
+      category: '',
+      price: '',
+      ABV: ''
+    })
   }
 
-  const handleDeleteChange = e => {
-    console.log('this delete id!!', deletedId)
-    setDeletedId(e.target.value)
-  }
   return (
     <div>
-      <h3>Welcome, {username}</h3>
       <div id="userOptionsBody">
         {admin.length ? (
-          <React.Fragment>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="name">Name</label>
-              <input
-                onChange={handleChange}
-                name="name"
-                type="text"
-                placeholder="Product Name"
-                value={state.name}
-              />
+          <form>
+            <label htmlFor="productId">Product Id</label>
+            <input
+              name="productId"
+              onChange={handleChange}
+              type="text"
+              placeholder="Product Id"
+              value={state.productId}
+            />
+            <label htmlFor="name">Name</label>
+            <input
+              onChange={handleChange}
+              name="name"
+              type="text"
+              placeholder="Product Name"
+              value={state.name}
+            />
             <label htmlFor="price">Price</label>
             <input
               onChange={handleChange}
@@ -103,22 +130,25 @@ const UserOption = () => {
               <option value="Liqueur">Liqueur</option>
             </select>
             <p>
-              <button type="submit">Create</button>
+              <button onClick={handleSubmit} id="submitButton" type="submit">
+                Create
+              </button>
+
+              <button onClick={handleUpdate} id="updateButton" type="submit">
+                Update
+              </button>
+
+              <button onClick={handleDelete} id="deleteButton" type="submit">
+                Delete
+              </button>
             </p>
-            <label htmlFor="productId">Product Id</label>
-            <input type="text" placeholder="Product Id" />
-            <p>
-              <button type="submit">Update</button>
-                <button type="submit">Delete</button>
-              </p>
-            </form>
-          </React.Fragment>
+          </form>
         ) : (
-          'hello world'
+          '401: FORBIDDEN'
         )}
       </div>
     </div>
   )
 }
 
-export default UserOption
+export default AdminOptions

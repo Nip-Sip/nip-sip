@@ -37,17 +37,21 @@ router.post('/', requireAdminToken, async (req, res, next) => {
   }
 })
 
-//UPDATE /api/products/
-router.put('/', async (req, res, next) => {
+//UPDATE /api/products/:id
+router.put('/:id', requireAdminToken, async (req, res, next) => {
   try {
-    const currProduct = await Product.findByPk(req.body.productId)
-    res.send(await currProduct.update(req.body))
+    const { user } = req
+    if (user) {
+      const currProduct = await Product.findByPk(req.params.id)
+
+      res.send(await currProduct.update(req.body))
+    }
   } catch (err) {
     next(err)
   }
 })
 
-//DELETE /api/products/
+//DELETE /api/products/:id
 router.delete('/:id', requireAdminToken, async (req, res, next) => {
   try {
     const { user } = req
