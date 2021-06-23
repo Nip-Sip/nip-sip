@@ -4,6 +4,7 @@ import { getProducts } from '../store/products'
 import Search from './Search'
 import { getCart } from '../store/cart'
 import ProductCard from './ProductCard'
+import { getAdminInfo } from '../store/admin'
 
 const AllProducts = () => {
   const dispatch = useDispatch()
@@ -13,6 +14,7 @@ const AllProducts = () => {
   useEffect(() => {
     dispatch(getProducts())
     dispatch(getCart())
+    dispatch(getAdminInfo())
   }, [])
 
   return (

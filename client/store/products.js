@@ -2,9 +2,9 @@ import axios from 'axios'
 
 // ACTION_TYPE
 export const GOT_PRODUCTS = 'GOT_PRODUCTS'
-export const CREATED_PRODUCT = 'CREATED PRODUCT'
-export const UPDATED_PRODUCT = 'UPDATED PRODUCT'
-export const DELETED_PRODUCT = 'DELETED PRODUCT'
+export const CREATED_PRODUCT = 'CREATED_PRODUCT'
+export const UPDATED_PRODUCT = 'UPDATED_PRODUCT'
+export const DELETED_PRODUCT = 'DELETED_PRODUCT'
 
 export const VIEW_ALL = 'VIEW_ALL'
 export const VIEW_SEARCH = 'VIEW_SEARCH'
