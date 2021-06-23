@@ -24,18 +24,18 @@ describe('Product model', () => {
     // db.close()
   })
 
-  xit('queries a known product by name', async () => {
+  it('queries a known product by name', async () => {
     const kahlua = Product.findOne({ where: { name: 'KAHLUA' } })
     expect(kahlua).not.toBe(null)
   })
 
-  xit('gets back users via magic method', async () => {
+  it('gets back users via magic method', async () => {
     const p = await Product.findAll()
     const firstUser = await p[0].getUsers()
     expect(Array.isArray(firstUser)).toBe(true)
   })
 
-  xdescribe('Advanced Sequelize Examples', () => {
+  describe('Advanced Sequelize Examples', () => {
     /* beforeEach will run once per tests in THIS block */
     beforeEach(async () => {
       // // console.log(blue('beforeEach!'))
@@ -46,7 +46,7 @@ describe('Product model', () => {
         include: [
           {
             model: User,
-            where: { username: 'sey' }
+            where: { email: 'sey@gmail.com' }
           }
         ]
       })
@@ -57,12 +57,11 @@ describe('Product model', () => {
        * has the products in its cart.
        */
 
-      const pUsers = P.map(p => p.users.map(u => u.username))
-      console.log(`🟢  pUsers `, pUsers)
-      expect(pUsers[0][0]).toBe('sey')
+      const pUsers = P.map(p => p.users.map(u => u.email))
+      expect(pUsers[0][0]).toBe('sey@gmail.com')
       const flatArr = pUsers.flat()
-      expect(flatArr).toContain('sey')
-      expect(flatArr).not.toContain('jason')
+      expect(flatArr).toContain('sey@gmail.com')
+      expect(flatArr).not.toContain('jason@gmail.com')
     })
 
     test('product cannot be created without name', async () => {
@@ -78,9 +77,9 @@ describe('Product model', () => {
   })
 
   describe('Magic Methods', () => {
-    xtest('getProducts via initial seed', async () => {
+    test('getProducts via initial seed', async () => {
       const seyP = await sey.getProducts()
-      expect(seyP.length).toBe(2)
+      expect(seyP.length).toBe(8)
 
       const jasonP = await jason.getProducts()
       expect(jasonP.length).toBe(3)
@@ -93,17 +92,15 @@ describe('Product model', () => {
       expect(kyleP.length).toBe(0)
     })
 
-    xtest('getUsers via initial seed', async () => {
+    test('getUsers via initial seed', async () => {
       const p0u = await products[0].getUsers()
       const p1u = await products[1].getUsers()
-      const p10u = await products[10].getUsers()
 
       expect(p0u.length).toBe(1)
       expect(p1u.length).toBe(2)
-      expect(p10u.length).toBe(0)
     })
 
-    xtest('getCart basic', async () => {
+    test('getCart basic', async () => {
       const seyC = await sey.getCartItems()
       expect(seyC.length).toBe(8)
 
@@ -114,15 +111,15 @@ describe('Product model', () => {
       // const cAadam = await
     })
 
-    xtest('should get quantities', async () => {
+    test('should get quantities', async () => {
       const seyC = await sey.getCartItems()
-      expect(seyC[0].quantity).toBe(10)
+      expect(typeof seyC[0].quantity === 'number').toBe(true)
 
       const sum = seyC.reduce((a, b) => a + b.quantity, 0)
-      expect(sum).toBe(10 + 15 + 25 + 35 + 45 + 55 + 65 + 100)
+      expect(sum).toBe(350)
     })
 
-    xdescribe('Cart', () => {
+    describe('Cart', () => {
       let carts, cart1
       beforeEach(async () => {
         carts = await CartItem.findAll()
@@ -141,19 +138,19 @@ describe('Product model', () => {
     })
   })
 
-  xdescribe('Super Many-to-Many', () => {
-    xtest('User => Product', async () => {
+  describe('Super Many-to-Many', () => {
+    test('User => Product', async () => {
       const U_P = await User.findAll({
         where: {
-          username: 'sey'
+          email: 'sey@gmail.com'
         },
         include: Product
       })
       const seyP = U_P[0].products
-      expect(seyP.length).toBe(2)
+      expect(seyP.length).toBe(8)
     })
 
-    xtest('Product => User', async () => {
+    test('Product => User', async () => {
       const P_Whisky_U = await Product.findAll({
         where: {
           category: 'Whisky'
@@ -161,17 +158,17 @@ describe('Product model', () => {
         include: {
           model: User,
           where: {
-            username: 'sey'
+            email: 'sey@gmail.com'
           }
         }
       })
       // console.log(JSON.stringify(P_Whisky_U, null, 2))
       const p = P_Whisky_U[0]
       expect(p.category).toBe('Whisky')
-      expect(p.users[0].username).toBe('sey')
+      expect(p.users[0].email).toBe('sey@gmail.com')
     })
 
-    xtest('CartItem => User', async () => {
+    test('CartItem => User', async () => {
       const C = await CartItem.findAll({
         where: { userId: 1 },
         include: { model: User }
@@ -181,7 +178,7 @@ describe('Product model', () => {
     })
   })
 
-  xdescribe('Cart', () => {
+  describe('Cart', () => {
     beforeEach(async () => {
       await seed()
     })
@@ -216,7 +213,7 @@ describe('Product model', () => {
     })
   })
 
-  xdescribe('Order', () => {
+  describe('Order', () => {
     beforeEach(async () => {
       await seed()
     })
@@ -229,7 +226,7 @@ describe('Product model', () => {
      * update CartItem to have that fk
      * try-catch
      */
-    xtest('turn all cart items into orders', async () => {
+    test('turn all cart items into orders', async () => {
       // const getSeyOrders = await CartItem.findAll({
       //   include: {
       //     model: User,
@@ -251,7 +248,7 @@ describe('Product model', () => {
       expect(Array.isArray(cartItems)).toBe(true)
     })
 
-    xtest('should all empty cart ids into orders', async () => {
+    test('should all empty cart ids into orders', async () => {
       const updated = await CartItem.update(
         { orderId: 1 },
         {
@@ -260,8 +257,6 @@ describe('Product model', () => {
           }
         }
       )
-      // It works!
-      console.log(`🟢  updated `, updated)
     })
   })
 })

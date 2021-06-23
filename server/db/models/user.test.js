@@ -26,7 +26,7 @@ describe('User model', () => {
       beforeEach(
         async () =>
           (user = await User.create({
-            email: 'lucy',
+            email: 'lucy@gmail.com',
             password: 'loo'
           }))
       )
@@ -34,10 +34,9 @@ describe('User model', () => {
       describe('with correct credentials', () => {
         it('returns a token', async () => {
           const token = await User.authenticate({
-            email: 'lucy',
+            email: 'lucy@gmail.com',
             password: 'loo'
           })
-          console.log('generateToken:', blue(token))
           expect(typeof token === 'string').toBe(true)
         })
       })
