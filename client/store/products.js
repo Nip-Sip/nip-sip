@@ -70,24 +70,25 @@ export const createProduct = product => {
 }
 
 export const updateProduct = product => {
+  console.log('outer product', product)
   return async dispatch => {
     try {
-      // const token = window.localStorage.getItem('token')
+      console.log(product)
+      const token = window.localStorage.getItem('token')
 
-      // if (token) {
-      const { data: updatingProduct } = await axios.put(
-        `/api/products/${product.productId}`,
-        product
-        // ,
-        // {
-        //   headers: {
-        //     authorization: token
-        //   }
-        // }
-      )
-      console.log('updated product', updatingProduct)
-      dispatch(updatedProduct(updatingProduct))
-      // }
+      if (token) {
+        const { data: updatingProduct } = await axios.put(
+          `/api/products/${product.productId}`,
+          product,
+          {
+            headers: {
+              authorization: token
+            }
+          }
+        )
+        console.log('updated product', updatingProduct)
+        dispatch(updatedProduct(updatingProduct))
+      }
     } catch (error) {
       console.log('error here')
       console.error(error)

@@ -51,7 +51,13 @@ const UserOption = () => {
   const handleUpdate = e => {
     e.preventDefault()
     console.log('here is the update button')
-    dispatch(updateProduct(state))
+    let updateObj = {}
+    Object.keys(state).forEach(k => {
+      if (state[k] !== '') {
+        updateObj[k] = state[k]
+      }
+    })
+    dispatch(updateProduct(updateObj))
     setState({
       productId: '',
       name: '',
@@ -91,6 +97,7 @@ const UserOption = () => {
                 onChange={handleChange}
                 type="text"
                 placeholder="Product Id"
+                value={state.productId}
               />
               <label htmlFor="name">Name</label>
               <input
