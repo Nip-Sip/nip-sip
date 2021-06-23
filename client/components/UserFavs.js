@@ -9,13 +9,13 @@ const UserFavs = ({ favType }) => {
   // useSelector(state => state)
   const userFavType = 'Vodka'
 
-  useEffect(() => {
-    const fn = async () => {
-      const res = await axios.get('/products')
-      console.log(`🟢  res.data `, res.data)
-    }
-    fn()
-  }, [])
+  // useEffect(() => {
+  //   const fn = async () => {
+  //     const res = await axios.get('/products')
+  //     console.log(`🟢  res.data `, res.data)
+  //   }
+  //   fn()
+  // }, [])
 
   return (
     <div>

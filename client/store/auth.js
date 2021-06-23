@@ -52,7 +52,7 @@ export const logout = () => {
 export const getFavItem = () => async dispatch => {
   const token = window.localStorage.getItem(TOKEN)
   if (token) {
-    const res = await axios.get('/users/infos', {
+    const res = await axios.get('/api/users/infos', {
       headers: {
         authorization: token
       }
