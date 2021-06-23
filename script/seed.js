@@ -70,13 +70,18 @@ async function seed() {
     const unformattedProducts = json.feed.entry
     products = googleJSONCleaner(unformattedProducts)
 
-    // TODO, make database smaller for test
-    const [cody, murphy, sey, jason] = await Promise.all([
-      User.create({ email: 'cody@gmail.com', password: '123' }),
-      User.create({ email: 'murphy@gmail.com', password: '456' }),
-      User.create({ email: 'sey@gmail.com', password: 'abc', isAdmin: true }),
-      User.create({ email: 'jason@gmail.com', password: 'def' })
-    ])
+    const { users, orders } = require('../server/db/seed.json')
+    // Possibly may not be in order? 👇
+    const [sey, jason, adam, kyle, cody, murphy] = await Promise.all(
+      users.map(u => User.create(u))
+    )
+    // const [cody, murphy] = await Promise.all([
+    //   User.create({ email: 'cody@gmail.com', password: '123' }),
+    //   User.create({ email: 'murphy@gmail.com', password: '456' })
+    // ])
+    //   User.create({ email: 'sey@gmail.com', password: 'abc', isAdmin: true }),
+    //   User.create({ email: 'jason@gmail.com', password: 'def' })
+    // ])
 
     await Promise.all(
       products.map(async (product, i) => {

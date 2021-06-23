@@ -226,6 +226,22 @@
       "password": "456",
       "address": "132-23 Main St. New York",
       "zipcode": 10001
+    },
+    {
+      "email": "cody@gmail.com",
+      "firstName": "Cody",
+      "lastName": "Zu",
+      "password": "123",
+      "address": "132-23 Main St. New York",
+      "zipcode": 10001
+    },
+    {
+      "email": "murphy@gmail.com",
+      "firstName": "Cody",
+      "lastName": "Zu",
+      "password": "123",
+      "address": "132-23 Main St. New York",
+      "zipcode": 10001
     }
   ],
   "orders": [
