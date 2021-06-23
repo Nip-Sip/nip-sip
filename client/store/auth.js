@@ -7,6 +7,7 @@ const TOKEN = 'token'
  * ACTION TYPES
  */
 const SET_AUTH = 'SET_AUTH'
+const SET_FAV = 'SET_FAV'
 
 /**
  * ACTION CREATORS
@@ -48,17 +49,15 @@ export const logout = () => {
   }
 }
 
-export const getFavItem = () => {
-  try {
-    const res = await axios.get('/users/info', {
+export const getFavItem = () => async dispatch => {
+  const token = window.localStorage.getItem(TOKEN)
+  if (token) {
+    const res = await axios.get('/users/infos', {
       headers: {
         authorization: token
       }
     })
     return dispatch(setFav(res.data))
-  } catch (error) {
-    console.log(`🟢  failed on getFavItem`)
-    console.log(error)
   }
 }
 

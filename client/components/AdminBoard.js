@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminInfo } from '../store/admin'
+import { getFavItem } from '../store/auth'
 import AddressForm from './checkout/AddressForm'
 import Checkout from './checkout/Checkout'
 import PaymentForm from './checkout/PaymentForm'
@@ -13,6 +14,7 @@ const AdminBoard = () => {
 
   useEffect(() => {
     dispatch(getAdminInfo())
+    dispatch(getFavItem()) // DEBUG
   }, [])
 
   return (

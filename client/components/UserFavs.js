@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getFavItem } from '../store/auth'
+import axios from 'axios'
 
 const UserFavs = ({ favType }) => {
   const dispatch = useDispatch()
@@ -8,10 +9,18 @@ const UserFavs = ({ favType }) => {
   // useSelector(state => state)
   const userFavType = 'Vodka'
 
+  useEffect(() => {
+    const fn = async () => {
+      const res = await axios.get('/products')
+      console.log(`🟢  res.data `, res.data)
+    }
+    fn()
+  }, [])
+
   return (
     <div>
       <h1>UserFavs</h1>
-      <button onClick={() => dispatch(getFavItem)}>Get Fav Item</button>
+      <button onClick={() => dispatch(getFavItem())}>Get Fav Item</button>
       <div>DEBUGGING: {JSON.stringify(auth.fav)}</div>
     </div>
   )
