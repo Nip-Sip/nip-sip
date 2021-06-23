@@ -30,12 +30,19 @@ CartItem.createOrUpdate = async function (userId, product) {
   return newOrUpdatedProduct
 }
 
-CartItem.addOrderNumber = async function (orderId, cart) {
+CartItem.addOrderNumber = function (orderId, cart) {
   cart.forEach(async (item) => {
+    console.log(item)
     let cartItemId = item.cartItem.id
     let cartItem = await CartItem.findByPk(cartItemId)
     cartItem.orderId = orderId
     await cartItem.save()
+  })
+}
+
+CartItem.createCartItemsAndAttachOrder = async function (cartItems, orderId) {
+  cartItems.forEach(async (cartItem) => {
+    await CartItem.create({productId: cartItem.id, quantity: cartItem.cartItem.quantity, orderId: orderId})
   })
 }
 
