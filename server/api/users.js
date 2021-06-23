@@ -11,11 +11,13 @@ router.get('/infos', requireToken, async (req, res, next) => {
   try {
     const { user } = req
     if (user) {
+      console.log(`🟢  user.id `, user.id)
       const mostBought = await CartItem.findAll({
         where: { userId: user.id },
         order: [['quantity', 'DESC']]
-      })[0]
-      res.json(mostBought)
+      })
+      console.log(`🟢  mostBought `, mostBought)
+      res.json(mostBought[0])
     }
   } catch (err) {
     next(err)
