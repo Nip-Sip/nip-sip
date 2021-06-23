@@ -43,7 +43,9 @@ router.get('/cart', requireToken, async (req, res, next) => {
   try {
     const { id } = req.user
     const user = await User.findByPk(id)
-    const products = await user.getProducts()
+    let products = await user.getProducts()
+    // console.log(products)
+    // products = products.filter((cartItem) => cartItem.cartItem.dataValues.orderId === null)
     res.json(products)
   } catch (error) {
     next(error)
@@ -99,6 +101,7 @@ router.post('/guest/orders', async (req,res, next) => {
     const orderId = newOrder.id
     const cart = req.body.cart
     await CartItem.createCartItemsAndAttachOrder(cart, orderId)
+    res.json(newOrder)
   } catch (error) {
     next(error)
   }

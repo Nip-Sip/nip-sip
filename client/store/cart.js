@@ -5,6 +5,7 @@ import updateStorage from '../../script/updateStorage'
 const GOT_CART = 'GOT_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const DELETE_ITEM_IN_CART = 'DELETE_ITEM_IN_CART'
+const CLEAR_CART = 'CLEAR_CART'
 
 // ACTION CREATOR
 export const gotCart = cart => {
@@ -25,6 +26,13 @@ export const deleteItemInCart = (itemId) => {
   return {
     type: DELETE_ITEM_IN_CART,
     itemId
+  }
+}
+
+export const clearedCart = () => {
+  return {
+    type: CLEAR_CART,
+    cart: []
   }
 }
 
@@ -90,7 +98,16 @@ export const removeItemFromCart = itemId => {
   }
 }
 
-
+export const clearCart = () => {
+  return async dispatch => {
+    const TOKEN = localStorage.getItem('token')
+    if (!TOKEN) {
+      const newCart = []
+      localStorage.setItem('cart', JSON.stringify(newCart))
+    }
+    dispatch(clearedCart())
+  }
+}
 
 // REDUCER
 export default function cartReducer(state = [], action) {
@@ -101,6 +118,8 @@ export default function cartReducer(state = [], action) {
       return updateStorage([...state], action.cartItem)
     case DELETE_ITEM_IN_CART:
       return state.filter(item => item.id !== action.itemId)
+    case CLEAR_CART:
+      return action.cart
     default:
       return state
   }

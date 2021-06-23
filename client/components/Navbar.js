@@ -67,7 +67,7 @@ const Navbar = () => {
           ) : null}
           <NavLink to="/cart" activeClassName='activeLink"'>
             <IconButton aria-label="cart">
-              <StyledBadge badgeContent={countAllQty(cart)} color="primary">
+              <StyledBadge color="primary">
                 <ShoppingCartIcon />
               </StyledBadge>
             </IconButton>
