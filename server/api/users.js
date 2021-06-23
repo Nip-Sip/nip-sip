@@ -46,16 +46,6 @@ router.post('/cart', requireToken, async (req, res, next) => {
   }
 })
 
-// //POST /users/cart/guest
-// router.post('/cart/guest', async (req, res, next) => {
-//   try {
-//     let cartItems = await CartItem.createCartItemIdList(req.body.cart)
-//     cart
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
 //DELETE /users/cart
 router.delete('/cart/:itemId', requireToken, async (req, res, next) => {
   try {
