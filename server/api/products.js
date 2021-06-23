@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {
-  models: { Product }
+  models: { CartItem, Product }
 } = require('../db')
 const { requireAdminToken } = require('../auth/middleware')
 module.exports = router
@@ -12,6 +12,21 @@ router.get('/', async (req, res, next) => {
     res.json(products)
   } catch (error) {
     next(error)
+  }
+})
+
+//GET /api/products/top
+router.get('/top', async (req, res, next) => {
+  console.log(`🟢  working on top `)
+  try {
+    const products = await CartItem.findAll({
+      order: [['quantity', 'DESC']],
+      limit: 5,
+      include: { model: Product }
+    })
+    res.json(products)
+  } catch (err) {
+    next(err)
   }
 })
 

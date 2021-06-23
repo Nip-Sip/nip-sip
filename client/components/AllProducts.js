@@ -10,7 +10,6 @@ const AllProducts = () => {
   const { products } = useSelector(s => s)
   const { visibleProducts } = useSelector(s => s)
 
-
   useEffect(() => {
     dispatch(getProducts())
     dispatch(getCart())
@@ -18,9 +17,6 @@ const AllProducts = () => {
 
   return (
     <>
-      {/* <Carousel /> */}
-      {/* Docs:
-			https://www.npmjs.com/package/react-responsive-carousel */}
       <Search />
       <div id="allProducts">
         {visibleProducts.map(product => (
