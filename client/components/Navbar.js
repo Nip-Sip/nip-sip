@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { logout } from '../store'
@@ -9,11 +9,17 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import countAllQty from '../../script/countAllQty'
 import '../../public/style.css'
 import { motion } from 'framer-motion'
+import { getAdminInfo } from '../store/admin'
 
 const Navbar = () => {
   const dispatch = useDispatch()
   const { id: isLoggedIn } = useSelector(state => state.auth)
+  const { admin, auth } = useSelector(s => s)
   const cart = useSelector(state => state.cart)
+
+  useEffect(() => {
+    dispatch(getAdminInfo())
+  }, [])
 
   const StyledBadge = withStyles(theme => ({
     badge: {
@@ -39,9 +45,11 @@ const Navbar = () => {
               Logout
             </a>
             <NavLink to="/admin">Admin</NavLink>
-            <NavLink to="/adminOptions" activeClassName="activeLink">
-              Admin Options
-            </NavLink>
+            {admin.length ? (
+              <NavLink to="/adminOptions" activeClassName="activeLink">
+                Admin Options
+              </NavLink>
+            ) : null}
           </div>
         ) : (
           <div>
