@@ -3,6 +3,7 @@ const { requireToken, requireAdminToken } = require('../auth/middleware')
 const {
   models: { User, CartItem, Order }
 } = require('../db')
+const { blue } = require('chalk')
 module.exports = router
 
 //GET /users/info :: getFavItem
@@ -20,6 +21,16 @@ router.get('/infos', requireToken, async (req, res, next) => {
     }
   } catch (err) {
     next(err)
+  }
+})
+
+//GET /api/users/graph/:id :: without redux store or auth
+router.get('/graph/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params
+    console.log(blue('id is...', id))
+  } catch (error) {
+    console.log(error)
   }
 })
 
@@ -57,8 +68,7 @@ router.post('/cart', requireToken, async (req, res, next) => {
     if (req.user) {
       id = req.user.id
       newOrUpdatedProduct = await CartItem.createOrUpdate(id, req.body)
-    }
-    else {
+    } else {
       newOrUpdatedProduct = await CartItem.createOrUpdate(null, req.body)
     }
     res.json(newOrUpdatedProduct)
@@ -93,7 +103,7 @@ router.post('/orders', requireToken, async (req, res, next) => {
 })
 
 //POST /users/guest/orders
-router.post('/guest/orders', async (req,res, next) => {
+router.post('/guest/orders', async (req, res, next) => {
   try {
     const newOrder = await Order.create(req.body.order)
     const orderId = newOrder.id

@@ -188,3 +188,19 @@ th,
 td {
   border: 1px solid black;
 }
+
+/* Landing */
+.hot {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 90vw;
+}
+
+.trending {
+  text-align: center;
+}
+
+#divider {
+  height: 2rem;
+}
