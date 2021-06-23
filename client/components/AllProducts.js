@@ -8,7 +8,6 @@ import { getAdminInfo } from '../store/admin'
 
 const AllProducts = () => {
   const dispatch = useDispatch()
-  const { products } = useSelector(s => s)
   const { visibleProducts } = useSelector(s => s)
 
   useEffect(() => {

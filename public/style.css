@@ -57,6 +57,14 @@ nav a {
   display: inline-block;
 } */
 
+.search-bar {
+  display: flex;
+  align-items: flex-end;
+  margin-left: 2%;
+  padding: 10px;
+
+}
+
 .single-product {
   width: 60em;
   position: fixed;
@@ -71,9 +79,11 @@ nav a {
 }
 
 #allProducts {
+  margin-left: 2%;
+  margin-right: 2%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 /* Routes Navbar.js */

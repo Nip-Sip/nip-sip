@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
-import FormControl from '@material-ui/core/FormControl'
+import Button from '@material-ui/core/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { VIEW_SEARCH, VIEW_ALL, setVisibility } from '../store/products'
 
@@ -50,18 +50,28 @@ const Search = () => {
     }
   }
 
+  const handleShowAll = () => {
+    setQuery('')
+    setMessage('')
+    dispatch(setVisibility(products, VIEW_ALL))
+  }
+
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <form className='search-bar' onSubmit={onSubmit}>
         <TextField
           label="Find A Nip"
           type="search"
           variant="outlined"
           onChange={onSearch}
-          onClick={()=>console.log(event)}
+          value={query}
         />
+        <Button
+            size="small"
+            color="primary"
+            onClick={() => handleShowAll()}
+          >Show All</Button>
       </form>
-
       <span>{resultsMessage}</span>
     </>
   )
