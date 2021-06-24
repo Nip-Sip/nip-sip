@@ -16,6 +16,8 @@ Order.hasMany(CartItem)
 CartItem.belongsTo(Order)
 Shop.belongsToMany(Product, { through: 'shop_product' })
 Product.belongsToMany(Shop, { through: 'shop_product' })
+Shop.belongsTo(User)
+User.hasOne(Shop)
 
 module.exports = {
   db,

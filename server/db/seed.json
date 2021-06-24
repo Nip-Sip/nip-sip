@@ -258,25 +258,25 @@
       "promo": "ABC"
     }
   ],
-  "store": [
+  "shop": [
     {
-      "shop_name": "Sey's Salacious Salon",
-      "years_opened": 135,
+      "shop_name": "Salacious Salon of Sey",
+      "days_opened": 135,
       "status": "Power Seller"
     },
     {
-      "shop_name": "Adam's Avaricious Ambiance",
-      "years_opened": 356,
+      "shop_name": "Avaricious Ambiance of Adam",
+      "days_opened": 356,
       "status": "Trusted"
     },
     {
-      "shop_name": "Jason's Jestful Jail",
-      "years_opened": 15,
+      "shop_name": "Jestful Jail of Jason",
+      "days_opened": 15,
       "status": "Newbie"
     },
     {
-      "shop_name": "Kyle's Kaleidoscopic Kingdom",
-      "years_opened": 9999999999,
+      "shop_name": "Kaleidoscopic Kingdom of Kyle",
+      "days_opened": 999999,
       "status": "Newbie"
     }
   ]

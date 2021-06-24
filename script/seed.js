@@ -4,7 +4,7 @@ const { white, blue, green } = require('chalk')
 
 const {
   db,
-  models: { User, Product, Order, CartItem }
+  models: { User, Product, Order, CartItem, Shop }
 } = require('../server/db')
 
 async function seed() {
@@ -70,28 +70,35 @@ async function seed() {
     const unformattedProducts = json.feed.entry
     products = googleJSONCleaner(unformattedProducts)
 
-    const { users, orders, shops } = require('../server/db/seed.json')
+    const { users, orders, shop } = require('../server/db/seed.json')
     // Possibly may not be in order? 👇
     const [sey, jason, adam, kyle, cody, murphy] = await Promise.all(
       users.map(u => User.create(u))
     )
-    // const [cody, murphy] = await Promise.all([
-    //   User.create({ email: 'cody@gmail.com', password: '123' }),
-    //   User.create({ email: 'murphy@gmail.com', password: '456' })
-    // ])
-    //   User.create({ email: 'sey@gmail.com', password: 'abc', isAdmin: true }),
-    //   User.create({ email: 'jason@gmail.com', password: 'def' })
-    // ])
+
+    // Create the 🛍️
+    const [seyS, adamS, jasonS, kyleS] = await Promise.all(
+      shop.map(s => Shop.create(s))
+    )
+    await sey.setShop(seyS)
+    await adam.setShop(adamS)
+    await jason.setShop(jasonS)
+    await kyle.setShop(kyleS)
 
     await Promise.all(
       products.map(async (product, i) => {
         // for product
         const p = await Product.create(product)
         if (i % 3 === 0) {
+          if (i < 20) await seyS.addProduct(p)
+          if (i <= 12) await adam.addProduct(p)
           return cody.addProduct(p, { through: { quantity: (i + 1) * 10 } })
         } else if (i % 2 === 1) {
+          await jasonS.addProduct(p)
           return sey.addProduct(p, { through: { quantity: (i + 1) * 5 } })
         } else {
+          kyleS.addProduct(p)
+          adam.addProduct(p)
           return jason.addProduct(p, { through: { quantity: (i + 1) * 7 } })
         }
       })
@@ -120,7 +127,7 @@ async function seed() {
         jason
       },
       products,
-      shops
+      shop
     }
   }
 }
