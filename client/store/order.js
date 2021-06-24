@@ -9,7 +9,7 @@ const SUBMIT_PAYMENT = 'SUBMIT_PAYMENT'
 export const createOrder = (order, orderId) => {
   return {
     type: CREATE_ORDER,
-    order: {...order, id: orderId}
+    order: { ...order, id: orderId }
   }
 }
 
@@ -44,6 +44,7 @@ export const createNewOrder = order => {
       const { data } = await axios.post(`/api/users/guest/orders`, order)
       orderId = data.id
     }
+    console.log(order)
     dispatch(createOrder(order, orderId))
   }
 }
@@ -54,9 +55,9 @@ export default function orderReducer(state = [], action) {
     case CREATE_ORDER:
       return action.order
     case SUBMIT_SHIPPING:
-      return {...state, shippingInfo: action.shippingInfo}
+      return { ...state, shippingInfo: action.shippingInfo }
     case SUBMIT_PAYMENT:
-      return {...state, paymentInfo: action.paymentInfo}
+      return { ...state, paymentInfo: action.paymentInfo }
     default:
       return state
   }

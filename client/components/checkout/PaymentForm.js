@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef }  from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { submitPayment } from '../../store/order'
 import Typography from '@material-ui/core/Typography'
@@ -14,12 +14,12 @@ export default function PaymentForm() {
     cardName: '',
     cardNumber: '',
     expDate: '',
-    cvv: '',
+    cvv: ''
   })
   const paymentRef = useRef(paymentInfo)
 
-  const handleChange = (event) => {
-    setPaymentInfo({...paymentInfo, [event.target.id]: event.target.value})
+  const handleChange = event => {
+    setPaymentInfo({ ...paymentInfo, [event.target.id]: event.target.value })
   }
 
   useEffect(() => {
@@ -28,16 +28,24 @@ export default function PaymentForm() {
 
   useEffect(() => {
     return () => {
-    paymentRef.current.cardNumber = paymentRef.current.cardNumber.toString().split('').map((num, idx) => {
-      if (idx < 12) {
-        return '#'
-      }
-      else {
-        return num
-      }
-    }).join('')
-    paymentRef.current.cvv = paymentRef.current.cvv.toString().split('').map((num) => '#').join('')
-    dispatch(submitPayment({ ...paymentRef.current }))}
+      paymentRef.current.cardNumber = paymentRef.current.cardNumber
+        .toString()
+        .split('')
+        .map((num, idx) => {
+          if (idx < 12) {
+            return '#'
+          } else {
+            return num
+          }
+        })
+        .join('')
+      paymentRef.current.cvv = paymentRef.current.cvv
+        .toString()
+        .split('')
+        .map(num => '#')
+        .join('')
+      dispatch(submitPayment({ ...paymentRef.current }))
+    }
   }, [])
 
   return (

@@ -18,12 +18,15 @@ export default function AddressForm() {
     city: '',
     state: '',
     zip: '',
-    country: '',
+    country: ''
   })
   const shippingRef = useRef(shippingInfo)
 
-  const handleChange = (event) => {
-    setShippingInfo({...shippingInfo, [event.target.name]: event.target.value})
+  const handleChange = event => {
+    setShippingInfo({
+      ...shippingInfo,
+      [event.target.name]: event.target.value
+    })
   }
 
   useEffect(() => {
