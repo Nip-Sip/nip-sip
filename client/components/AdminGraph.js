@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAdminInfo } from '../store/admin'
+// import React, { useEffect, useState } from 'react'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { getAdminInfo } from '../store/admin'
 // import { Pie, Line } from 'react-chartjs-2'
 
 // const data = {
@@ -74,28 +74,28 @@ import { getAdminInfo } from '../store/admin'
 //   </>
 // )
 
-const AdminBoard = () => {
-  const dispatch = useDispatch()
-  const { admin } = useSelector(s => s)
+// const AdminBoard = () => {
+//   const dispatch = useDispatch()
+//   const { admin } = useSelector(s => s)
 
-  useEffect(() => {
-    dispatch(getAdminInfo())
-  }, [])
+//   useEffect(() => {
+//     dispatch(getAdminInfo())
+//   }, [])
 
-  if (!!admin.length) {
-    return (
-      <div>
-        <h1>Admin Dashboard</h1>
-        <h2>All Users</h2>
-        {admin.map(user => (
-          <div key={user.id}>{user.username}</div>
-        ))}
-        {/* <PieChart /> */}
-      </div>
-    )
-  } else {
-    return <h1>Not an admin..</h1>
-  }
-}
+//   if (!!admin.length) {
+//     return (
+//       <div>
+//         <h1>Admin Dashboard</h1>
+//         <h2>All Users</h2>
+//         {admin.map(user => (
+//           <div key={user.id}>{user.username}</div>
+//         ))}
+//         <PieChart />
+//       </div>
+//     )
+//   } else {
+//     return <h1>Not an admin..</h1>
+//   }
+// }
 
-export default AdminBoard
+// export default AdminBoard
