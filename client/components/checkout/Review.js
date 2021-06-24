@@ -58,14 +58,14 @@ export default function Review() {
                   product.cartItem.quantity
                 }`}
               />
-              <Typography variant="body2">${totalItemPrice / 100}</Typography>
+              <Typography variant="body2">${(totalItemPrice / 100).toFixed(2)}</Typography>
             </ListItem>
           )
         })}
         <ListItem>
           <ListItemText primary="Subtotal" />
           <Typography variant="body2" className={classes.total}>
-            ${subTotal / 100}
+            ${(subTotal / 100).toFixed(2)}
           </Typography>
         </ListItem>
         <ListItem>

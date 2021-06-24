@@ -103,6 +103,7 @@ router.delete('/cart/:itemId', requireToken, async (req, res, next) => {
 router.post('/orders', requireToken, async (req, res, next) => {
   try {
     const newOrder = await Order.create(req.body.order)
+    console.log(newOrder)
     const orderId = newOrder.id
     const cart = req.body.cart
     await CartItem.addOrderNumber(orderId, cart)
