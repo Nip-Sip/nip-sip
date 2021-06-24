@@ -18,9 +18,9 @@ const MyAccount = () => {
 
   return (
     <div id="myAccountBody">
-      <h3>
+      <h1 style={{ textAlign: 'center', fontStyle: 'italic' }}>
         Welcome, {firstName} {lastName}! <WavingHand />
-      </h3>
+      </h1>
       <div>
         <h1>Account Information:</h1>
         <ul>

@@ -1,3 +1,20 @@
+/* MyStore */
+.centerthis {
+  display: flex;
+  justify-content: center;
+}
+
+.shopname {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.store-card {
+  border: 1px solid gray;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
 body {
   font-family: Roboto, sans-serif;
 }
@@ -203,9 +220,8 @@ td {
 
 #divider {
   height: 2rem;
-} */
-
-#carouselImg {
+}
+*/ #carouselImg {
   max-height: 80rem;
   max-width: 110rem;
 }

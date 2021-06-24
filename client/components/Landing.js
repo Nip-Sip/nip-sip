@@ -16,7 +16,7 @@ const Landing = () => {
     const f = async () => {
       const res = await axios('/api/products/top')
       setItems(res.data)
-      setLoading(true)
+      // setLoading(true)
     }
     f()
   }, [])
