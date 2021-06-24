@@ -40,7 +40,16 @@ router.get('/', requireAdminToken, async (req, res, next) => {
     const { user } = req
     if (user) {
       const users = await User.findAll({
-        attributes: ['id', 'email', 'createdAt', 'isAdmin']
+        attributes: [
+          'id',
+          'email',
+          'createdAt',
+          'isAdmin',
+          'address',
+          'zipcode',
+          'firstName',
+          'lastName'
+        ]
       })
       res.json(users)
     }
@@ -54,7 +63,8 @@ router.get('/cart', requireToken, async (req, res, next) => {
   try {
     const { id } = req.user
     const user = await User.findByPk(id)
-    const products = await user.getProducts()
+    let products = await user.getProducts()
+    products = products.filter((cartItem) => cartItem.cartItem.dataValues.orderId === null)
     res.json(products)
   } catch (error) {
     next(error)
@@ -109,6 +119,7 @@ router.post('/guest/orders', async (req, res, next) => {
     const orderId = newOrder.id
     const cart = req.body.cart
     await CartItem.createCartItemsAndAttachOrder(cart, orderId)
+    res.json(newOrder)
   } catch (error) {
     next(error)
   }
