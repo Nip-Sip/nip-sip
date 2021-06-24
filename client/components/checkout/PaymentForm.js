@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect, useRef }  from 'react'
+import { useDispatch } from 'react-redux'
+import { submitPayment } from '../../store/order'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
@@ -6,6 +8,38 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 
 export default function PaymentForm() {
+  const dispatch = useDispatch()
+
+  const [paymentInfo, setPaymentInfo] = useState({
+    cardName: '',
+    cardNumber: '',
+    expDate: '',
+    cvv: '',
+  })
+  const paymentRef = useRef(paymentInfo)
+
+  const handleChange = (event) => {
+    setPaymentInfo({...paymentInfo, [event.target.id]: event.target.value})
+  }
+
+  useEffect(() => {
+    paymentRef.current = paymentInfo
+  })
+
+  useEffect(() => {
+    return () => {
+    paymentRef.current.cardNumber = paymentRef.current.cardNumber.toString().split('').map((num, idx) => {
+      if (idx < 12) {
+        return '#'
+      }
+      else {
+        return num
+      }
+    }).join('')
+    paymentRef.current.cvv = paymentRef.current.cvv.toString().split('').map((num) => '#').join('')
+    dispatch(submitPayment({ ...paymentRef.current }))}
+  }, [])
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -19,6 +53,7 @@ export default function PaymentForm() {
             label="Name on card"
             fullWidth
             autoComplete="cc-name"
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -28,6 +63,7 @@ export default function PaymentForm() {
             label="Card number"
             fullWidth
             autoComplete="cc-number"
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -37,6 +73,7 @@ export default function PaymentForm() {
             label="Expiry date"
             fullWidth
             autoComplete="cc-exp"
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -47,6 +84,7 @@ export default function PaymentForm() {
             helperText="Last three digits on signature strip"
             fullWidth
             autoComplete="cc-csc"
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={12}>
