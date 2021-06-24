@@ -4,7 +4,7 @@ import { createProduct, deleteProduct, updateProduct } from '../store/products'
 import { getAdminInfo } from '../store/admin'
 import { Route, NavLink } from 'react-router-dom'
 import AllUsers from './AllUsers'
-import { PieChart, LineChart } from './AdminGraph'
+// import { PieChart, LineChart } from './AdminGraph'
 
 const AdminOptions = () => {
   const dispatch = useDispatch()
@@ -166,7 +166,7 @@ const AdminOptions = () => {
                 <AllUsers />
               </div>
             </div>
-            <PieChart />
+            {/* <PieChart /> */}
           </React.Fragment>
         ) : (
           '401: FORBIDDEN'

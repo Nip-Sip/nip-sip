@@ -4,6 +4,7 @@ import { createProduct, deleteProduct, updateProduct } from '../store/products'
 import { getAdminInfo } from '../store/admin'
 import { ContactSupportOutlined } from '@material-ui/icons'
 import { motion } from 'framer-motion'
+import MyStore from './MyStore'
 
 const MyAccount = () => {
   const { email, createdAt, address, zipcode, firstName, lastName } =
@@ -17,9 +18,9 @@ const MyAccount = () => {
 
   return (
     <div id="myAccountBody">
-      <h3>
+      <h1 style={{ textAlign: 'center', fontStyle: 'italic' }}>
         Welcome, {firstName} {lastName}! <WavingHand />
-      </h3>
+      </h1>
       <div>
         <h1>Account Information:</h1>
         <ul>
@@ -35,6 +36,7 @@ const MyAccount = () => {
       <p>Get My Order History!</p>
       <h1>My Cart</h1>
       <p>Query my Cart!</p>
+      <MyStore />
     </div>
   )
 }
