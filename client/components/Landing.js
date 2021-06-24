@@ -7,7 +7,7 @@ import '../../public/style.css'
 import { motion } from 'framer-motion'
 
 const Landing = () => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
   const [rec, setRec] = useState([])
   const [items, setItems] = useState([])
@@ -16,7 +16,7 @@ const Landing = () => {
     const f = async () => {
       const res = await axios('/api/products/top')
       setItems(res.data)
-      setLoading(true)
+      // setLoading(true)
     }
     f()
   }, [])
