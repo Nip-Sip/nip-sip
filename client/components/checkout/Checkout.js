@@ -83,6 +83,13 @@ export default function Checkout() {
   const cart = useSelector(state => state.cart)
   const order = useSelector(state => state.order)
 
+  const prices = cart.map(item => item.price * item.cartItem.quantity)
+  let subTotal = 0
+  if (prices.length > 0) {
+    subTotal = prices.reduce((acc, curr) => acc + curr).toFixed(2)
+    subTotal = parseInt(subTotal)
+  }
+
   const handleNext = () => {
     setActiveStep(activeStep + 1)
     if (activeStep === 2) {
@@ -95,11 +102,11 @@ export default function Checkout() {
     setActiveStep(activeStep - 1)
   }
 
-  const formatOrderObj = (cart, price = 200) => {
+  const formatOrderObj = cart => {
     return {
       cart,
       order: {
-        price
+        price: subTotal
       }
     }
   }

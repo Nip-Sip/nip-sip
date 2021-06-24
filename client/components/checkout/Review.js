@@ -31,8 +31,6 @@ export default function Review() {
   const shippingInfo = useSelector(state => state.order.shippingInfo)
   const paymentInfo = useSelector(state => state.order.paymentInfo)
 
-  console.log(paymentInfo)
-
   useEffect(() => {
     dispatch(getCart())
 
