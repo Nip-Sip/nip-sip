@@ -3,6 +3,7 @@ const { requireToken, requireAdminToken } = require('../auth/middleware')
 const {
   models: { User, CartItem, Order }
 } = require('../db')
+const { blue } = require('chalk')
 module.exports = router
 
 //GET /users/info :: getFavItem
@@ -20,6 +21,16 @@ router.get('/infos', requireToken, async (req, res, next) => {
     }
   } catch (err) {
     next(err)
+  }
+})
+
+//GET /api/users/graph/:id :: without redux store or auth
+router.get('/graph/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params
+    console.log(blue('id is...', id))
+  } catch (error) {
+    console.log(error)
   }
 })
 

@@ -214,7 +214,7 @@
     {
       "email": "adam@gmail.com",
       "firstName": "Adam",
-      "lastName": "Park",
+      "lastName": "Weinberg",
       "password": "123",
       "address": "132-23 Main St. New York",
       "zipcode": 10345
@@ -222,7 +222,7 @@
     {
       "email": "kyle@gmail.com",
       "firstName": "Kyle",
-      "lastName": "Fu",
+      "lastName": "Surma",
       "password": "456",
       "address": "132-23 Main St. New York",
       "zipcode": 10001
@@ -230,15 +230,15 @@
     {
       "email": "cody@gmail.com",
       "firstName": "Cody",
-      "lastName": "Zu",
+      "lastName": "deDog",
       "password": "123",
       "address": "132-23 Main St. New York",
       "zipcode": 10001
     },
     {
       "email": "murphy@gmail.com",
-      "firstName": "Cody",
-      "lastName": "Zu",
+      "firstName": "Murphy",
+      "lastName": "Gentrification",
       "password": "123",
       "address": "132-23 Main St. New York",
       "zipcode": 10001
@@ -246,16 +246,38 @@
   ],
   "orders": [
     {
-      "address": "Somewhere 123",
+      "address": "123 Up in the clouds",
       "price": 150,
       "pricePaid": 150,
       "promo": ""
     },
     {
-      "address": "Whereever You May Be 456",
+      "address": "456 Whereever You May Be",
       "price": 220,
       "pricePaid": 210,
       "promo": "ABC"
+    }
+  ],
+  "shop": [
+    {
+      "shop_name": "Salacious Salon of Sey",
+      "days_opened": 69,
+      "status": "Power Seller"
+    },
+    {
+      "shop_name": "Avaricious Ambiance of Adam",
+      "days_opened": 356,
+      "status": "Trusted"
+    },
+    {
+      "shop_name": "Jestful Jail of Jason",
+      "days_opened": 15,
+      "status": "Newbie"
+    },
+    {
+      "shop_name": "Kaleidoscopic Kingdom of Kyle",
+      "days_opened": 999999,
+      "status": "Newbie"
     }
   ]
 }

@@ -5,13 +5,11 @@ import { Login, Signup } from './components/AuthForm'
 import AllProducts from './components/AllProducts'
 import Cart from './components/Cart'
 import MyAccount from './components/MyAccount'
-import AdminBoard from './components/AdminBoard'
 import { me } from './store'
 import Checkout from './components/checkout/Checkout'
 import AdminOptions from './components/AdminOptions'
 import AllUsers from './components/AllUsers'
 import Landing from './components/Landing'
-
 
 const Routes = () => {
   const dispatch = useDispatch()
@@ -38,9 +36,6 @@ const Routes = () => {
           </Route>
           <Route path="/cart">
             <Cart />
-          </Route>
-          <Route exact path="/admin">
-            <AdminBoard />
           </Route>
           <Route path="/checkout">
             <Checkout />

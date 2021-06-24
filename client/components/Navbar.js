@@ -44,7 +44,6 @@ const Navbar = () => {
             <a href="#" onClick={() => dispatch(logout())}>
               Logout
             </a>
-            <NavLink to="/admin">Admin</NavLink>
           </div>
         ) : (
           <div>
@@ -82,6 +81,7 @@ const Navbar = () => {
         >
           Nip Sip
         </motion.div>
+        <div id="divider"></div>
       </Link>
     </div>
   )
