@@ -6,8 +6,11 @@ export const CREATED_PRODUCT = 'CREATED_PRODUCT'
 export const UPDATED_PRODUCT = 'UPDATED_PRODUCT'
 export const DELETED_PRODUCT = 'DELETED_PRODUCT'
 
-export const VIEW_ALL = 'VIEW_ALL'
-export const VIEW_SEARCH = 'VIEW_SEARCH'
+export const BEST_SELLERS = 'BEST_SELLERS'
+export const HIGHEST_PRICE = 'HIGHEST_PRICE'
+export const LOWEST_PRICE = 'LOWEST_PRICE'
+export const ALPHABETICAL_ASC = 'ALPHABETICAL_ASC'
+export const ALPHABETICAL_DEC = 'ALPHABETICAL_DEC'
 
 // ACTION CREATOR
 export const gotProducts = products => {
@@ -38,7 +41,7 @@ export const deletedProduct = product => {
   }
 }
 
-export const setVisibility = (products, type = VIEW_ALL) => {
+export const setVisibility = (products, type = BEST_SELLERS) => {
   return {
     type,
     products
@@ -130,10 +133,16 @@ export function productsReducer(state = [], action) {
 
 export function visibilityReducer(state = [], action) {
   switch (action.type) {
-    case VIEW_ALL:
-      return action.products
-    case VIEW_SEARCH:
-      return action.products
+    case BEST_SELLERS:
+      return [...action.products.sort((a, b) => a.id - b.id)]
+    case HIGHEST_PRICE:
+      return [...action.products.sort((a, b) => b.price - a.price)]
+    case LOWEST_PRICE:
+      return [...action.products.sort((a, b) => a.price - b.price)]
+    case ALPHABETICAL_DEC:
+      return [...action.products.sort((a, b) => a.name < b.name ? 1 : -1)]
+    case ALPHABETICAL_ASC:
+      return [...action.products.sort((a, b) => b.name < a.name ? 1 : -1)]
     default:
       return state
   }

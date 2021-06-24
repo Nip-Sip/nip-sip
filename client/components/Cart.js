@@ -31,10 +31,6 @@ const Cart = () => {
   }, [])
 
   const useStyles = makeStyles(theme => ({
-    buttons: {
-      display: 'flex',
-      justifyContent: 'flex-end'
-    },
     button: {
       display: 'flex',
       marginTop: theme.spacing(3),
@@ -77,8 +73,12 @@ const Cart = () => {
     }
   }
 
-  return (
-    <div className='cart'>
+  return allCart.length < 1 ? (
+    <h3 className='message'>
+      Empty Cart?! ... Sounds like someone's looking to have boring weekend
+    </h3>
+  ) : (
+    <div className="cart">
       <div className="cart-container">
         <Container className="cart-left" component={Paper}>
           <List>

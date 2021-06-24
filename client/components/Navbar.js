@@ -68,13 +68,25 @@ const Navbar = () => {
             <IconButton aria-label="cart">
               <StyledBadge badgeContent={countAllQty(cart)} color="primary">
                 <ShoppingCartIcon />
-              </StyledBadge>
-            </IconButton>
-          </NavLink>
-        </div>
-      </nav>
-      <Link to="/">
-        <motion.div
+                </StyledBadge>
+                </IconButton>
+                </NavLink>
+                </div>
+                </nav>
+                <Link to="/">
+                <span
+                  style={{
+                    position: 'fixed',
+                    height: '125px',
+                    width: '500px',
+                    left: '50%',
+                    marginTop: '30px',
+                    marginLeft: '-250px',
+                    zIndex: "1",
+                  }}
+                />
+                </Link>
+                <motion.div
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ ease: 'easeOut', duration: 4, repeat: Infinity }}
           className="title"
@@ -82,7 +94,6 @@ const Navbar = () => {
           Nip Sip
         </motion.div>
         <div id="divider"></div>
-      </Link>
     </div>
   )
 }
