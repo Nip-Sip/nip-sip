@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
   image: {
     backgroundImage:
-      'https://i.enkirelations.com/UlZ1TkGckIHNowZ09dq2aBBtTas=/400x0//images/2016/09/c4ba99e29cdb025a44a50d0cbd1525a1.jpg',
+      'url(https://i.enkirelations.com/UlZ1TkGckIHNowZ09dq2aBBtTas=/400x0//images/2016/09/c4ba99e29cdb025a44a50d0cbd1525a1.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light'

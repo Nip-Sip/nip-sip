@@ -122,6 +122,7 @@ nav a {
   z-index: 2;
 }
 
+
 .opacity {
   border: 1px solid lightblue;
   height: 20rem;
@@ -203,9 +204,8 @@ td {
 
 #divider {
   height: 2rem;
-} */
-
-#carouselImg {
+}
+*/ #carouselImg {
   max-height: 80rem;
   max-width: 110rem;
 }
