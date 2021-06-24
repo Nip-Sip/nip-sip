@@ -16,7 +16,7 @@ const CartItem = db.define('cartItem', {
 CartItem.createOrUpdate = async function (userId, product) {
   const inCart = product.cartItem.inCart ? product.cartItem.inCart : false
   const [newOrUpdatedProduct, isCreated] = await CartItem.findOrCreate({
-    where: { userId: userId, productId: product.id }
+    where: { userId: userId, productId: product.id, orderId: null}
   })
 
   if (isCreated || inCart) {
