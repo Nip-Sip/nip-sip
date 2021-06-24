@@ -92,7 +92,7 @@ nav a {
 
 /* Auth Form */
 
-#authform {
+/* #authform {
   display: flex;
   flex-direction: column;
 }
@@ -141,7 +141,7 @@ nav a {
 
 .auth-form > div {
   margin-top: 5rem;
-}
+} */
 
 .checkout-container {
   display: flex;
@@ -203,4 +203,9 @@ td {
 
 #divider {
   height: 2rem;
+} */
+
+#carouselImg {
+  max-height: 80rem;
+  max-width: 110rem;
 }
