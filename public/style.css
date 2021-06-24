@@ -1,7 +1,10 @@
 /* MyStore */
 .centerthis {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  max-width: 1000px;
+  margin: 0 auto;
+  /* justify-content: center; */
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .shopname {
