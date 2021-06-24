@@ -10,6 +10,9 @@ const CartItem = db.define('cartItem', {
   },
   quantity: {
     type: Sequelize.INTEGER
+  },
+  orderedBy: {
+    type: Sequelize.INTEGER
   }
 })
 
@@ -31,12 +34,13 @@ CartItem.createOrUpdate = async function (userId, product) {
 }
 
 CartItem.addOrderNumber = function (orderId, cart) {
+
   cart.forEach(async (item) => {
-    console.log(item)
     let cartItemId = item.cartItem.id
+    let userId = item.cartItem.userId
+    console.log(typeof userId)
     let cartItem = await CartItem.findByPk(cartItemId)
-    cartItem.orderId = orderId
-    await cartItem.save()
+    await cartItem.update({userId: null, orderedBy: userId, orderId: orderId})
   })
 }
 
