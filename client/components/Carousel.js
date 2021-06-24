@@ -18,7 +18,7 @@ const BarCarousel = () => {
   return (
     <Carousel>
       <div>
-        <img id="carouselImg" src={youngPeopleDrink} />
+        <img id="carouselImg" src={groupDrink} />
         <p style={s} className="legend">
           Bar!
         </p>
@@ -30,7 +30,7 @@ const BarCarousel = () => {
         </p>
       </div>
       <div>
-        <img id="carouselImg" src={groupDrink} />
+        <img id="carouselImg" src={youngPeopleDrink} />
         <p style={s} className="legend">
           Woohoo!
         </p>
