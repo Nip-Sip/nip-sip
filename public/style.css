@@ -57,6 +57,20 @@ nav a {
   display: inline-block;
 } */
 
+.set-visibility-container {
+  display: flex;
+  align-items: center;
+  margin-left: 2%;
+  margin-right: 2%;
+  justify-content: space-between;
+}
+
+.search-bar {
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+}
+
 .single-product {
   width: 60em;
   position: fixed;
@@ -73,7 +87,9 @@ nav a {
 #allProducts {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  margin-left: 2%;
+  margin-right: 2%;
+  justify-content: space-between;
 }
 
 /* Routes Navbar.js */
@@ -208,4 +224,7 @@ td {
 #carouselImg {
   max-height: 80rem;
   max-width: 110rem;
+}
+.message {
+  text-align-last: center;
 }

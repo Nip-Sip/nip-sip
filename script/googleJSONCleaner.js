@@ -25,7 +25,7 @@ const googleJSONCleaner = arr => {
     } else cleanArr.push(newObj)
 
   }
-  return cleanArr.slice(1, arr.length)
+  return cleanArr
 }
 
 module.exports = googleJSONCleaner
