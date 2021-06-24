@@ -2,14 +2,11 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
 import Paper from '@material-ui/core/Paper'
 import Stepper from '@material-ui/core/Stepper'
 import Step from '@material-ui/core/Step'
 import StepLabel from '@material-ui/core/StepLabel'
 import Button from '@material-ui/core/Button'
-import Link from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
 import AddressForm from './AddressForm'
 import PaymentForm from './PaymentForm'
@@ -84,6 +81,7 @@ export default function Checkout() {
   const dispatch = useDispatch()
 
   const cart = useSelector(state => state.cart)
+  const order = useSelector(state => state.order)
 
   const handleNext = () => {
     setActiveStep(activeStep + 1)
@@ -109,13 +107,6 @@ export default function Checkout() {
   return (
     <React.Fragment>
       <CssBaseline />
-      {/* <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Nip Sip
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -135,7 +126,7 @@ export default function Checkout() {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
+                  Your order number is #{order.id}. We have emailed your order
                   confirmation, and will send you an update when your order has
                   shipped.
                 </Typography>

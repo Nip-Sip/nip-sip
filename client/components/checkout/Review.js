@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCart } from '../../store/cart'
 import { makeStyles } from '@material-ui/core/styles'
@@ -100,19 +100,20 @@ export default function Review() {
           <Typography variant="h6" gutterBottom className={classes.title}>
             Payment details
           </Typography>
-          {paymentInfo? <Grid container>
-            {/* <Grid item xs={6}>
-              <Typography gutterBottom>Credit Card</Typography>
-            </Grid> */}
-            <Grid item xs={6}>
-            <Typography gutterBottom variant="subtitle2">Credit Card</Typography>
-              <Typography gutterBottom>{paymentInfo.cardName}</Typography>
-              <Typography gutterBottom>{paymentInfo.cardNumber}</Typography>
-              <Typography gutterBottom>
-                Exp. {paymentInfo.expDate}
-              </Typography>
+          {paymentInfo ? (
+            <Grid container>
+              <Grid item xs={6}>
+                <Typography gutterBottom variant="subtitle2">
+                  Credit Card
+                </Typography>
+                <Typography gutterBottom>{paymentInfo.cardName}</Typography>
+                <Typography gutterBottom>{paymentInfo.cardNumber}</Typography>
+                <Typography gutterBottom>Exp. {paymentInfo.expDate}</Typography>
+              </Grid>
             </Grid>
-          </Grid> : <span>Loading payment info</span> }
+          ) : (
+            <span>Loading payment info</span>
+          )}
         </Grid>
       </Grid>
     </React.Fragment>
